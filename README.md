@@ -51,4 +51,4 @@ or trademarks, whether by implication, estoppel or otherwise.
 
 ***
 
-[Go To Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge0-Prerequistes/ReadMe.md)
+[Go To Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge0-Prerequistes/ReadMe.md)
