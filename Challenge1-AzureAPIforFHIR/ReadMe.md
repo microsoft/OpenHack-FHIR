@@ -19,7 +19,7 @@ By default, Synthea contains publicly available demographic data obtained from t
 ### Generate Data
 
 ## Azure API for FHIR
-##Setup and Configure 
+### Setup and Configure 
 [Azure API for FHIR](https://docs.microsoft.com/en-us/azure/healthcare-apis/) is a managed, standards-based, compliant API for clinical health data that enables solutions for actionable analytics and machine learning.
 *
 
