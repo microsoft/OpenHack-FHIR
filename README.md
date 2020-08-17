@@ -1,3 +1,21 @@
+# OpenHack-FHIR
+
+#### This repository hosts the guidance and reference architecture(s) for delivering an OpenHack focusing on Azure API for FHIR.
+
+# Scenario
+Coming Soon...
+
+# Reference Architectures
+<center><img src="images//azure-api-fhir-paas.png" width="850"></center>
+
+# Contents
+
+* [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge0-Prerequistes/ReadMe.md)
+* [Challenge 1 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge1-AzureAPIforFHIR/ReadMe.md)
+* [Challenge 2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](./Challenge2-HL7IngestandConvert/ReadMe.md)
+* [Challenge 3 - Export and Anonymize: Bulk export data from Azure API for FHIR and deidentify the data](./Challenge3-ExportandAnonymizeData/ReadMe.md)
+* [Challenge 4 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](./Challenge4-IoTFHIRConnector/ReadMe.md)
+* [Challenge 5 - Analytics using FHIR Data: Analytics using Azure Data Factory, Databricks and PowerBI](./Challenge5-AzureDataAnalytics/ReadMe.md)
 
 # Contributing
 
@@ -29,3 +47,8 @@ Privacy information can be found at https://privacy.microsoft.com/en-us/
 
 Microsoft and any contributors reserve all other rights, whether under their respective copyrights, patents,
 or trademarks, whether by implication, estoppel or otherwise.
+
+
+***
+
+[Go To Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge0-Prerequistes/ReadMe.md)
