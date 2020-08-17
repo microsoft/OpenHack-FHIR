@@ -3,7 +3,7 @@
 #### This repository hosts the guidance and reference architecture(s) for delivering an OpenHack focusing on Azure API for FHIR.
 
 ## Scenario
-Coming Soon...
+Coming Soon... 
 
 ## Reference Architectures
 <center><img src="images//azure-api-fhir-paas.png" width="850"></center>
