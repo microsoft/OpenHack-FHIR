@@ -2,13 +2,13 @@
 
 #### This repository hosts the guidance and reference architecture(s) for delivering an OpenHack focusing on Azure API for FHIR.
 
-# Scenario
+## Scenario
 Coming Soon...
 
-# Reference Architectures
+## Reference Architectures
 <center><img src="images//azure-api-fhir-paas.png" width="850"></center>
 
-# Contents
+## Contents
 
 * [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge0-Prerequistes/ReadMe.md)
 * [Challenge 1 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge1-AzureAPIforFHIR/ReadMe.md)
@@ -17,7 +17,7 @@ Coming Soon...
 * [Challenge 4 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](./Challenge4-IoTFHIRConnector/ReadMe.md)
 * [Challenge 5 - Analytics using FHIR Data: Analytics using Azure Data Factory, Databricks and PowerBI](./Challenge5-AzureDataAnalytics/ReadMe.md)
 
-# Contributing
+## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
@@ -31,7 +31,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-# Legal Notices
+## Legal Notices
 
 Microsoft and any contributors grant you a license to the Microsoft documentation and other content
 in this repository under the [Creative Commons Attribution 4.0 International Public License](https://creativecommons.org/licenses/by/4.0/legalcode),

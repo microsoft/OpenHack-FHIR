@@ -2,7 +2,7 @@
 
 #### This chapter lists the technical and knowledge pre-requisites to complete all challenges.
 
-# Knowledge prerequisites
+## Knowledge prerequisites
 * [HL7 FHIR](https://hl7.org/fhir/) FHIR is a standard for health care data exchange, published by HL7®.
 * [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/)
 * [Azure API for FHIR Documentation](https://docs.microsoft.com/en-us/azure/healthcare-apis/) is a managed, standards-based, compliant API for clinical health data that enables solutions for actionable analytics and machine learning.
@@ -22,7 +22,7 @@
 * [IoT Central](https://docs.microsoft.com/en-us/azure/iot-central/healthcare/concept-continuous-patient-monitoring-architecture)
 * [MLLP Relay](https://hapifhir.github.io/hapi-hl7v2/hapi-hl7overhttp/specification.html)
 
-# Technical prerequisites
+## Technical prerequisites
 * [Azure Subscription](https://azure.microsoft.com/en-us/free/)
 * [Azure Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/)
 * [Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-4.5.0)
@@ -31,7 +31,7 @@
 * Java 1.8 (JDK, not JRE install)
 
 
-# References
+## References
 * [Microsoft Cloud for Healthcare](https://www.microsoft.com/en-us/industry/health/microsoft-cloud-for-healthcare)
 * [Microsoft Health Architecture GitHub](https://github.com/microsoft/health-architectures)
 
