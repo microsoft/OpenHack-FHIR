@@ -2,20 +2,20 @@
 
 #### This chapter shows how to .
 
-Check out the [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge0-Prerequistes/ReadMe.md).
+Check out the [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge0-Prerequistes/ReadMe.md).
 
 # Scenario
 Coming Soon...
 
-#HL7 Ingest
+# HL7 Ingest
 This section shows 
 *
 
-#HL7 Conversion to FHIR
+# HL7 Conversion to FHIR
 This section shows 
 *
 
-#Test data loaded in Azure API for FHIR using Postman
+# Test data loaded in Azure API for FHIR using Postman
 * 
 
 
