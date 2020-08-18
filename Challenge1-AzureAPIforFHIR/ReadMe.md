@@ -5,7 +5,7 @@
 Check out the [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge0-Prerequistes/ReadMe.md).
 
 ## Scenario
-Coming Soon...
+Coming Soon......
 
 ## Synthea
 This section shows how to setup and generate health records with Synthea.
