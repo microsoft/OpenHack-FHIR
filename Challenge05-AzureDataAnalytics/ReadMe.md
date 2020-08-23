@@ -18,7 +18,7 @@ Task: Visualize data in Power BI
 Exit criteria: Coach verifies you’ve identified common symptoms leading to respirators
 
 ## Reference Architecture
-<center><img src="../images/challenge05-architecture.png" width="550"></center>
+<center><img src="../images/challenge05-architecture.png" width="450"></center>
 
 ## Export FHIR data to ndjson using Azure Data Factory
 This section shows 
