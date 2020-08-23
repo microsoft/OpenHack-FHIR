@@ -5,6 +5,9 @@ Your team has now learned a little about the FHIR standard. Our first challenge 
 
 The first task has landed on you: In order to learn a bit about the capabilities of Azure’s API for FHIR API, you will set up a development instance. This development instance is designed to highlight the key features, by building a demo-like environment. Once you are done with the setup you will verify the service is functioning by loading some synthetic data. The data is generated using Synthea which allows you to mimic EMR/EHR data. You will then run some basic queries to ensure the core functionality is working. 
 
+## Reference Architectures
+<center><img src="../images/challenge01-architecture.png" width="750"></center>
+
 ## To complete this challenge successfully, you will perform the following tasks.
 
 * Provision Azure API for FHIR API demo environment. Given the limited time, we'll provide a set of scripts to accomplish this. For step by step instructions, check the appendix.
