@@ -1,4 +1,4 @@
-# Challenge 1 - Azure API for FHIR
+# Challenge01 - Azure API for FHIR
 
 ## Scenario
 Your team has now learned a little about the FHIR standard. Our first challenge focuses on you as a software developer on the data interoperability team. **Any Healthcare’s** strategic direction is to build new solutions on public cloud resources wherever possible.
@@ -13,7 +13,7 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 ## Before you start:
 
-Make sure you have completed the pre-work covered in the previous challenge: [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge0-Prerequistes/ReadMe.md).
+Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
 We will use PowerShell to deploy the Azure API for FHIR API demo environment. Using either the Windows PowerShell console or the Windows PowerShell ISE, run the following commands.
 
@@ -100,4 +100,4 @@ Synthea is an open-source synthetic patient and associated health records genera
 * Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
 
-[Go to Challenge 2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge2-HL7IngestandConvert/ReadMe.md)
+[Go to Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge02-HL7IngestandConvert/ReadMe.md)

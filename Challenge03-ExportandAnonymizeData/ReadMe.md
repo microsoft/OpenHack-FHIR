@@ -1,8 +1,8 @@
-# Challenge 3 - Export and Anonymize FHIR data
+# Challenge03 - Export and Anonymize FHIR data
 
 #### This chapter shows how to .
 
-Check out the [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge0-Prerequistes/ReadMe.md).
+Check out the [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
 ## Scenario
 You’ve got the core functionality of your new FHIR-based “hub” all set up! Congratulations!!
@@ -29,4 +29,4 @@ This section shows
 
 ***
 
-[Go to Challenge 4 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](../Challenge4-IoTFHIRConnector/ReadMe.md)
+[Go to Challenge04 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](../Challenge04-IoTFHIRConnector/ReadMe.md)

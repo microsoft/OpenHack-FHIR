@@ -1,8 +1,8 @@
-# Challenge 2 - HL7 Ingest and Convert
+# Challenge02 - HL7 Ingest and Convert
 
 #### This chapter shows how to .
 
-Check out the [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge0-Prerequistes/ReadMe.md).
+Check out the [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
 ## Scenario
 With the basic EHR synthetic data loaded into Azure API for FHIRup and running on synthetic data, you need to switch to ingesting real data from an existing system into Azure API for FHIRand making it available to another existing system. Most (but of course not all) of your existing healthcare applications use some version of HL7, and you have to ingest those HL7 messages and convert into FHIR format. By establishing FHIR as a hub of sorts, you’ll be able to aggregate data from these various systems.
@@ -34,4 +34,4 @@ This section shows
 
 ***
 
-[Go to Challenge 3 - Export and Anonymize: Bulk export data from Azure API for FHIR and deidentify the data](../Challenge3-ExportandAnonymizeData/ReadMe.md)
+[Go to Challenge03 - Export and Anonymize: Bulk export data from Azure API for FHIR and deidentify the data](../Challenge03-ExportandAnonymizeData/ReadMe.md)

@@ -1,8 +1,8 @@
-# Challenge 4 - IoT Converter for FHIR
+# Challenge04 - IoT Converter for FHIR
 
 #### This chapter shows how to .
 
-Check out the [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge0-Prerequistes/ReadMe.md).
+Check out the [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
 ## Scenario
 The business unit you worked with is ecstatic with the data you provided and they’ve made tons of great progress driving new insights. Results have been so impressive that the Equipment Operations team has come to you with some hope – and some budget! They have lots of new COVID-related challenges as waves of infections cycle through some locations. They would love to know where equipment is, if it’s being used, and when was it last used and maintained.
@@ -32,4 +32,4 @@ This section shows
 
 ***
 
-[Go to Challenge 5 - Analytics using FHIR Data: Analytics using Azure Data Factory, Databricks and PowerBI](../Challenge5-AzureDataAnalytics/ReadMe.md)
+[Go to Challenge05 - Analytics using FHIR Data: Analytics using Azure Data Factory, Databricks and PowerBI](../Challenge05-AzureDataAnalytics/ReadMe.md)

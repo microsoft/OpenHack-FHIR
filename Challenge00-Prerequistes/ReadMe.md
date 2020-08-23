@@ -1,4 +1,4 @@
-# Challenge 0 - Pre-requisites
+# Challenge00 - Pre-requisites
 
 #### This chapter lists the technical and knowledge pre-requisites to complete all challenges.
 
@@ -37,4 +37,4 @@
 
 ***
 
-[Go to Challenge 1 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](../Challenge1-AzureAPIforFHIR/ReadMe.md)
+[Go to Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](../Challenge01-AzureAPIforFHIR/ReadMe.md)

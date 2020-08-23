@@ -10,12 +10,12 @@ Coming Soon...
 
 ## Contents
 
-* [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge0-Prerequistes/ReadMe.md)
-* [Challenge 1 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge1-AzureAPIforFHIR/ReadMe.md)
-* [Challenge 2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](./Challenge2-HL7IngestandConvert/ReadMe.md)
-* [Challenge 3 - Export and Anonymize: Bulk export data from Azure API for FHIR and deidentify the data](./Challenge3-ExportandAnonymizeData/ReadMe.md)
-* [Challenge 4 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](./Challenge4-IoTFHIRConnector/ReadMe.md)
-* [Challenge 5 - Analytics using FHIR Data: Analytics using Azure Data Factory, Databricks and PowerBI](./Challenge5-AzureDataAnalytics/ReadMe.md)
+* [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge00-Prerequistes/ReadMe.md)
+* [Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge01-AzureAPIforFHIR/ReadMe.md)
+* [Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](./Challenge02-HL7IngestandConvert/ReadMe.md)
+* [Challenge03 - Export and Anonymize: Bulk export data from Azure API for FHIR and deidentify the data](./Challenge03-ExportandAnonymizeData/ReadMe.md)
+* [Challenge04 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](./Challenge04-IoTFHIRConnector/ReadMe.md)
+* [Challenge05 - Analytics using FHIR Data: Analytics using Azure Data Factory, Databricks and PowerBI](./Challenge05-AzureDataAnalytics/ReadMe.md)
 
 ## Contributing
 
@@ -51,4 +51,4 @@ or trademarks, whether by implication, estoppel or otherwise.
 
 ***
 
-[Go To Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge0-Prerequistes/ReadMe.md)
+[Go To Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge00-Prerequistes/ReadMe.md)

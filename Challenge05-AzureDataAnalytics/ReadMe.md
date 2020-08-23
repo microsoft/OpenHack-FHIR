@@ -1,8 +1,8 @@
-# Challenge 5 - Analytics on FHIR Data
+# Challenge05 - Analytics on FHIR Data
 
 #### This chapter shows how to .
 
-Check out the [Challenge 0 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge0-Prerequistes/ReadMe.md).
+Check out the [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
 ## Scenario
 Now that you’ve dipped into the data analysis role a bit, let’s go a little deeper down the rabbit hole. We want to take a look at some other possible ways to utilize FHIR data to draw out additional insights. Can we do some basic analysis of the COVID-related observations that lead toward respirators? How many of those with symptoms moved to respirators? How fast did they move from first symptoms to respirator? How long did they stay on respirators?
