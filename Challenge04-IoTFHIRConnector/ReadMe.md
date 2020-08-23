@@ -22,6 +22,9 @@ Task: Visualize data in Power BI
 
 Exit criteria: Coach verifies IoT data shows usage and most recent maintenance date
 
+## Reference Architecture
+<center><img src="../images/challenge04-architecture.png" width="550"></center>
+
 ## IoT Converter
 This section shows 
 *

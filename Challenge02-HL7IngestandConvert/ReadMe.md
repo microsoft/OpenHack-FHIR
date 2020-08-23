@@ -20,6 +20,9 @@ Task: Verify events are queued
 
 Exit criteria: Coach verifies event is queueddata is loaed into Azure API for FHIR
 
+## Reference Architecture
+<center><img src="../images/challenge02-architecture.png" width="550"></center>
+
 ## HL7 Ingest
 This section shows 
 *

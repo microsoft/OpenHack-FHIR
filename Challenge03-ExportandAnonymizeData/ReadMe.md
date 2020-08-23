@@ -15,6 +15,9 @@ Task: Export snapshot of data [Jeff: can we query a subset of data – both for 
 
 Exit criteria: Coach verifies correct data is exported and that it is de-identified
 
+## Reference Architecture
+<center><img src="../images/challenge03-architecture.png" width="550"></center>
+
 ## Bulk Export
 This section shows 
 *
