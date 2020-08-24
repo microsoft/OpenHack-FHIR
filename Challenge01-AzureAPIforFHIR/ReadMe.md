@@ -3,7 +3,7 @@
 ## Scenario
 Your team has now learned a little about the FHIR standard. Our first challenge focuses on you as a software developer on the data interoperability team. **Any Healthcare’s** strategic direction is to build new solutions on public cloud resources wherever possible.
 
-The first task has landed on you: In order to learn a bit about the capabilities of Azure’s API for FHIR API, you will set up a development instance. This development instance is designed to highlight the key features, by building a demo-like environment. Once you are done with the setup you will verify the service is functioning by loading some synthetic data. The data is generated using Synthea which allows you to mimic EMR/EHR data. You will then run some basic queries to ensure the core functionality is working. 
+The first task has landed on you: In order to learn a bit about the capabilities of Azure’s API for FHIR API, you will set up a development instance. This development instance is designed to highlight the key features, by building a demo-like environment. Once you are done with the setup you will verify the service is functioning by loading some synthetic data. The data is generated using Synthea which allows you to mimic EMR/EHR data. You will then use the dashboard app and run some basic queries to ensure the core functionality is working. 
 
 ## Reference Architecture
 <center><img src="../images/challenge01-architecture.png" width="550"></center>
@@ -37,7 +37,7 @@ You will need access to an Azure tenant that allows your to create and register 
 
 Once you have the right tenant, get the TenantID, your will need it in subsequent steps.
 
-## Get Started
+## Getting Started
 
 ## Task #1: Provision Azure API for FHIR demo environment.
 
@@ -99,8 +99,11 @@ For this OpenHack, we'll focus on the basic setup and quickest way to get Synthe
 * ### Use Postman to run queries
     * Coming soon...
 
+## Congratulations! You have successfully completed Challenge01! 
+
 ## Help, I'm Stuck!
 * Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
+***
 
 [Go to Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge02-HL7IngestandConvert/ReadMe.md)
