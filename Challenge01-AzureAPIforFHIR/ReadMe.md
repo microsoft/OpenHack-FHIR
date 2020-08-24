@@ -96,8 +96,11 @@ Synthea is an open-source synthetic patient and associated health records genera
 * Use these credentials to copy the sythetic data into the **fhirimport** folder.
 
 ## Task #3: Validate data load
-* Use the dashboard app that was installed with your FHIR Demo environment to validate. The dashboard will show you all the patients in the system and allows you to see the patients medical details.
 
+* ### Use the Dashboard App
+* Use the dashboard app that was installed with your FHIR Demo environment to validate. The dashboard will show you all the patients in the system and allows you to see the patients medical details.
+* ### Use Postman to run queries
+* Coming soon...
 
 ## Help, I'm Stuck!
 * Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
