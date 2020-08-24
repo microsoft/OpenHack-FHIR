@@ -11,9 +11,9 @@ Then you will use Logic Apps connector and FHIR Converter to convert those messa
 
 ## To complete this challenge successfully, you will perform the following tasks.
 
-* **Provision Azure API for FHIR API demo environment**. Given the limited time, we'll provide a set of scripts to accomplish this. For step by step instructions, check the appendix.
-* **Load Synthetic data**. You can generate the data using Synthea or use a staged dataset that we'll provide.
-* **Validate data load**. You can use the dashboard application to validate the data or the provided APIs by using Postman.
+* **Ingest HL7v2 sample message** using MLLP secure transfer into Azure Blob Storage.
+* **Convert HL7v2 message into FHIR format**. You will create a workflow that performs orderly conversion.
+* **Validate data load**. You will validate the data using Postman.
 
 ## Before you start
 
@@ -29,7 +29,7 @@ This section shows
 This section shows 
 *
 
-## Validate data load using Postman
+## Task #3: Validate data load using Postman
 * 
 
 

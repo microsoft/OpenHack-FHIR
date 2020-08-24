@@ -1,9 +1,5 @@
 # Challenge04 - IoT Converter for FHIR
 
-#### This chapter shows how to .
-
-Check out the [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
-
 ## Scenario
 The business unit you worked with is ecstatic with the data you provided and they’ve made tons of great progress driving new insights. Results have been so impressive that the Equipment Operations team has come to you with some hope – and some budget! They have lots of new COVID-related challenges as waves of infections cycle through some locations. They would love to know where equipment is, if it’s being used, and when was it last used and maintained.
 
@@ -18,19 +14,37 @@ Same data science team is now learning FHIR and are very excited - so of course 
 
 Task: Ingest IoT data [Jeff: ideally, this represents one or more COVID-related devices – like respirators. I think it’d be great to understand what machines were not/running and maybe last updated/maintained “checkpoints”.]
 
-Task: Visualize data in Power BI
-
-Exit criteria: Coach verifies IoT data shows usage and most recent maintenance date
-
 ## Reference Architecture
 <center><img src="../images/challenge04-architecture.png" width="350"></center>
 
-## IoT Converter
+
+## To complete this challenge successfully, you will perform the following tasks.
+
+* **Setup IoT Central** using continuous patient monitoring application template.
+* **Ingest data using IoT Connector for FHIR**. You will deploy the connector and use the simulated device to load that data into FHIR.
+* **Validate data load**. You will validate the data using Postman.
+
+## Before you start
+
+Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
+
+## Getting Started
+
+## Task #1: Setup IoT Central
+Use the continuous data export feature in IoT Central to export data to Event Hub...
+
+## Task #2: IoT Converter Preview
 This section shows 
 *
 
-## Test data loaded in Azure API for FHIR using Postman
+## Task #3: Validate data loaded using Postman
 * 
+
+
+## Congratulations! You have successfully completed Challenge04!
+
+## Help, I'm Stuck!
+* Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
 
 ***
