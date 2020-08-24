@@ -61,10 +61,11 @@ If all goes well, the script will kickoff and will take about 10-15 minutes to c
 On successfull completion, you'll have a set of resources created in a new resource group that has the same same as your ENVIRONMENTNAME prefix. Explore these resources and get a feel what what role they play in the FHIR demo environment. Your resource group should look something like this:
 <center><img src="../images/fhir-demo-resources.png" width="850"></center>
 
-* We'll reference the following resources in this challenge:
-* Dashboard App(a368608dash), we'll use this to validate your synthetic data load.
-* Azure Function (a368608imp), function will be used to import synthetic data into FHIR API DB.
-* Storage Account(a368608impsa), We'll drop our synthetic data here for processing.
+* The following resources were created by the script:
+    * Dashboard App(a368608dash), we'll use this to validate your synthetic data load.
+    * Azure Function (a368608imp), function will be used to import synthetic data into FHIR API DB.
+    * Storage Account(a368608impsa), We'll drop our synthetic data here for processing.
+    *
 
 ## Task #2: Generate & Load synthetic data.
 
