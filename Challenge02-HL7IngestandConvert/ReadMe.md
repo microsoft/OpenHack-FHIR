@@ -1,39 +1,42 @@
 # Challenge02 - HL7 Ingest and Convert
 
-#### This chapter shows how to .
-
-Check out the [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
-
 ## Scenario
-With the basic EHR synthetic data loaded into Azure API for FHIRup and running on synthetic data, you need to switch to ingesting real data from an existing system into Azure API for FHIRand making it available to another existing system. Most (but of course not all) of your existing healthcare applications use some version of HL7, and you have to ingest those HL7 messages and convert into FHIR format. By establishing FHIR as a hub of sorts, you’ll be able to aggregate data from these various systems.
+With Azure API for FHIR up and running with basic EHR synthetic data, you will focus on this challenge of ingesting legacy data that's in a different format into Azure API for FHIR. Most (but of course not all) of your existing healthcare applications use some version of HL7, and you have to ingest those HL7 messages and convert them into FHIR format. By establishing FHIR as a hub of sorts, you’ll be able to aggregate data from these various systems and enable interoperability.
 
-First, you need to ingest HL7 data from existing another system using secure transfer and loaed into simulated by an Azure Blob storage. Then use FHIR Converter to convert into valid FHIR format to load into Azure API for FHIR. You’ll validate this is working by learning some new query capabilities.
-Next, you need to configure FHIR to emit HL7v2 messages when data is created, updated, and deleted.
-
-Task: Deploy the FHIR Proxy
-
-Task: Configure Proxy for events
-
-Task: Transmit sample HL7v2 messages
-
-Task: Verify events are queued
-
-Exit criteria: Coach verifies event is queueddata is loaed into Azure API for FHIR
+First, you need to ingest HL7 legacy data using secure transfer, place into an Azure Blob storage and create comsumable events on service bus for processing. You’ll validate if this is working by checking for the files loaded into the Azure Blob Storage using Storage Explorer.
+Then you will use Logic Apps connector and FHIR Converter to convert those messages into valid FHIR format to load into Azure API for FHIR. You’ll validate if this is working by learning some new query capabilities.
 
 ## Reference Architecture
 <center><img src="../images/challenge02-architecture.png" width="550"></center>
 
-## HL7 Ingest
+## To complete this challenge successfully, you will perform the following tasks.
+
+* **Provision Azure API for FHIR API demo environment**. Given the limited time, we'll provide a set of scripts to accomplish this. For step by step instructions, check the appendix.
+* **Load Synthetic data**. You can generate the data using Synthea or use a staged dataset that we'll provide.
+* **Validate data load**. You can use the dashboard application to validate the data or the provided APIs by using Postman.
+
+## Before you start
+
+Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
+
+## Getting Started
+
+## Task #1: HL7 Ingest
 This section shows 
 *
 
-## HL7 Conversion to FHIR
+## Task #2: HL7 Conversion to FHIR
 This section shows 
 *
 
-## Test data loaded in Azure API for FHIR using Postman
+## Validate data load using Postman
 * 
 
+
+## Congratulations! You have successfully completed Challenge02!
+
+## Help, I'm Stuck!
+* Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
 ***
 
