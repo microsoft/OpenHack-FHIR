@@ -11,32 +11,36 @@ Then you will use Logic Apps connector and FHIR Converter to convert those messa
 
 ## To complete this challenge successfully, you will perform the following tasks.
 
-* **Ingest HL7v2 sample message** using MLLP secure transfer into Azure Blob Storage.
-* **Convert HL7v2 message into FHIR format**. You will create a workflow that performs orderly conversion.
-* **Validate data load**. You will validate the data using Postman.
+  + **Ingest HL7v2 sample message** using MLLP secure transfer into Azure Blob Storage.
+  + **Convert HL7v2 message into FHIR format**. You will create a workflow that performs orderly conversion.
+  + **Validate data load**. You will validate the data using Postman.
 
 ## Before you start
 
-Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
+  + Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
+
+  + Make sure you have completed Challenge01: [Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge01-AzureAPIforFHIR/ReadMe.md).
 
 ## Getting Started
 
+The [FHIR Converter](https://github.com/microsoft/FHIR-Converter) is an open source project that enables healthcare organizations to convert legacy data (currently HL7 v2 messages) into FHIR bundles. Converting legacy data to FHIR expands the use cases for health data and enables interoperability.
+
 ## Task #1: HL7 Ingest
-This section shows 
-*
+HL7 ingest platform is to consume HL7 Messages via MLLP and securely Transfer them to Azure via HL7overHTTPS and place in blob storage and produce a consumable event on a high speed ordered service bus for processing.  
+  + 
 
 ## Task #2: HL7 Conversion to FHIR
-This section shows 
-*
+A workflow that performs orderly conversion from HL7 to FHIR via the conversion API and persists the message into a FHIR Server and publishes change events referencing FHIR resources to a high speed event hub to interested subscribers.  
+  + 
 
 ## Task #3: Validate data load using Postman
-* 
+  + 
 
 
 ## Congratulations! You have successfully completed Challenge02!
 
 ## Help, I'm Stuck!
-* Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
+  + Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
 ***
 
