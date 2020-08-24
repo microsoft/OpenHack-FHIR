@@ -66,7 +66,7 @@ On successfull completion, you'll have a set of resources created in a new resou
 
 ## Task #2: Generate & Load synthetic data.
 
-* ## Option 1: Generate Synthea data
+* ### Option 1: Generate Synthea data
 * This section shows how to setup and generate health records with Synthea.
 Synthea is an open-source synthetic patient and associated health records generator that simulates the medical history of synthetic patients. Synthea generates HL7 FHIR records using the HAPI FHIR library to generate a FHIR Bundle for these FHIR Resources. More on Synthea [here](https://github.com/synthetichealth/synthea).
 
@@ -87,7 +87,7 @@ Synthea is an open-source synthetic patient and associated health records genera
 
 * Once the data is loaded into your **fhirimport** folder, it will trigger an Azure function to start the process of importing it into your FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. Go grab a cup of coffee, on us!
 
-* ## Option 2: Use Staged data
+* ### Option 2: Use Staged data
 * For this option, we have already generated the sample data and loaded it into a publicly available storage account. The account URL and SAS token are included below.
 * ```shell
   Account URL: https://a368608impsa.file.core.windows.net/
@@ -98,9 +98,9 @@ Synthea is an open-source synthetic patient and associated health records genera
 ## Task #3: Validate data load
 
 * ### Use the Dashboard App
-** Use the dashboard app that was installed with your FHIR Demo environment to validate. The dashboard will show you all the patients in the system and allows you to see the patients medical details.
+    * Use the dashboard app that was installed with your FHIR Demo environment to validate. The dashboard will show you all the patients in the system and allows you to see the patients medical details.
 * ### Use Postman to run queries
-** Coming soon...
+    * Coming soon...
 
 ## Help, I'm Stuck!
 * Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
