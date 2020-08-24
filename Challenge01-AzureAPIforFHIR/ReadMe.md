@@ -67,9 +67,8 @@ On successfull completion, you'll have a set of resources created in a new resou
 ## Task #2: Generate & Load synthetic data.
 
 * ### Option 1: Generate Synthea data
-This section shows how to setup and generate health records with Synthea.
+     * This section shows how to setup and generate health records with Synthea.
 Synthea is an open-source synthetic patient and associated health records generator that simulates the medical history of synthetic patients. Synthea generates HL7 FHIR records using the HAPI FHIR library to generate a FHIR Bundle for these FHIR Resources. More on Synthea [here](https://github.com/synthetichealth/synthea).
-
 For this OpenHack, we'll focus on the basic setup and quickest way to get Synthea up and running. For more advanced setup, we'll include additional instructions in the appendix.
     * Synthea requires Java 8. If you don't have it installed, you can download from [here](https://java.com/en/download/). Make sure to select the JDK and not the JRE install.
     * After successful install of Java 8, download the [Sythea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar)
