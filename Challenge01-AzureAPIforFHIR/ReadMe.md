@@ -77,8 +77,8 @@ For this OpenHack, we'll focus on the basic setup and quickest way to get Synthe
   cd /directory/you/downloaded/synthea/to
   java -jar synthea-with-dependencies.jar -m "covid19" -p50
   ```
-    * Once all the data has been generated, you can now use the Azure Storage Explorer to upload the data into the FHIR Import folder that was created when you created the demo environment. It will look something like this:\
-<center><img src="../images/fhirimport-load-sample-data.png" width="850"></center>
+    * Once all the data has been generated, you can now use the Azure Storage Explorer to upload the data into the FHIR Import folder that was created when you created the demo environment. It will look something like this:
+    *<center><img src="../images/fhirimport-load-sample-data.png" width="850"></center>
     * Once the data is loaded into your **fhirimport** folder, it will trigger an Azure function to start the process of importing it into your FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. Go grab a cup of coffee, on us!
 
 * ### Option 2: Use Staged data
