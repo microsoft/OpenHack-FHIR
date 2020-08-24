@@ -23,11 +23,13 @@
 * [MLLP Relay](https://hapifhir.github.io/hapi-hl7v2/hapi-hl7overhttp/specification.html)
 
 ## Technical prerequisites
+The below needs to be installed before proceeding to Challenge01.
 * [Azure Subscription](https://azure.microsoft.com/en-us/free/)
 * [Azure Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/)
 * [Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-4.5.0)
 * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)
 * [Postman](https://www.postman.com/downloads/)
+* [Docker](https://www.docker.com/)
 * Java 1.8 (JDK, not JRE install)
 
 
