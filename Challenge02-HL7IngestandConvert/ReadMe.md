@@ -89,7 +89,8 @@ Let's get started:
 
 * You should receive back an HL7 ACK message  
    <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
-* After successful deployment your converter pipeline is now tied to your ingest platform from above.  
+* After successful deployment your converter pipeline is now tied to your ingest platform from above. 
+* Go to Azure Portal, to the App Service in the target resource group created using deployhl72fhir. Click configuration and copy the API Key in CONVERSION_API_KEYS. Click overview and open the URL https://...azurewebsites.net, and paste the API Key in the popup and save. Click Load Template and choose ADT_A01.hbs. In the lower left window where the template has opened, change the type from transaction to batch. Azure API for FHIR doesn't support transaction as of now. Click Save.  
 * To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
     + Use a text editor to see contents
@@ -108,7 +109,11 @@ Let's get started:
 ## Congratulations! You have successfully completed Challenge02!
 
 ## Help, I'm Stuck!
-* Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
+Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
+* If Logic App is failing at step "ConvertHL7WithTemplate" with app timeout error, continue reading. When deploying HL7Conversion flow using deployhl72fhir.bash, the App Service will deploy a P1v2 SKU. If your subscription doesn't have availability for Premium, you will get an error. Changing it to Standard S1 SKU will work.
+* The resources are inserted into the FHIR server every time the Logic App is ran. To change to update, double-click on Patient in the template, scroll all the way to the bottom of the template, change the method from POST to PUT. To have the resource be used the reference ID, change the url to resource?_id={{ID}} where resource is Patient in this case. Repeat the same for all resources.
+* If the .hl7 file you are trying to convert doesn't have out of the box template, check this [Git](https://github.com/microsoft/FHIR-Converter) on how to create new templates.
+
 
 ***
 
