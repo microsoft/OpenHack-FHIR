@@ -11,7 +11,7 @@ Then you will use Logic Apps connector and FHIR Converter to convert those messa
 
 ## To complete this challenge successfully, you will perform the following tasks.
 
-* **Ingest HL7v2 sample message** using MLLP secure transfer into Azure Blob Storage.
+* **Ingest HL7v2 sample message** using HL7overHTTPS secure transfer into Azure Blob Storage.
 * **Convert HL7v2 message into FHIR format**. You will create a workflow that performs orderly conversion.
 * **Validate data load**. You will validate the data using Postman.
 
@@ -36,21 +36,25 @@ In this task, you will:
 
 Let's get started:
 * Downloaded this [repo](https://github.com/microsoft/health-architectures).
-* [If you are running Windows 10 make sure you have enabled Windows Linux Subsystem](https://code.visualstudio.com/remote-tutorials/wsl/enable-wsl) and [Installed a Linux Distribution](https://code.visualstudio.com/remote-tutorials/wsl/install-linux)
+* [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/remote-tutorials/wsl/enable-wsl) 
+* [Install a Linux Distribution](https://code.visualstudio.com/remote-tutorials/wsl/install-linux)
 * [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest) 
-* Open a bash shell into the Azure CLI 2.0 environment
-* Switch to the HL7Conversion subdirectory of this repo
-* Run the deployhl7ingest.bash script and follow the prompts
-* Send in an hl7 message via HL7 over HTTPS:
+* Open a bash shell into the Azure CLI 2.0 environment installed.
+* Login using Az Login
+* Switch to the HL7Conversion subdirectory of this repo using cd /mnt/{HL7Conversion}
+* Run the deployhl7ingest.bash script and follow the prompts. Will take ~5 minutes to complete.
+* You should receive back an HL7 ACK message
+      <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
+* To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
     + Use a text editor to see contents
     + From the linux command shell run the following command to test the hl7overhttps ingest
       ```
         curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host name from above>/api/hl7ingest?code=<your ingest host key from above>
       ``` 
-    + You should receive back an HL7 ACK message
+    + Validate if the sample hl7 message has been stored in HL7 folder in the storage account created.
     + Congratulations!!! The sample hl7 message was accepted securely stored into blob storage and queued for further ingest processing on the deployed service bus queue
-9. Send in HL7 messages using the local HL7 MLLP Relay. To run a local copy of the HL7 MLLP Relay:
+* [Optional] Send in HL7 messages using the local HL7 MLLP Relay. To run a local copy of the HL7 MLLP Relay:
     + Make sure [Docker](https://www.docker.com/) is installed and running in your linux or windows environment
     + From a command prompt run the runhl7relay.bash(linux) or runhl7relay.cmd(windows) passing in the hl7ingest Function App URL (Saved from Above) and the function app access key (Saved from above) as parameters.
         ```
@@ -67,22 +71,32 @@ In this task, you will:
 Features of the HL7toFHIR Conversion Platform:
 
 Let's get started:
-* [Deploy the HL7 Ingest Platform](#ingest)
-* [Deploy an Azure API for FHIR instance](https://docs.microsoft.com/en-us/azure/healthcare-apis/fhir-paas-portal-quickstart)
-* [Register a Service Client to Access the FHIR Server](https://docs.microsoft.com/en-us/azure/healthcare-apis/register-service-azure-ad-client-app). You will need the following information to configure the HL72FHIR services
-   + Client/Application ID for the Service Client
-   + The Client Secret for the Service Client
-   + The AAD Tenant ID for the FHIR Server/Service Client
-   + The Audience/Resource for the FHIR Server/Service Client typically https://azurehealthcareapis.com for Azure API for FHIR
-* [Find the Object Id for the Service Client and Register it with the FHIR Server](https://docs.microsoft.com/en-us/azure/healthcare-apis/find-identity-object-ids)
+* [Deploy the HL7 Ingest Platform](#ingest) if you have not already
+* You will need the following information to configure the HL72FHIR services
+   + The Client ID for the Service Client. You can get this from Secret in Key Vault deployed in Challenge01.
+   + The Client Secret for the Service Client. You can get this from Secret in Key Vault deployed in Challenge01.
+   + The AAD Tenant ID for the Azure API for FHIR Server that was deployed in Challenge01.
+   + The Audience for the Azure API for FHIR Server typically https://{name}azurehealthcareapis.com
 * You will need the following information from the HL7 Ingest platform deployment (provided at the end of your deployment):
    + The resource group name created
    + The storage account name created
    + The service bus namespace created
    + The service bus destination queue name created
 * Open a shell or command window into the Azure CLI 2.0 environment
-* Switch to the Managed/HL7Conversion subdirectory of this repo
+* Switch to HL7Conversion subdirectory of this repo
 * Run the deployhl72fhir.bash script and follow the prompts
+    + You should receive back an HL7 ACK message
+      <center><img src="../images/challenge02-hl7convertconvert.png" width="550"></center>
+    + Congratulations!!! The sample hl7 message was accepted securely stored into blob storage and queued for further ingest processing on the deployed service bus queue
+
+* To test, send in an hl7 message via HL7 over HTTPS:
+    + Locate the sample message samplemsg.hl7 in the root directory of the repo
+    + Use a text editor to see contents
+    + From the linux command shell run the following command to test the hl7overhttps ingest
+      ```
+        curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host name from above>/api/hl7ingest?code=<your ingest host key from above>
+      ``` 
+
 * After successful deployment your converter pipeline is now tied to your ingest platform from above.  To test simply follow the test direction for HL7 Ingest above with the sample HL7 message and you should see resources from the bundle created in the destination FHIR Server
    + You can also see execution from the HL7toFHIR Logic App Run History in the HL7toFHIR resource group.  This will also provide you with detailed steps to see the transform process:
 
