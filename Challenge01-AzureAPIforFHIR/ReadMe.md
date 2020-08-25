@@ -104,6 +104,30 @@ For this OpenHack, we'll focus on the basic setup and quickest way to get Synthe
 ## Help, I'm Stuck!
 * Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
-***
+* Because the {ENVIRONMENTNAME} variable is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 13 characters. Here's an example of an error you might see due to a long name.
+* <center><img src="../images/errors-envname-length.png" width="850"></center>
+
+* PowerShell Execution Policy errors are another type of error that you might run into. In order to allow unsigned scripts and scripts from remote repositories, you might see a couple of different errors documented below.
+* <center><img src="../images/powershell-executionpolicy-1.png" width="850"></center>
+* <center><img src="../images/powershell-executionpolicy-2.png" width="850"></center>
+
+* To allow PowerShell to run these scripts and resolve the errors, please run the following command:
+* ```powershell
+  Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
+  ```
+* The FHIR Demo environment scripts use Git to download and install some of the components. We also recommend using Git to get and clone the sample code. If you don't have Git installed you might see the following error or something similiar.
+
+* <center><img src="../images/git-client-install.png" width="850"></center>
+
+* If the script starts ok and looks like it's running, but it keeps throwing errors, you most likely running in the wrong Azure Context. To fix this run the following:
+* ```powershell
+  Get-AzContext
+  ```
+  ```powershell
+  Clear-AzContext
+  ```
+  ```powershell
+  Set-AzContext -TenantId {Your-Azure-Tenant}
+  ```
 
 [Go to Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge02-HL7IngestandConvert/ReadMe.md)
