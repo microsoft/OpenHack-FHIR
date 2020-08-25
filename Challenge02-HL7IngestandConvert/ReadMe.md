@@ -76,7 +76,7 @@ Let's get started:
 * You will need the following information to configure the HL72FHIR services
    + The Client ID for the Service Client. You can get this from Secret in Key Vault deployed in Challenge01.
    + The Client Secret for the Service Client. You can get this from Secret in Key Vault deployed in Challenge01.
-   + The AAD Tenant ID for the Azure API for FHIR Server that was deployed in Challenge01.
+   + The AAD Tenant ID for the Service Client.
    + The Audience for the Azure API for FHIR Server typically https://{name}azurehealthcareapis.com
 * You will need the following information from the HL7 Ingest platform deployment (provided at the end of your deployment):
    + The resource group name created
