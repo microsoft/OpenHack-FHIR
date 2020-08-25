@@ -74,8 +74,8 @@ Features of the HL7toFHIR Conversion Platform:
 Let's get started:
 * [Deploy the HL7 Ingest Platform](#ingest) if you have not already
 * You will need the following information to configure the HL72FHIR services
-   + The Client ID for the Service Client. You can get this from Secret in Key Vault deployed in Challenge01.
-   + The Client Secret for the Service Client. You can get this from Secret in Key Vault deployed in Challenge01.
+   + The Client ID for the Service Client. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+   + The Client Secret for the Service Client. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
    + The AAD Tenant ID for the Service Client.
    + The Audience for the Azure API for FHIR Server typically https://{name}azurehealthcareapis.com
 * You will need the following information from the HL7 Ingest platform deployment (provided at the end of your deployment):
@@ -102,7 +102,7 @@ Let's get started:
    <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
 
 ## Task #3: Validate data load using Postman
-* If you haven't done setting up Postman in Challenge01, go back and complete that. 
+* If you haven't done setting up Postman in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
 * Open "AuthorizeGetToken SetBearer", choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
 * Open "Get Patient Filter HL7" and Click Send. This should return the patient with family name EVERYMAN from sample HL7 file loaded.
 
