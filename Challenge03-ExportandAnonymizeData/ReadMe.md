@@ -29,8 +29,19 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 ## Getting Started
 
 ## Task #1: Bulk Export
-This section shows 
-*
+We know how to view data, but sometimes we'll need to export it as well.  HL7 defines an easy method for [bulk data export](https://hl7.org/Fhir/uv/bulkdata/export/index.html). Let's try it out.
+ 
+* Open up Postman and get a token
+* Check that you get results when you GET /Patient?_count=3
+* Create a request to /Patient/$export You need to add two headers:
+Accept|application/fhir+json
+Prefer|respond-async
+* The response will be blank- don't refresh it, look at the headers.  See the response header labeled "X-Request-ID"
+* In the Azure Portal go to your FHIR API resource group and look for a stroage account lableeled <your instance>export
+* In the storage account click on containers- you'll see a container with the request ID from above
+* Click into that container and you'll see a single file- it has your data in it
+* Download it and open it
+* OH NO - it has First Name, Given Name, address, all kinds of PII!  We can't let this stand
 
 ## Task #2: Anonymization
 This section shows 
@@ -52,3 +63,4 @@ This section shows
 
 ## References
 * [HIPPA Safe Harbor Method](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html)
+* [HL7 bulk export](https://hl7.org/Fhir/uv/bulkdata/export/index.html)
