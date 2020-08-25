@@ -44,6 +44,7 @@ Let's get started:
 * Switch to the HL7Conversion subdirectory of this repo using cd /mnt/{HL7Conversion}
 * Run the deployhl7ingest.bash script and follow the prompts. Will take ~5 minutes to complete.
 * You should receive back an HL7 ACK message
+
       <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
 * To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
@@ -86,9 +87,8 @@ Let's get started:
 * Switch to HL7Conversion subdirectory of this repo
 * Run the deployhl72fhir.bash script and follow the prompts
     + You should receive back an HL7 ACK message
-      <center><img src="../images/challenge02-hl7convertconvert.png" width="550"></center>
-    + Congratulations!!! The sample hl7 message was accepted securely stored into blob storage and queued for further ingest processing on the deployed service bus queue
-
+      <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
+* After successful deployment your converter pipeline is now tied to your ingest platform from above.  
 * To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
     + Use a text editor to see contents
@@ -97,10 +97,8 @@ Let's get started:
         curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host name from above>/api/hl7ingest?code=<your ingest host key from above>
       ``` 
 
-* After successful deployment your converter pipeline is now tied to your ingest platform from above.  To test simply follow the test direction for HL7 Ingest above with the sample HL7 message and you should see resources from the bundle created in the destination FHIR Server
-   + You can also see execution from the HL7toFHIR Logic App Run History in the HL7toFHIR resource group.  This will also provide you with detailed steps to see the transform process:
-
-![Sample Converter Run](samplerun.png)
+* You can also see execution from the HL7toFHIR Logic App Run History in the HL7toFHIR resource group.  
+   <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
 
 ## Task #3: Validate data load using Postman
 
