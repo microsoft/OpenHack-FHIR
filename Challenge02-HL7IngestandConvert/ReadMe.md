@@ -102,8 +102,9 @@ Let's get started:
    <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
 
 ## Task #3: Validate data load using Postman
-
-* 
+* If you haven't done setting up Postman in Challenge01, go back and complete that. 
+* Open "AuthorizeGetToken SetBearer", choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
+* Open "Get Patient Filter HL7" and Click Send. This should return the patient with family name EVERYMAN from sample HL7 file loaded.
 
 
 ## Congratulations! You have successfully completed Challenge02!
