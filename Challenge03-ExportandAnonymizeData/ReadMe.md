@@ -65,7 +65,41 @@ Let's run in
 So this is all great, but there's no way we're going to manually download PHI on to our machines just so we can redact.  Next let's automate thsi process!
 
 ## Task #3: Anonymize FHIR data automatically.
-* 
+Ok so let's setup an Azure Data Factory to automate this process
+Create Data Factory pipeline
+
+*  go to the data tool's root folder and then src\Microsoft.Health.Fhir.Anonymizer.<version>.AzureDataFactoryPipeline. Locate AzureDataFactorySettings.json in the project and replace the values as described below.
+
+    [!NOTE] dataFactoryName can contain only lowercase characters or numbers, and must be 3-19 characters in length.
+```
+{
+  "dataFactoryName": "<Custom Data Factory Name>",
+  "resourceLocation": "<Region for Data Factory>",
+  "sourceStorageAccountName": "<Storage Account Name for source files>",
+  "sourceStorageAccountKey": "<Storage Account Key for source files>",
+  "destinationStorageAccountName": "<Storage Account Name for destination files>",
+  "destinationStorageAccountKey": "<Storage Account Key for destination files>",
+  "sourceStorageContainerName": "<Storage Container Name for source files>",
+  "sourceContainerFolderPath": "<Optional: Directory for source resource file path>",
+  "destinationStorageContainerName": "<Storage Container Name for destination files>",
+  "destinationContainerFolderPath": "<Optional: Directory for destination resource file path>",
+  "activityContainerName": "<Container name for anonymizer tool binraries>"
+}
+```
+Define the following variables in PowerShell. These are used for creating and configuring the execution batch account.
+```
+> $SubscriptionId = "SubscriptionId"
+> $BatchAccountName = "BatchAccountName. New batch account would be created if account name is null or empty."
+> $BatchAccountPoolName = "BatchAccountPoolName"
+> $BatchComputeNodeSize = "Node size for batch node. Default value is 'Standard_d1'"
+> $ResourceGroupName = "Resource group name for Data Factory. Default value is $dataFactoryName + 'resourcegroup'"
+```
+    Run powershell scripts to create data factory pipeline
+```
+> .\DeployAzureDataFactoryPipeline.ps1 -SubscriptionId $SubscriptionId -BatchAccountName $BatchAccountName -BatchAccountPoolName $BatchAccountPoolName -BatchComputeNodeSize $BatchComputeNodeSize -ResourceGroupName $ResourceGroupName
+```
+## Validate data load
+* To check your data simply download the file and verify the data is deidentifiied!
 
 ## Congratulations! You have successfully completed Challenge03!
 
