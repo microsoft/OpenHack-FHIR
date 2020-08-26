@@ -44,10 +44,27 @@ Prefer|respond-async
 * OH NO - it has First Name, Given Name, address, all kinds of PII!  We can't let this stand
 
 ## Task #2: Anonymization
-This section shows 
-*
+We know we need to de-identify the data.  We could do this manually- but as you'd suspect there is a set of tools to do this for us.
+Check out [FHIR Tools for Anonymization](https://github.com/microsoft/FHIR-Tools-for-Anonymization).  This is a Microsoft provided open-source set of tools to automate data deidentification.  Let's try it out.
+* Clone the repo `` https://github.com/microsoft/FHIR-Tools-for-Anonymization#anonymize-fhir-data-using-azure-data-factory``
+* in the cloned directory make a new bin directory ``mkdir bin``
+* buidl the project using ``dotnet build Fhir.Anonymizer.sln  -o bin/``
+* Now if you look in bin you'll see several executables
 
-## Task #3: Validate data using Postman
+The anonymization engine uses a configuration file specifying different parameters as well as de-identification methods for different data-elements and datatypes.
+The repo contains a sample configuration file, which is based on the HIPAA Safe Harbor method. You can modify the configuration file as needed based on the information provided below.
+Let's run in
+* let's make a few data directories for data INto the tool and data OUT of the tool
+* now let's run the tool: ``./Microsoft.Health.Fhir.Anonymizer.R4.CommandLineTool.exe -i ../data/in -o ../data/out -c Configurations/common-config.json -b``
+-i is the input folder
+-o is the output folder
+-c is the config file used for deidentifcation
+-b indicates that the input files are bulk (.ndjson files) 
+* Now if you look at the output folder you'll see the private data has been redacted!
+* Try running the command again with other config files
+So this is all great, but there's no way we're going to manually download PHI on to our machines just so we can redact.  Next let's automate thsi process!
+
+## Task #3: Anonymize FHIR data automatically.
 * 
 
 ## Congratulations! You have successfully completed Challenge03!
@@ -64,3 +81,4 @@ This section shows
 ## References
 * [HIPPA Safe Harbor Method](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html)
 * [HL7 bulk export](https://hl7.org/Fhir/uv/bulkdata/export/index.html)
+* [FHIR Tools for Anonymization](https://github.com/microsoft/FHIR-Tools-for-Anonymization)
