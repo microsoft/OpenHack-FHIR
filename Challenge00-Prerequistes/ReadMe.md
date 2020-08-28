@@ -21,6 +21,7 @@
 * [PowerBI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview)
 * [IoT Central](https://docs.microsoft.com/en-us/azure/iot-central/healthcare/concept-continuous-patient-monitoring-architecture)
 * [MLLP Relay](https://hapifhir.github.io/hapi-hl7v2/hapi-hl7overhttp/specification.html)
+* [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)
 
 ## Technical prerequisites
 The below need to be installed before proceeding to Challenge01.
