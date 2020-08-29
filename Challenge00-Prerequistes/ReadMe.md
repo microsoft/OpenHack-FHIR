@@ -1,6 +1,6 @@
 # Challenge00 - Pre-requisites
 
-#### This chapter lists the technical and knowledge pre-requisites to complete all challenges.
+#### This chapter lists the technical and knowledge pre-requisites needed to complete all challenges.
 
 ## Technical prerequisites
 Needs to be installed for Challenge01:
@@ -13,14 +13,14 @@ Needs to be installed for Challenge01:
 * [Git](https://git-scm.com/downloads)
 * [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
 
-Needs to be installed for Chapter02:
+Needs to be installed for Challenge02:
 * [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl) 
 * [Install a Linux Distribution](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro)
 * [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 
 ## Knowledge prerequisites
 * [HL7 FHIR](https://hl7.org/fhir/) FHIR is a standard for health care data exchange, published by HL7®.
-* [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/)
+* [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/) enables to easily create and deploy a Fast Healthcare Interoperability Resources (FHIR®) service for health data solutions.
 * [Azure API for FHIR Documentation](https://docs.microsoft.com/en-us/azure/healthcare-apis/) is a managed, standards-based, compliant API for clinical health data that enables solutions for actionable analytics and machine learning.
 * [Synthea](https://github.com/synthetichealth/synthea) is an open-source synthetic patient and associated health records generator that simulates the medical history of synthetic patients. Synthea generates HL7 FHIR records using the HAPI FHIR library to generate a FHIR Bundle
 * [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction) is Microsoft's object storage solution, optimized for storing massive amounts of unstructured data. 
