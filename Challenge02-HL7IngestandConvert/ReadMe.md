@@ -36,13 +36,13 @@ In this task, you will:
 
 Let's get started:
 * Downloaded this [repo](https://github.com/microsoft/health-architectures).
-* [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/remote-tutorials/wsl/enable-wsl) 
-* [Install a Linux Distribution](https://code.visualstudio.com/remote-tutorials/wsl/install-linux)
-* [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest) 
+* [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl) 
+* [Install a Linux Distribution](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro)
+* [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 * Open a bash shell into the Azure CLI 2.0 environment installed.
 * Login using Az Login
-* Switch to the HL7Conversion subdirectory of this repo using cd /mnt/{HL7Conversion}
-* Run the deployhl7ingest.bash script and follow the prompts. Will take ~5 minutes to complete.
+* Switch to the HL7Conversion subdirectory of this repo using cd /mnt/{Your HL7Conversion directory path}. Use cd one directory at a time if the whole path is not working.
+* Run the deployhl7ingest.bash script and follow the prompts to enter Subscription ID, Resource Group Name, Resource Group Location, Deployment Prefix... Will take ~5 minutes to complete.
 
 * You should receive back an HL7 ACK message
    <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
