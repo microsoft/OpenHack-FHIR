@@ -99,7 +99,7 @@ For this OpenHack, we'll focus on the basic setup and quickest way to get Synthe
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
     * Open Postman and import [Collection](../Postman/FHIR Hack.postman_collection.json) 
-    * Import [Environment](../Postman/FHIR Hack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
+    * Import [Environment](https://github.com/microsoft/OpenHack-FHIR/blob/main/Postman/FHIR%20OpenHack.postman_collection.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
       * adtenantId: This is the tenant Id of the Secondary AD tenant
       * clientId: This is the client Id that is stored in Secret "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
       * clientSecret: This is the client Secret that is stored in Secret "{your resource prefix}-service-client-secret" in "{your resource prefix}-ts" Key Vault.
@@ -135,10 +135,10 @@ Below are some common setup issues that you might run into with possible resolut
    Get-AzContext
    ```
 
-* {ENVIRONMENTNAME} variable error: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 13 characters. Here's an example of an error you might see due to a long name.
+* **{ENVIRONMENTNAME} variable error**: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 13 characters. Here's an example of an error you might see due to a long name.
    <center><img src="../images/errors-envname-length.png" width="850"></center>
 
-* PowerShell Execution Policy errors: are another type of error that you might run into. In order to allow unsigned scripts and scripts from remote repositories, you might see a couple of different errors documented below.
+* **PowerShell Execution Policy errors**: are another type of error that you might run into. In order to allow unsigned scripts and scripts from remote repositories, you might see a couple of different errors documented below.
    <center><img src="../images/powershell-executionpolicy-1.png" width="850"></center>
    <center><img src="../images/powershell-executionpolicy-2.png" width="850"></center>
 
@@ -146,7 +146,7 @@ Below are some common setup issues that you might run into with possible resolut
    ```powershell
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
    ```
-* Git Missing: This challenge uses scripts from Git that are downloaded and installed. If you don't have Git installed you might see the following error or something similiar. Get [Git](https://git-scm.com/downloads) and try again.
+* **Git Missing**: This challenge uses scripts from Git that are downloaded and installed. If you don't have Git installed you might see the following error or something similiar. Get [Git](https://git-scm.com/downloads) and try again.
    <center><img src="../images/git-client-install.png" width="850"></center>
 
 
