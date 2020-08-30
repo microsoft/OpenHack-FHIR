@@ -18,10 +18,10 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
-* Azure API for FHIR needs to be deployed in Active Directory tenants for Data control plane authorization and Resource control plane for resources. Most of the companies lock down Active Directory App Registration for security where you can't publish App, register roles or grant permissions. So, you will create local Active Directory which is free. This will 
-   * Go to Portal, navigate to Azure Active Directory. Click "Create a tenant". Give it a name for example: "{yourname}fhirad" for Organization name and Initial domain name and click Create. This will be referred to as **Secondary AD** in this page for clarity.
+* **Create Secondary AD tenant**: Azure API for FHIR needs to be deployed in Active Directory tenants for Data control plane authorization and Resource control plane for resources. Most of the companies lock down Active Directory App Registration for security where you can't publish App, register roles or grant permissions. So, you will create local Active Directory which is free. This will 
+   * Go to Portal, navigate to Azure Active Directory. Click "Create a tenant". Give it a name for example: "{yourname}fhirad" for Organization name and Initial domain name and click Create. This will be referred to as **Secondary AD** in this page for clarity. 
 
-* Primary script deployer is going to be PowerShell. Using either the Azure PowerShell or Windows PowerShell and make sure you are running it as administrator.    * Install Azure Commandlets and Azure AD Commandlets.
+* **Install PowerShell modules**: Primary script deployer is going to be PowerShell. Using either the Azure PowerShell or Windows PowerShell and make sure you are running it as administrator.    * Install Azure Commandlets and Azure AD Commandlets.
 
    ```powershell
    Install-Module Az
@@ -46,7 +46,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
    * Connect to **Secondary AD** and authenticate
    ```powershell
-   Connect-AzureAd -TenantDomain **{yourname}fhirad}.onmicrosoft.com**
+   Connect-AzureAd -TenantDomain **{yourname}fhirad.onmicrosoft.com**
    ``` 
 
    * You will get security exception error if you haven't set the execution policy below. This is because the repo you will clone in the next step is a public repo, and the PowerShell is not signed and so you might not have access to run the script. So, set the execution policy and type A, to run unsigned Powershell scripts.
@@ -83,9 +83,9 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    * App Service Plan ({ENVIRONMENTNAME}imp) to support the App Service/Dashboard App.
    * Azure Function ({ENVIRONMENTNAME}imp) is the import function that listens on the import storage account where you can drop bundles that get loaded into FHIR server.
    * Storage Account ({ENVIRONMENTNAME}export) to store the data when exported from FHIR server.
-   * Storage Account({ENVIRONMENTNAME}impsa) is the storage account where synthetic data will be uploaded for loading to FHIR server.
+   * Storage Account ({ENVIRONMENTNAME}impsa) is the storage account where synthetic data will be uploaded for loading to FHIR server.
 
-The following resources in resource group {ENVIRONMENTNAME}-sof will be created for SMART ON FHIR applications:
+   The following resources in resource group {ENVIRONMENTNAME}-sof will be created for SMART ON FHIR applications:
    * App Service/Dashboard App ({ENVIRONMENTNAME}growth) supports {ENVIRONMENTNAME}dash App.
    * App Service Plan ({ENVIRONMENTNAME}growth-plan) to support the growth App Service/Dashboard App.
    * App Service/Dashboard App ({ENVIRONMENTNAME}meds) supports {ENVIRONMENTNAME}dash App.
@@ -96,32 +96,40 @@ The following resources in resource group {ENVIRONMENTNAME}-sof will be created 
 ## Task #2: Generate & Load synthetic data.
 
 * ### Option 1: Generate Synthea data
-     * This section shows how to setup and generate health records with Synthea.
-Synthea is an open-source synthetic patient and associated health records generator that simulates the medical history of synthetic patients. Synthea generates HL7 FHIR records using the HAPI FHIR library to generate a FHIR Bundle for these FHIR Resources. More on Synthea [here](https://github.com/synthetichealth/synthea).
-For this OpenHack, we'll focus on the basic setup and quickest way to get Synthea up and running. For more advanced setup, we'll include additional instructions in the appendix.
-    * Synthea requires Java 8. If you don't have it installed, you can download from [here](https://java.com/en/download/). Make sure to select the JDK and not the JRE install.
-    * After successful install of Java 8, download the [Sythea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar)
-    * Follow instructions below to generate your synthetic data set. Note that, we are using the Covid19 module (-m "covid19") and generating a 50 person (-p50) sample.
-    ```shell
-    cd /directory/you/downloaded/synthea/to
-    java -jar synthea-with-dependencies.jar -m "covid19" -p50
-    ```
-    * Once all the data has been generated, you can now use the Azure Storage Explorer to upload the data into the FHIR Import folder that was created when you created the demo environment. It will look something like this:
+   * **Setup Synthea**: 
+      * This section shows how to setup and generate health records with [Synthea](https://github.com/synthetichealth/synthea). 
+      * Synthea requires [Java 8 JDK](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Make sure to select the JDK and not the JRE install.
+      * After successfull install of Java 8, download the [Synthea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar) or open command prompt and run, .jar file will be downloaded to directory you are running the command from.
+   ```cmd
+   curl https://syntheahealth.github.io/synthea/build/libs/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
+   ```
+   * **Generate Data**:
+      * Follow instructions below to generate your synthetic data set. Note that, we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to a output sub-folder.
+      ```shell
+      cd {directory_you_downloaded_synthea_to}
+      java -jar synthea-with-dependencies.jar -m "covid19" -p 50
+      ```
+      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. It will look something like this:
     <center><img src="../images/fhirimport-load-sample-data.png" width="850"></center>
-    * Once the data is loaded into your **fhirimport** folder, it will trigger an Azure function to start the process of importing it into your FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. Go grab a cup of coffee, on us!
+      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. You can go to the storage account and click Monitor to view status.
 
 * ### Option 2: Use Staged data
-    * For this option, we have already generated the sample data and loaded it into a publicly available storage account. The account URL and SAS token are included below.
-    ```shell
-    Account URL: https://a368608impsa.file.core.windows.net/
-    SAS Token: ?sv=2019-12-12&ss=bfqt&srt=c&sp=rwdlacupx&se=2020-08-21T05:50:18Z&st=2020-08-20T21:50:18Z&spr=https&sig=hLoeY7kq3B%2FXvmJsBLboMsdMmMnv%2F2liAX3l231ux00%3D
-    ```
-    * Use these credentials to copy the sythetic data into the **fhirimport** folder.
+   * For this option, we have already generated the sample data and loaded it into a publicly available storage account. The account URL and SAS token are included below.
+   ```shell
+   Account URL: https://a368608impsa.file.core.windows.net/
+   SAS Token: ?sv=2019-12-12&ss=bfqt&srt=c&sp=rwdlacupx&se=2020-08-21T05:50:18Z&st=2020-08-20T21:50:18Z&spr=https&sig=hLoeY7kq3B%2FXvmJsBLboMsdMmMnv%2F2liAX3l231ux00%3D
+   ```
+   * Use these credentials to copy the sythetic data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account.
 
 ## Task #3: Validate data load
 
 * ### Use the Dashboard App
-    * Click on the App Service "{your resource prefix}dash". Copy th URL. Open Portal "InPrivate" window. Go to the App Service URL and login using the user you created above. The dashboard will show you all the patients in the system and allows you to see the patients medical details.
+    * Go to **Secondary AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME-admin@yournamefhirad.onmicrosoft.com}. Click on the admin user and Reset password.
+    * Go to **Primary AD** tenant. Click on the App Service "{your resource prefix}dash". Copy the URL. Open Portal "InPrivate" window. Go to the App Service URL and login using the admin user above. 
+    * The dashboard will show you all the patients in the system and allows you to see the patients medical details. You can click on little black **fire** symbol against each records and view fhir bundle and details.
+    * You can click on resource links lik Condition, Encounters...to view those resource. 
+    * Go to Patients, and click on little black **i** icon next to a patient record. You will notice 2 buttons "Growth Chart" and "Medications" SMART ON FHIR Apps.
+ 
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
     * Open Postman and import [Collection](../Postman/FHIR Hack.postman_collection.json) 
