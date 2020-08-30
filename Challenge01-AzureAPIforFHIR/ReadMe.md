@@ -95,39 +95,61 @@ For this OpenHack, we'll focus on the basic setup and quickest way to get Synthe
 ## Task #3: Validate data load
 
 * ### Use the Dashboard App
-    * Use the dashboard app that was installed with your FHIR Demo environment to validate. The dashboard will show you all the patients in the system and allows you to see the patients medical details.
+    * Click on the App Service "{your resource prefix}dash". Copy th URL. Open Portal "InPrivate" window. Go to the App Service URL and login using the user you created above. The dashboard will show you all the patients in the system and allows you to see the patients medical details.
 * ### Use Postman to run queries
-    * Coming soon...
+    * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
+    * Open Postman and import [Collection](../Postman/FHIR Hack.postman_collection.json) 
+    * Import [Environment](../Postman/FHIR Hack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
+      * adtenantId: This is the tenant Id of the Secondary AD tenant
+      * clientId: This is the client Id that is stored in Secret "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
+      * clientSecret: This is the client Secret that is stored in Secret "{your resource prefix}-service-client-secret" in "{your resource prefix}-ts" Key Vault.
+      * bearerToken: The value will be set when "AuthorizeGetToken SetBearer" request is sent.
+      * fhirurl: This is https://{your resource prefix}.azurehealthcareapis.com from Azure API for FHIR you created in Task #1 above
+      * resource: This is the Audience of the Azure API for FHIR https://{your fhir name}.azurehealthcareapis.com you created in Task #1 above.      
+    * Import [Collection](../Postman/FHIR Hack.postman_collection.json). Collection is a set of requests.
+      * Open "AuthorizeGetToken SetBearer", make sure the environment you imported in selected in the drop-down in the top right. click Send. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable bearerToken. Shows in Body results how many seconds the token is valid before expires_in. 
+      * Open "Get Metadata" and click Send. This will return the CapabilityStatement with a Status of 200 ....This request doesn't use the bearerToken.
+      * Open "Get Patient" and click Send. This will return all Patients stored in your FHIR server. Not all might be returned in Postman.
+      * "Get Patient Count" will return Count of Patients stored in your FHIR server.
+      * "Get Patient Sort LastUpdated" will returns Patients sorted by LastUpdated date. This is the default sort.
+      * "Get Patient Filter ID" will return one Patient with that ID. Change the ID to one you have loaded and analyze the results.
+      * "Get Patient Filter Missing" will return data where gender is missing. Change to different column and analyze the results.
+      * "Get Patient Filter Exact" will return a specific Patient with a given name. Change to different name and analyze the results.
+      * "Get Patient Filter Contains" will return Patients with letters in the given name. Change to different letters and analyze the results.
+      * "Get Filter Multiple ResourceTypes" will return multiple resource types in _type. Change to other resource type and analyze the results.
+      * NOTE: bearerToken expires in ...so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to set new value to bearerToken variable.
 
 ## Congratulations! You have successfully completed Challenge01! 
 
 ## Help, I'm Stuck!
-* Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
+Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
-* Because the {ENVIRONMENTNAME} variable is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 13 characters. Here's an example of an error you might see due to a long name.
-* <center><img src="../images/errors-envname-length.png" width="850"></center>
+* Azure Context: If you are seeing errors, you might have wrong Azure Context. To fix this run the following:
+   ```powershell
+   Clear-AzContext
+   ```
+   ```powershell
+   Set-AzContext -TenantId {Your-PrimaryAzure-Tenant}
+   ```
+   ```powershell
+   Get-AzContext
+   ```
 
-* PowerShell Execution Policy errors are another type of error that you might run into. In order to allow unsigned scripts and scripts from remote repositories, you might see a couple of different errors documented below.
-* <center><img src="../images/powershell-executionpolicy-1.png" width="850"></center>
-* <center><img src="../images/powershell-executionpolicy-2.png" width="850"></center>
+* {ENVIRONMENTNAME} variable error: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 13 characters. Here's an example of an error you might see due to a long name.
+   <center><img src="../images/errors-envname-length.png" width="850"></center>
 
-* To allow PowerShell to run these scripts and resolve the errors, please run the following command:
-* ```powershell
-  Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
-  ```
-* The FHIR Demo environment scripts use Git to download and install some of the components. We also recommend using Git to get and clone the sample code. If you don't have Git installed you might see the following error or something similiar.
+* PowerShell Execution Policy errors: are another type of error that you might run into. In order to allow unsigned scripts and scripts from remote repositories, you might see a couple of different errors documented below.
+   <center><img src="../images/powershell-executionpolicy-1.png" width="850"></center>
+   <center><img src="../images/powershell-executionpolicy-2.png" width="850"></center>
 
-* <center><img src="../images/git-client-install.png" width="850"></center>
+   To allow PowerShell to run these scripts and resolve the errors, run the following command:
+   ```powershell
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
+   ```
+* Git Missing: This challenge uses scripts from Git that are downloaded and installed. If you don't have Git installed you might see the following error or something similiar. Get [Git](https://git-scm.com/downloads) and try again.
+   <center><img src="../images/git-client-install.png" width="850"></center>
 
-* If the script starts ok and looks like it's running, but it keeps throwing errors, you most likely running in the wrong Azure Context. To fix this run the following:
-* ```powershell
-  Get-AzContext
-  ```
-  ```powershell
-  Clear-AzContext
-  ```
-  ```powershell
-  Set-AzContext -TenantId {Your-Azure-Tenant}
-  ```
+
+***
 
 [Go to Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge02-HL7IngestandConvert/ReadMe.md)
