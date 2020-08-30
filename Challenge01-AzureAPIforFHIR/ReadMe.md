@@ -58,11 +58,11 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
 ## Task #1: Provision Azure API for FHIR demo environment.
 
-* Get the repo fhir-server-samples from Git. If you don't have Git, install from link in [Challenge00](../Challenge00-Prerequistes/ReadMe.md).
+* **Get the repo** fhir-server-samples from Git. If you don't have Git, install from link in [Challenge00](../Challenge00-Prerequistes/ReadMe.md).
    ```powershell
    git clone https://github.com/Microsoft/fhir-server-samples
    ``` 
-* Navigate to the scripts directory where the Repo was downloaded to. Run the one shot deployment. Don't forget the **.\** before Create.
+* Navigate to the scripts directory where the Repo was downloaded to. Run the **one shot deployment.** Don't forget the **.\** before Create.
    ```powershell
    cd fhir-server-samples/deploy/scripts
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
@@ -73,10 +73,10 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
    
-* On successful completion, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. Your resource group should look something like this:
+* On **successful completion**, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. Your resource group should look something like this:
    <center><img src="../images/fhir-demo-resources.png" width="850"></center>
 
-   The following resources in resource group {ENVIRONMENTNAME} will be created:
+   The following resources in resource group **{ENVIRONMENTNAME}** will be created:
    * Azure API for FHIR ({ENVIRONMENTNAME}) is the FHIR server
    * Key Value ({ENVIRONMENTNAME}-ts) stores all secrets for all clients (public for single page apps/javascripts that can't hold secrets, confidential for clients that hold secrets, service for service to service) needs to talk to FHIR server.
    * App Service/Dashboard App ({ENVIRONMENTNAME}dash) used to analyze data loaded.
@@ -85,7 +85,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    * Storage Account ({ENVIRONMENTNAME}export) to store the data when exported from FHIR server.
    * Storage Account ({ENVIRONMENTNAME}impsa) is the storage account where synthetic data will be uploaded for loading to FHIR server.
 
-   The following resources in resource group {ENVIRONMENTNAME}-sof will be created for SMART ON FHIR applications:
+   The following resources in resource group **{ENVIRONMENTNAME}-sof** will be created for SMART ON FHIR applications:
    * App Service/Dashboard App ({ENVIRONMENTNAME}growth) supports {ENVIRONMENTNAME}dash App.
    * App Service Plan ({ENVIRONMENTNAME}growth-plan) to support the growth App Service/Dashboard App.
    * App Service/Dashboard App ({ENVIRONMENTNAME}meds) supports {ENVIRONMENTNAME}dash App.
@@ -100,9 +100,9 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       * This section shows how to setup and generate health records with [Synthea](https://github.com/synthetichealth/synthea). 
       * Synthea requires [Java 8 JDK](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Make sure to select the JDK and not the JRE install.
       * After successfull install of Java 8, download the [Synthea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar) or open command prompt and run, .jar file will be downloaded to directory you are running the command from.
-   ```cmd
-   curl https://syntheahealth.github.io/synthea/build/libs/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
-   ```
+      ```cmd
+      curl https://syntheahealth.github.io/synthea/build/libs/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
+      ```
    * **Generate Data**:
       * Follow instructions below to generate your synthetic data set. Note that, we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to a output sub-folder.
       ```shell
@@ -110,7 +110,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       java -jar synthea-with-dependencies.jar -m "covid19" -p 50
       ```
       * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. It will look something like this:
-    <center><img src="../images/fhirimport-load-sample-data.png" width="850"></center>
+      <center><img src="../images/fhirimport-load-sample-data.png" width="850"></center>
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. You can go to the storage account and click Monitor to view status.
 
 * ### Option 2: Use Staged data
@@ -124,7 +124,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 ## Task #3: Validate data load
 
 * ### Use the Dashboard App
-    * Go to **Secondary AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME-admin@yournamefhirad.onmicrosoft.com}. Click on the admin user and Reset password.
+    * Go to **Secondary AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. Click on the admin user and Reset password.
     * Go to **Primary AD** tenant. Click on the App Service "{your resource prefix}dash". Copy the URL. Open Portal "InPrivate" window. Go to the App Service URL and login using the admin user above. 
     * The dashboard will show you all the patients in the system and allows you to see the patients medical details. You can click on little black **fire** symbol against each records and view fhir bundle and details.
     * You can click on resource links lik Condition, Encounters...to view those resource. 
