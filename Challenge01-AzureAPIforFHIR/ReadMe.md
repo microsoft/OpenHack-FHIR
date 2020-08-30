@@ -18,54 +18,80 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
-We will use PowerShell to deploy the Azure API for FHIR API demo environment. Using either the Windows PowerShell console or the Windows PowerShell ISE, run the following commands.
+* Azure API for FHIR needs to be deployed in Active Directory tenants for Data control plane authorization and Resource control plane for resources. Most of the companies lock down Active Directory App Registration for security where you can't publish App, register roles or grant permissions. So, you will create local Active Directory which is free. This will 
+   * Go to Portal, navigate to Azure Active Directory. Click "Create a tenant". Give it a name for example: "{yourname}fhirad" for Organization name and Initial domain name and click Create. This will be referred to as **Secondary AD** in this page for clarity.
 
-```powershell
-  Install-Module Az
-  Install-Module AzureAd
-```  
+* Primary script deployer is going to be PowerShell. Using either the Azure PowerShell or Windows PowerShell and make sure you are running it as administrator.    * Install Azure Commandlets and Azure AD Commandlets.
 
-To verify, log into your Azure account using the following command and follow instructions to authenticate:
-```cmd
-  Login-AzAccount
-```
+   ```powershell
+   Install-Module Az
+   Install-Module AzureAd
+   ```  
 
-If everything worked, your output should be similiar to the one below:
-<center><img src="../images/powershell-login-azccount.png" width="850"></center>
+   * Login to your Azure account where you want to deploy resources and authenticate. This will be called **Primary AD** in this page for clarity.
+   ```powershell
+   Login-AzAccount
+   ```
 
-You will need access to an Azure tenant that allows your to create and register applications. Most corporate tenants will typically have this disabled. Fortunately it's relatively easy to create new tenants/directories, check the appendix for additional information.
+   If you are seeing errors, or you don't see the subscription in your **Primary AD** you want to deploy, you might have wrong Azure Context. Clear, Set and verify Az Context.
+   ```powershell
+   Clear-AzContext
+   ```
+   ```powershell
+   Set-AzContext -TenantId **{YourPrimaryADTenantID}**
+   ```
+   ```powershell
+   Get-AzContext
+   ```
 
-Once you have the right tenant, get the TenantID, your will need it in subsequent steps.
+   * Connect to **Secondary AD** and authenticate
+   ```powershell
+   Connect-AzureAd -TenantDomain **{yourname}fhirad}.onmicrosoft.com**
+   ``` 
+
+   * You will get security exception error if you haven't set the execution policy below. This is because the repo you will clone in the next step is a public repo, and the PowerShell is not signed and so you might not have access to run the script. So, set the execution policy and type A, to run unsigned Powershell scripts.
+   ```powershell
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
+   ```
 
 ## Getting Started
 
 ## Task #1: Provision Azure API for FHIR demo environment.
 
-* ### Get the code
-```powershell
-  git clone https://github.com/Microsoft/fhir-server-samples
-``` 
-* ### Connect to your tenant's Azure AD
-```powershell
-  Connect-AzureAd -TenantDomain <Your TenantID>
-``` 
-* ### Connect to your tenant's Azure AD
-```powershell
-  cd fhir-server-samples/deploy/scripts
-  .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -UsePaaS $true
-```
-The ENVIRONMENTNAME is a value that you select and will be used as the prefix for the Azure resources that the script deploys, therefore it should be globally unique.
+* Get the repo fhir-server-samples from Git. If you don't have Git, install from link in [Challenge00](../Challenge00-Prerequistes/ReadMe.md).
+   ```powershell
+   git clone https://github.com/Microsoft/fhir-server-samples
+   ``` 
+* Navigate to the scripts directory where the Repo was downloaded to. Run the one shot deployment. Don't forget the **.\** before Create.
+   ```powershell
+   cd fhir-server-samples/deploy/scripts
+  .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
+   ```
+   * The ENVIRONMENTNAME is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be globally unique and can't be longer than 13 characters. 
+   * If EnvironmentLocation is not specified, it defaults to westus.
+   * This is a PaaS, so leave it as $true.
+   * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
+   * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
+   
+* On successful completion, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. Your resource group should look something like this:
+   <center><img src="../images/fhir-demo-resources.png" width="850"></center>
 
-If all goes well, the script will kickoff and will take about 10-15 minutes to complete. If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
+   The following resources in resource group {ENVIRONMENTNAME} will be created:
+   * Azure API for FHIR ({ENVIRONMENTNAME}) is the FHIR server
+   * Key Value ({ENVIRONMENTNAME}-ts) stores all secrets for all clients (public for single page apps/javascripts that can't hold secrets, confidential for clients that hold secrets, service for service to service) needs to talk to FHIR server.
+   * App Service/Dashboard App ({ENVIRONMENTNAME}dash) used to analyze data loaded.
+   * App Service Plan ({ENVIRONMENTNAME}imp) to support the App Service/Dashboard App.
+   * Azure Function ({ENVIRONMENTNAME}imp) is the import function that listens on the import storage account where you can drop bundles that get loaded into FHIR server.
+   * Storage Account ({ENVIRONMENTNAME}export) to store the data when exported from FHIR server.
+   * Storage Account({ENVIRONMENTNAME}impsa) is the storage account where synthetic data will be uploaded for loading to FHIR server.
 
-On successfull completion, you'll have a set of resources created in a new resource group that has the same same as your ENVIRONMENTNAME prefix. Explore these resources and get a feel what what role they play in the FHIR demo environment. Your resource group should look something like this:
-<center><img src="../images/fhir-demo-resources.png" width="850"></center>
+The following resources in resource group {ENVIRONMENTNAME}-sof will be created for SMART ON FHIR applications:
+   * App Service/Dashboard App ({ENVIRONMENTNAME}growth) supports {ENVIRONMENTNAME}dash App.
+   * App Service Plan ({ENVIRONMENTNAME}growth-plan) to support the growth App Service/Dashboard App.
+   * App Service/Dashboard App ({ENVIRONMENTNAME}meds) supports {ENVIRONMENTNAME}dash App.
+   * App Service Plan ({ENVIRONMENTNAME}meds-plan) to support the meds App Service/Dashboard App.
 
-* The following resources were created by the script:
-    * Dashboard App(a368608dash), we'll use this to validate your synthetic data load.
-    * Azure Function (a368608imp), function will be used to import synthetic data into FHIR API DB.
-    * Storage Account(a368608impsa), We'll drop our synthetic data here for processing.
-    *
+* Go to the **Secondard AD** in Portal. Go to App Registrations. All the 3 different clients are registered here.
 
 ## Task #2: Generate & Load synthetic data.
 
@@ -99,14 +125,14 @@ For this OpenHack, we'll focus on the basic setup and quickest way to get Synthe
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
     * Open Postman and import [Collection](../Postman/FHIR Hack.postman_collection.json) 
-    * Import [Environment](https://github.com/microsoft/OpenHack-FHIR/blob/main/Postman/FHIR%20OpenHack.postman_collection.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
+    * Import [Environment](../Postman/FHIR%20Hack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
       * adtenantId: This is the tenant Id of the Secondary AD tenant
       * clientId: This is the client Id that is stored in Secret "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
       * clientSecret: This is the client Secret that is stored in Secret "{your resource prefix}-service-client-secret" in "{your resource prefix}-ts" Key Vault.
       * bearerToken: The value will be set when "AuthorizeGetToken SetBearer" request is sent.
       * fhirurl: This is https://{your resource prefix}.azurehealthcareapis.com from Azure API for FHIR you created in Task #1 above
       * resource: This is the Audience of the Azure API for FHIR https://{your fhir name}.azurehealthcareapis.com you created in Task #1 above.      
-    * Import [Collection](../Postman/FHIR Hack.postman_collection.json). Collection is a set of requests.
+    * Import [Collection](../Postman/FHIR%20Hack.postman_collection.json). Collection is a set of requests.
       * Open "AuthorizeGetToken SetBearer", make sure the environment you imported in selected in the drop-down in the top right. click Send. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable bearerToken. Shows in Body results how many seconds the token is valid before expires_in. 
       * Open "Get Metadata" and click Send. This will return the CapabilityStatement with a Status of 200 ....This request doesn't use the bearerToken.
       * Open "Get Patient" and click Send. This will return all Patients stored in your FHIR server. Not all might be returned in Postman.
@@ -123,17 +149,6 @@ For this OpenHack, we'll focus on the basic setup and quickest way to get Synthe
 
 ## Help, I'm Stuck!
 Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
-
-* Azure Context: If you are seeing errors, you might have wrong Azure Context. To fix this run the following:
-   ```powershell
-   Clear-AzContext
-   ```
-   ```powershell
-   Set-AzContext -TenantId {Your-PrimaryAzure-Tenant}
-   ```
-   ```powershell
-   Get-AzContext
-   ```
 
 * **{ENVIRONMENTNAME} variable error**: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 13 characters. Here's an example of an error you might see due to a long name.
    <center><img src="../images/errors-envname-length.png" width="850"></center>
