@@ -109,8 +109,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       cd {directory_you_downloaded_synthea_to}
       java -jar synthea-with-dependencies.jar -m "covid19" -p 50
       ```
-      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. It will look something like this:
-      <center><img src="../images/fhirimport-load-sample-data.png" width="850"></center>
+      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. You can go to the storage account and click Monitor to view status.
 
 * ### Option 2: Use Staged data
