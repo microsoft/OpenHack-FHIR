@@ -1,0 +1,834 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "fhirserver-url": {
+            "type": "string"
+        },
+        "fhirserver-clientid": {
+            "type": "string"
+        },
+        "fhirserver-clientSecret": {
+            "type": "securestring"
+        },
+        "utcdate": {
+            "type": "string",
+            "defaultValue": "[utcNow('yyyy-MM-dd')]"
+        },
+        "fhirauth-tenantid": {
+            "type": "string",
+            "defaultValue": "[subscription().tenantId]"
+        },
+        "AzureBatch-poolName": {
+            "type": "string",
+            "defaultValue": "fhirexport2deid"
+        },
+        "batchPoolVMSize": {
+            "defaultValue": "STANDARD_D4_V3",
+            "type": "string"
+        },
+        "IntegrationStorageAccount":{
+            "type": "string"
+        }
+    },
+    "variables": {
+        "rgLocation": "[resourceGroup().location]",
+        "resourceGroup": "[resourceGroup().name]",
+        "subscriptionid": "[subscription().subscriptionId]",
+        "tenantid": "[if(empty(parameters('fhirauth-tenantid')), subscription().tenantId, parameters('fhirauth-tenantid'))]",
+        "utcstart": "[concat(parameters('utcdate'),'T01:00:00Z')]",
+        "datalakeName": "[concat(variables('resourceGroup'),'dlg2')]",
+        "keyVaultName": "[concat(variables('resourceGroup'),'kv')]",
+        "logicAppName": "[concat(variables('resourceGroup'),'la')]",
+        "batchName": "[concat(variables('resourceGroup'),'batch')]",
+        "factoryName": "[concat(variables('resourceGroup'),'adf')]",
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', variables('factoryName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2019-05-01",
+            "name": "[variables('logicAppName')]",
+            "location": "[variables('rgLocation')]",
+            "tags": {
+            "HealthArchitestures": "FHIRToDEIDPipeline"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.DataFactory/factories', variables('factoryName'))]"
+            ],
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "Recurrence": {
+                            "recurrence": {
+                                "frequency": "Day",
+                                "interval": 1,
+                                "startTime": "[variables('utcstart')]",
+                                "timeZone": "UTC"
+                            },
+                            "type": "Recurrence"
+                        }
+                    },
+                    "actions": {
+                        "GetClientId": {
+                            "runAfter": {},
+                            "type": "Http",
+                            "inputs": {
+                                "authentication": {
+                                    "audience": "https://vault.azure.net",
+                                    "type": "ManagedServiceIdentity"
+                                },
+                                "method": "GET",
+                                "queries": {
+                                    "api-version": "2016-10-01"
+                                },
+                                "uri": "[concat('https://',variables('keyVaultName'),'.vault.azure.net/secrets/fhirserver-clientid')]"
+                            },
+                            "runtimeConfiguration": {
+                                "secureData": {
+                                    "properties": [
+                                        "outputs"
+                                    ]
+                                }
+                            }
+                        },
+                        "GetClientSecret": {
+                            "runAfter": {
+                                "GetClientId": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "authentication": {
+                                    "audience": "https://vault.azure.net",
+                                    "type": "ManagedServiceIdentity"
+                                },
+                                "method": "GET",
+                                "queries": {
+                                    "api-version": "2016-10-01"
+                                },
+                                "uri": "[concat('https://',variables('keyVaultName'),'.vault.azure.net/secrets/fhirserver-clientsecret')]"
+                            },
+                            "runtimeConfiguration": {
+                                "secureData": {
+                                    "properties": [
+                                        "outputs"
+                                    ]
+                                }
+                            }
+                        },
+                        "Get_Token": {
+                            "runAfter": {
+                                "Set_FHIR_URL": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "body": "@concat('grant_type=client_credentials&client_id=',body('GetClientId').value,'&client_secret=',body('GetClientSecret').value,'&resource=',variables('fhirurl'))",
+                                "headers": {
+                                    "Content-Type": "application/x-www-form-urlencoded"
+                                },
+                                "method": "POST",
+                                "uri": "[concat('https://login.microsoftonline.com/',variables('tenantid'),'/oauth2/token')]"
+                            }
+                        },
+                        "Set_Source_Container": {
+                            "runAfter": {
+                                "Until": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "SourceContainer",
+                                        "type": "string",
+                                        "value": "@{substring(variables('exportLocation'),sub(length(variables('exportLocation')),36),36)}"
+                                    }
+                                ]
+                            }
+                        },
+                        "Set_Bearer_Token": {
+                            "runAfter": {
+                                "Get_Token": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "BearerToken",
+                                        "type": "string",
+                                        "value": "@{concat('Bearer ',body('Get_Token').access_token)}"
+                                    }
+                                ]
+                            }
+                        },
+                        "Set_Export_Location_Url": {
+                            "runAfter": {
+                                "Trigger_Export": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "exportLocation",
+                                        "type": "string",
+                                        "value": "@{outputs('Trigger_Export')['headers']['Content-Location']}"
+                                    }
+                                ]
+                            }
+                        },
+                        "Set_FHIR_URL": {
+                            "runAfter": {
+                                "GetClientSecret": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "fhirurl",
+                                        "type": "string",
+                                        "value": "[parameters('fhirserver-url')]"
+                                    }
+                                ]
+                            }
+                        },
+                        "Trigger_Azure_Data_Factory_Pipeline": {
+                            "runAfter": {
+                                "Set_Source_Container": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "authentication": {
+                                    "audience": " https://management.azure.com/",
+                                    "type": "ManagedServiceIdentity"
+                                },
+                                "body": {
+                                    "sourceContainer": "@variables('SourceContainer')"
+                                },
+                                "method": "POST",
+                                "uri": "[concat('https://management.azure.com/subscriptions/',variables('subscriptionid'),'/resourceGroups/', variables('resourceGroup'),'/providers/Microsoft.DataFactory/factories/',variables('factoryName'),'/pipelines/AdfAnonymizerPipeline/createRun?api-version=2018-06-01')]"
+                            }
+                        },
+                        "Trigger_Export": {
+                            "runAfter": {
+                                "Set_Bearer_Token": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "headers": {
+                                    "Accept": "application/fhir+json",
+                                    "Authorization": "@{variables('BearerToken')}",
+                                    "Content-Type": "application/json",
+                                    "Prefer": "respond-async"
+                                },
+                                "method": "GET",
+                                "uri": "@{concat(variables('fhirurl'),'/$export')}"
+                            }
+                        },
+                        "Until": {
+                            "actions": {
+                                "Delay": {
+                                    "runAfter": {},
+                                    "type": "Wait",
+                                    "inputs": {
+                                        "interval": {
+                                            "count": 5,
+                                            "unit": "Minute"
+                                        }
+                                    }
+                                },
+                                "Get_New_Token": {
+                                    "runAfter": {
+                                        "Delay": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "Http",
+                                    "inputs": {
+                                        "body": "@concat('grant_type=client_credentials&client_id=',body('GetClientId').value,'&client_secret=',body('GetClientSecret').value,'&resource=',variables('fhirurl'))",
+                                        "headers": {
+                                            "Content-Type": "application/x-www-form-urlencoded"
+                                        },
+                                        "method": "POST",
+                                        "uri": "[concat('https://login.microsoftonline.com/',variables('tenantid'),'/oauth2/token')]"
+                                    },
+                                    "runtimeConfiguration": {
+                                        "secureData": {
+                                            "properties": [
+                                                "inputs",
+                                                "outputs"
+                                            ]
+                                        }
+                                    }
+                                },
+                                "Set_variable": {
+                                    "runAfter": {
+                                        "Get_New_Token": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "SetVariable",
+                                    "inputs": {
+                                        "name": "BearerToken",
+                                        "value": "@{concat('Bearer ',body('Get_New_Token').access_token)}"
+                                    }
+                                },
+                                "Updated_Status": {
+                                    "runAfter": {
+                                        "Set_variable": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "Http",
+                                    "inputs": {
+                                        "headers": {
+                                            "Authorization": "@variables('BearerToken')"
+                                        },
+                                        "method": "GET",
+                                        "uri": "@variables('exportLocation')"
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "Set_Export_Location_Url": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "expression": "@equals(outputs('Updated_Status')['statusCode'], 200)",
+                            "limit": {
+                                "count": 300,
+                                "timeout": "PT9H"
+                            },
+                            "type": "Until"
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {}
+            }
+        },
+        {
+            "name": "[variables('factoryName')]",
+            "type": "Microsoft.DataFactory/factories",
+            "apiVersion": "2018-06-01",
+            "location": "[variables('rgLocation')]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {}
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/AdfAnonymizerPipeline')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Run De-ID",
+                        "type": "Custom",
+                        "dependsOn": [
+                            {
+                                "activity": "GetSourceString",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            },
+                            {
+                                "activity": "SetContainerName",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "command": "cmd /c Powershell.exe -File CustomActivity.ps1",
+                            "resourceLinkedService": {
+                                "referenceName": "Batch_Config",
+                                "type": "LinkedServiceReference"
+                            },
+                            "folderPath": "customactivity/AdfApplication",
+                            "extendedProperties": {
+                                "sourceConnectionString": {
+                                    "value": "@activity('GetSourceString').output.value",
+                                    "type": "Expression"
+                                },
+                                "destinationConnectionString": {
+                                    "value": "@activity('GetSourceString').output.value",
+                                    "type": "Expression"
+                                },
+                                "skipExistedBlob": {
+                                    "value":"@pipeline().parameters.skipExistedBlob",
+                                    "type": "Expression"
+                                }
+                            },
+                            "referenceObjects": {
+                                "linkedServices": [
+                                    {
+                                        "referenceName": "SourceStorageLinkedService",
+                                        "type": "LinkedServiceReference"
+                                    },
+                                    {
+                                        "referenceName": "DestinationStorageLinkedService",
+                                        "type": "LinkedServiceReference"
+                                    }
+                                ],
+                                "datasets": [
+                                    {
+                                        "referenceName": "InputDataset",
+                                        "type": "DatasetReference",
+                                        "parameters": {
+                                            "inputSourceContainer": {
+                                                "value": "@pipeline().parameters.sourceContainer",
+                                                "type": "Expression"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "referenceName": "OutputDataset",
+                                        "type": "DatasetReference",
+                                        "parameters": {
+                                            "datetimeoutput": {
+                                                "value": "@variables('OutputContainer')",
+                                                "type": "Expression"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "AzureBatch",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "GetSourceString",
+                        "type": "WebActivity",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "typeProperties": {
+                            "url": "[concat('https://',variables('keyVaultName'),'.vault.azure.net/secrets/blobstorageacctstring?api-version=7.0')]",
+                            "method": "GET",
+                            "authentication": {
+                                "type": "MSI",
+                                "resource": "https://vault.azure.net"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Copy data from staging to Data Lake",
+                        "type": "Copy",
+                        "dependsOn": [
+                            {
+                                "activity": "Run De-ID",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "JsonSource",
+                                "storeSettings": {
+                                    "type": "AzureBlobStorageReadSettings",
+                                    "recursive": true,
+                                    "wildcardFileName": "*.*",
+                                    "enablePartitionDiscovery": false
+                                },
+                                "formatSettings": {
+                                    "type": "JsonReadSettings"
+                                }
+                            },
+                            "sink": {
+                                "type": "JsonSink",
+                                "storeSettings": {
+                                    "type": "AzureBlobFSWriteSettings"
+                                },
+                                "formatSettings": {
+                                    "type": "JsonWriteSettings",
+                                    "quoteAllText": true
+                                }
+                            },
+                            "enableStaging": false
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "OutputDataset",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "datetimeoutput": "@variables('OutputContainer')"
+                                }
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "DataLakeDestination",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "DataLakeContainerName": {
+                                        "value": "@variables('OutputContainer')",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Clean up Destination Staging Area",
+                        "type": "Delete",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy data from staging to Data Lake",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "dataset": {
+                                "referenceName": "OutputDataset",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "datetimeoutput": {
+                                        "value": "@variables('OutputContainer')",
+                                        "type": "Expression"
+                                    }
+                                }
+                            },
+                            "logStorageSettings": {
+                                "linkedServiceName": {
+                                    "referenceName": "SourceStorageLinkedService",
+                                    "type": "LinkedServiceReference"
+                                },
+                                "path": "adfjobs"
+                            },
+                            "enableLogging": true,
+                            "storeSettings": {
+                                "type": "AzureBlobStorageReadSettings",
+                                "recursive": true
+                            }
+                        }
+                    },
+                    {
+                        "name": "SetContainerName",
+                        "type": "SetVariable",
+                        "dependsOn": [],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "variableName": "OutputContainer",
+                            "value": {
+                                "value": "@concat(formatDateTime(utcnow(), 'yyyyMMddHHmm'), '-output')",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                ],
+                "parameters": {
+                    "skipExistedBlob": {
+                        "type": "bool",
+                        "defaultValue": false
+                    },
+                    "sourceContainer":{
+                        "type":"string",
+                        "defaultValue":"input"
+                    }
+                },
+                "variables": {
+                    "OutputContainer": {
+                        "type": "String"
+                    }
+                },
+                "annotations": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/SourceStorageLinkedService')]",
+                "[concat(variables('factoryId'), '/linkedServices/DestinationStorageLinkedService')]",
+                "[concat(variables('factoryId'), '/datasets/InputDataset')]",
+                "[concat(variables('factoryId'), '/datasets/OutputDataset')]",
+                "[concat(variables('factoryId'), '/linkedServices/Batch_Config')]",
+                "[concat(variables('factoryId'), '/linkedServices/AzureBatch')]",
+                "[concat(variables('factoryId'), '/datasets/DataLakeDestination')]"
+            ]
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/InputDataset')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "SourceStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "inputSourceContainer": {
+                        "type": "string",
+                        "defaultValue":"input"
+                    }
+                },
+                "annotations": [],
+                "type": "Json",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "container": {
+                            "value": "@dataset().inputSourceContainer",
+                            "type": "Expression"
+                        }
+                    }
+                },
+                "schema": {}
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/SourceStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/OutputDataset')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "DestinationStorageLinkedService",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "datetimeoutput": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "type": "Json",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobStorageLocation",
+                        "container": {
+                            "value": "@dataset().datetimeoutput",
+                            "type": "Expression"
+                        }
+                    }
+                },
+                "schema": {}
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/DestinationStorageLinkedService')]"
+            ]
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/DataLakeDestination')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "AzureDataLakeGen2",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "DataLakeContainerName": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "type": "Json",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobFSLocation",
+                        "fileSystem": {
+                            "value": "@dataset().DataLakeContainerName",
+                            "type": "Expression"
+                        }
+                    }
+                },
+                "schema": {}
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureDataLakeGen2')]"
+            ]
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/AzureBatch')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBatch",
+                "typeProperties": {
+                    "accountName": "[variables('batchName')]",
+                    "accessKey": {
+                        "type": "SecureString",
+                        "value": "[listKeys(resourceId('Microsoft.Batch/batchAccounts', variables('batchName')), '2017-09-01').primary]"
+                    },
+                    "batchUri": "[concat('https://',variables('batchName'),'.',variables('rgLocation'),'.batch.azure.com')]",
+                    "poolName": "[parameters('AzureBatch-poolName')]",
+                    "linkedServiceName": {
+                        "referenceName": "Batch_Config",
+                        "type": "LinkedServiceReference"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/Batch_Config')]"
+            ]
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/Batch_Config')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobStorage",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "AzureKeyVaultSecret",
+                        "store": {
+                            "referenceName": "AzureKeyVault",
+                            "type": "LinkedServiceReference"
+                        },
+                        "secretName": "blobstorageacctstring"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureKeyVault')]"
+            ]
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/AzureDataLakeGen2')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobFS",
+                "typeProperties": {
+                    "url": "[concat('https://',variables('datalakeName'),'.dfs.core.windows.net')]",
+                    "accountKey": {
+                        "type": "AzureKeyVaultSecret",
+                        "store": {
+                            "referenceName": "AzureKeyVault",
+                            "type": "LinkedServiceReference"
+                        },
+                        "secretName": "datalakekey"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureKeyVault')]"
+            ]
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/SourceStorageLinkedService')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobStorage",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "AzureKeyVaultSecret",
+                        "store": {
+                            "referenceName": "AzureKeyVault",
+                            "type": "LinkedServiceReference"
+                        },
+                        "secretName": "blobstorageacctstring"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureKeyVault')]"
+            ]
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/DestinationStorageLinkedService')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobStorage",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "AzureKeyVaultSecret",
+                        "store": {
+                            "referenceName": "AzureKeyVault",
+                            "type": "LinkedServiceReference"
+                        },
+                        "secretName": "blobstorageacctstring"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/AzureKeyVault')]"
+            ]
+        },
+        {
+            "name": "[concat(variables('factoryName'), '/AzureKeyVault')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureKeyVault",
+                "typeProperties": {
+                    "baseUrl": "[concat('https://',variables('keyVaultName'),'.vault.azure.net/')]"
+                }
+            },
+            "dependsOn": [
+                "[variables('factoryName')]"
+            ]
+        }
+    ],
+    "outputs": {}
+}
