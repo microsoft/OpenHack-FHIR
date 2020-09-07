@@ -42,6 +42,9 @@ Needs to be installed for Challenge02:
 ## References
 * [Microsoft Cloud for Healthcare](https://www.microsoft.com/en-us/industry/health/microsoft-cloud-for-healthcare)
 * [Microsoft Health Architecture GitHub](https://github.com/microsoft/health-architectures)
+* [HIPPA Safe Harbor Method](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html)
+* [HL7 bulk export](https://hl7.org/Fhir/uv/bulkdata/export/index.html)
+* [FHIR Tools for Anonymization](https://github.com/microsoft/FHIR-Tools-for-Anonymization)
 
 ***
 
