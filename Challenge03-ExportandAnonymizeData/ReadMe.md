@@ -58,7 +58,17 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
    * Save & close the parameters file.
 
 * Replace Template file
-   * Open the ./Assets/**arm_template_part2.json** file with [this](/arm_template_part2.json)
+   * Replace ./Assets/**arm_template_part2.json** file with [this](/arm_template_part2.json)
+
+* Optional Setup
+The FHIR Export with Anonymization uses the default settings in the Anonymization toolset. If you would like other settings please follow theses steps prior to deployment:
+   * Find and copy the zip file ./Assets/AdfApplication.zip to a new temporary location
+   * Unzip the file
+   * In the unzipped folder locate the file called configuration-sample.json
+   * Open the file and make your setting adjustments. Configuration file settings can be found [here]( https://github.com/microsoft/FHIR-Tools-for-Anonymization#configuration-file-format)
+   * Save your configuration changes.
+   * Zip the folder backup. Make sure the zipped folder is the same name 'AdfApplication.zip'.
+   * Replace the zip file in the Assets folder with the new zip file.
 
 ## Task #2: Deploy to Bulk Export and Anonymize FHIR data
 
