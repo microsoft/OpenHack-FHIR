@@ -157,8 +157,8 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
     * Open Postman and import [Collection](../Postman/FHIR Hack.postman_collection.json) 
     * Import [Environment](../Postman/FHIR%20Hack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
       * adtenantId: This is the tenant Id of the Secondary AD tenant
-      * clientId: This is the client Id that is stored in Secret "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
-      * clientSecret: This is the client Secret that is stored in Secret "{your resource prefix}-service-client-secret" in "{your resource prefix}-ts" Key Vault.
+      * clientId: This is the client Id that is stored in Secret "{your resource prefix}-confidential-client-id" in "{your resource prefix}-ts" Key Vault.
+      * clientSecret: This is the client Secret that is stored in Secret "{your resource prefix}-confidential-client-secret" in "{your resource prefix}-ts" Key Vault.
       * bearerToken: The value will be set when "AuthorizeGetToken SetBearer" request is sent.
       * fhirurl: This is https://{your resource prefix}.azurehealthcareapis.com from Azure API for FHIR you created in Task #1 above
       * resource: This is the Audience of the Azure API for FHIR https://{your fhir name}.azurehealthcareapis.com you created in Task #1 above.      
