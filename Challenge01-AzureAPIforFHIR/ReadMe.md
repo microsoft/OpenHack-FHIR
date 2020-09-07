@@ -18,15 +18,36 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
+* **Azure Subscription**: You will need permissions to perform CRUD operations in the Subscription.
+
 * **Create Secondary AD tenant**: Azure API for FHIR needs to be deployed in Active Directory tenants for Data control plane authorization and Resource control plane for resources. Most of the companies lock down Active Directory App Registration for security where you can't publish App, register roles or grant permissions. So, you will create local Active Directory which is free. This will 
    * Go to Portal, navigate to Azure Active Directory. Click "Create a tenant". Give it a name for example: "{yourname}fhirad" for Organization name and Initial domain name and click Create. This will be referred to as **Secondary AD** in this page for clarity. 
 
-* **Install PowerShell modules**: Primary script deployer is going to be PowerShell. Using either the Azure PowerShell or Windows PowerShell and make sure you are running it as administrator.    * Install Azure Commandlets and Azure AD Commandlets.
+* **PowerShell modules**: Primary script deployer is going to be PowerShell. Using either the Azure PowerShell or Windows PowerShell and make sure you are running it as administrator. 
+   * Get PowerShell module version: Make sure your version is 5.1.19041.1. If not, install this version.
 
    ```powershell
-   Install-Module Az
-   Install-Module AzureAd
+   $PSVersionTable.PSVersion
    ```  
+   * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2, then proceed to login step. If not, get the right versions.
+
+   ```powershell
+   Get-InstalledModule -Name Az
+   Get-InstalledModule -Name AzureAd
+   ```  
+
+   * Uninstall and Re-install PowerShell modules: Uninstall Az and AzureAd modules and install the right version needed.
+   ```powershell
+   Uninstall-Module -Name Az
+   Uninstall-Module -Name AzureAD
+   ```  
+
+   ```powershell
+   Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
+   Install-Module AzureAD -RequiredVersion 2.0.2.4
+   ```  
+
+   * Close PowerShell and open a new session.
 
    * Login to your Azure account where you want to deploy resources and authenticate. This will be called **Primary AD** in this page for clarity.
    ```powershell
@@ -62,26 +83,27 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    ```powershell
    git clone https://github.com/Microsoft/fhir-server-samples
    ``` 
-* Navigate to the scripts directory where the Repo was downloaded to. Run the **one shot deployment.** Don't forget the **.\** before Create.
+* Navigate to the scripts directory where the Repo was downloaded to. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
    ```powershell
    cd fhir-server-samples/deploy/scripts
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The ENVIRONMENTNAME is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be globally unique and can't be longer than 13 characters. 
+   * The ENVIRONMENTNAME is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be globally unique, all lowercase and can't be longer than 13 characters. 
    * If EnvironmentLocation is not specified, it defaults to westus.
    * This is a PaaS, so leave it as $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
    
-* On **successful completion**, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. Your resource group should look something like this:
-   <center><img src="../images/fhir-demo-resources.png" width="850"></center>
+* On **successful completion**, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. NOTE: As AppInsights is not available in all location, by default will be created in East US.
 
    The following resources in resource group **{ENVIRONMENTNAME}** will be created:
    * Azure API for FHIR ({ENVIRONMENTNAME}) is the FHIR server
-   * Key Value ({ENVIRONMENTNAME}-ts) stores all secrets for all clients (public for single page apps/javascripts that can't hold secrets, confidential for clients that hold secrets, service for service to service) needs to talk to FHIR server.
+   * Key Vault ({ENVIRONMENTNAME}-ts) stores all secrets for all clients (public for single page apps/javascripts that can't hold secrets, confidential for clients that hold secrets, service for service to service) needs to talk to FHIR server.
    * App Service/Dashboard App ({ENVIRONMENTNAME}dash) used to analyze data loaded.
-   * App Service Plan ({ENVIRONMENTNAME}imp) to support the App Service/Dashboard App.
-   * Azure Function ({ENVIRONMENTNAME}imp) is the import function that listens on the import storage account where you can drop bundles that get loaded into FHIR server.
+   * App Service Plan ({ENVIRONMENTNAME}-asp) to support the App Service/Dashboard App.
+   * Function App ({ENVIRONMENTNAME}imp) is the import function that listens on the import storage account where you can drop bundles that get loaded into FHIR server.
+   * App Service Plan ({ENVIRONMENTNAME}imp) to support the Function App.
+   * Application Insights ({ENVIRONMENTNAME}imp) to monitor the Function App.
    * Storage Account ({ENVIRONMENTNAME}export) to store the data when exported from FHIR server.
    * Storage Account ({ENVIRONMENTNAME}impsa) is the storage account where synthetic data will be uploaded for loading to FHIR server.
 
@@ -114,11 +136,12 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
 * ### Option 2: Use Staged data
    * For this option, we have already generated the sample data and loaded it into a publicly available storage account. The account URL and SAS token are included below.
-   ```shell
-   Account URL: https://a368608impsa.file.core.windows.net/
-   SAS Token: ?sv=2019-12-12&ss=bfqt&srt=c&sp=rwdlacupx&se=2020-08-21T05:50:18Z&st=2020-08-20T21:50:18Z&spr=https&sig=hLoeY7kq3B%2FXvmJsBLboMsdMmMnv%2F2liAX3l231ux00%3D
-   ```
-   * Use these credentials to copy the sythetic data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account.
+      ```shell
+      Account URL: https://a368608impsa.file.core.windows.net/
+      SAS Token: ?sv=2019-12-12&ss=bfqt&srt=c&sp=rwdlacupx&se=2020-08-21T05:50:18Z&st=2020-08-20T21:50:18Z&spr=https&sig=hLoeY7kq3B%2FXvmJsBLboMsdMmMnv%2F2liAX3l231ux00%3D
+      ```
+      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. 
+      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. You can go to the storage account and click Monitor to view status.
 
 ## Task #3: Validate data load
 
