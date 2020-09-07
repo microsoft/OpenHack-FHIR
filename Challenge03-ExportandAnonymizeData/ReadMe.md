@@ -50,82 +50,51 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 * Update Parameters file
    * Navigate to health-architectures/FHIR/FHIRExportwithAnonymization folder. 
    * Open the ./Assets/arm_template_parameters.json file in your perferred json editor. 
-   * Replace FHIR URL for the Azure API for FHIR Server typically https://{name}azurehealthcareapis.com
-   * Replace Client ID for the Service Client. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * Replace Client Secret for the Service Client. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * Replace Storage Account ({ENVIRONMENTNAME}export) to store the data when exported from FHIR server.
+   * Replace fhirserver-url value for the Azure API for FHIR Server typically https://{name}azurehealthcareapis.com
+   * Replace fhirserver-clientid value for the Confidential Client. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Replace fhirserver-clientSecret value for the Confidential Client. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Replace fhirauth-tenantid value for the SecondaryAD. You can get this from [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * No value is needed for IntegrationStorageAccount as a Storage Account will be created.
+   * Save & close the parameters file.
 
-   ```json
-   {
-       "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-       "contentVersion": "1.0.0.0",
-       "parameters": {
-           "fhirserver-url": {
-               "value": "<<FHIR SERVER URL>>",
-               "metadata": {
-                   "description":"https://<myfhir>.azurehealthcareapis.com  WARNING: make sure to remove the forward slash / after .com
-                   If you are using the FHIR Proxy enter the fhir proxy url."
-               }
-           },
-           "fhirserver-clientid": {
-               "value": "<<FHIR SERVER CLIENT ID>>"
-           },
-           "fhirserver-clientSecret": {
-               "value": "<<FHIR SERVER CLIENT SECRET>>"
-           },
-           "fhirauth-tenantid": {
-               "value": "",
-               "metadata": {
-                   "description": "Supply only if FHIR authenication and the deployment subscription are not in the same tenant. If you are unsure leave "" or remove entire segment"
-               }
-           },
-           "IntegrationStorageAccount":{
-               "value": "",
-               "metadata":{
-                   "description": "If the FHIR integration has already been setup with a storage account, then add the name of the storage account here. Otherwise a new storage account will be created."
-               }
-           }
-       }
-   }
-   ```
-
-   Save & close the parameters file.
+* Replace Template file
+   * Open the ./Assets/**arm_template_part2.json** file with [this](/arm_template_part2.json)
 
 ## Task #2: Deploy to Bulk Export and Anonymize FHIR data
 
 * Open **PowerShell** and navigate to this directiory
    ```powershell
-   cd health-architectures/FHIRExportQuickStart
+   cd health-architectures\FHIR\FHIRExportwithAnonymization
     ```
 
-* **Connect** to Azure
+* **Connect to Secondary AD** and authenticate
     ```powershell
-    Connect-AzAccount
+    Connect-AzureAd -TenantDomain **{yourname}fhirad.onmicrosoft.com**
     ```
 
-* **Get** subscriptions for this account
-    ```powershell
-    Get-AzSubscription
-    ```
-
-* **Select** the right subscription
-    ```powershell
-    Select-AzSubscription -SubscriptionId "<SubscriptionId>"
-    ```
-
-* Create the PowerShell variables required by the template and **Deploy** the pipeline
+* **Deploy** the pipeline and enter {ENVIRONMENTNAME} when prompted. EnvironmentLocation is eastus by default.
    ```powershell
-   $EnvironmentName = "<NAME HERE>" #The name must be lowercase, begin with a letter, end with a letter or digit, and not contain hyphens.
-   $EnvironmentLocation = "<LOCATION HERE>" #optional input. The default is eastus2
-
-   ./deployFHIRExportwithAnonymization.ps1 -EnviromentName $EnvironmentName -EnvironmentLocation $EnvironmentLocation #Environment Location is optional
+   ./deployFHIRExportwithAnonymization.ps1 
    ```
 
    This deployment process may take 5 minutes or more to complete.
 
+* The following resources in resource group {ENVIRONMENTNAME} will be created:
+   * Azure Data Factory {ENVIRONMENTNAME}adf
+   * Batch Account {ENVIRONMENTNAME}batch
+   * Key Vault {ENVIRONMENTNAME}kv
+   * Logic App {ENVIRONMENTNAME}la
+   * Storage Account {ENVIRONMENTNAME}stg
+   * Storage Account {ENVIRONMENTNAME}dlg2
+
+   Time to export data and do some research!
+
 ## Task #3: Validate data load
-* Locate the name of the storage account from the deployment. The default is the Environment Name with 'stg' appended to the end.
-* To check your data simply download the file and verify the data is deidentifiied!
+* Go to Resource Group {ENVIRONMENTNAME} created.
+* Click on the Logic App and click Run Trigger. You can click on the Running status in Runs History below in the same screen. The time taken to complete depends on the volume of data you have in Azure API for FHIR.
+* When completed successfully, view the below
+   * {ENVIRONMENTNAME}export Storage Account will have a new container created and ndjson files for every resource will be exported.
+   * Compare {ENVIRONMENTNAME}stg and {ENVIRONMENTNAME}dlg2 Storage Accounts.  {ENVIRONMENTNAME}stg will have pre-anonymized ndjson files for every resource. {ENVIRONMENTNAME}dlg2 will have anonymized ndjson files for every resource.
 
 ## Congratulations! You have successfully completed Challenge03!
 
