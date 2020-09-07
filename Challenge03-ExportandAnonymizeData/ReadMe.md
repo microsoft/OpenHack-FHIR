@@ -12,17 +12,17 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 ## Reference Architecture
 <center><img src="../images/challenge03-architecture.png" width="450"></center>
 
-* **Logic App**:
+* **Azure Logic App**:
    * is triggered by a timer, 1:00 AM UTC is the default
-   * calls FHIR service with GET $export call to export data into Blob Storage
-   * runs an Until loop in 5 minute interval checking for the Bulk Export $export to finish. The frequency is adjustable inside the Azure Logic App.
-   * sends the $export storage location information to Azure Data Factory
+   * calls **FHIR service** with GET $export call to export data into **Blob Storage**
+   * runs an Until loop in 5 minute interval checking for the Bulk Export $export to finish. The frequency is adjustable inside the **Logic App**.
+   * sends the $export storage location information to **Azure Data Factory**
 * **FHIR server**:
    * pushes bulk export to preset storage location. This Storage Account ({ENVIRONMENTNAME}export) was created in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
 * **Azure Data Factory**:
-   * calls Azure Batch with the storage location information
+   * calls **Azure Batch** with the storage location information
    * **Azure Batch** performs the deidentification with the FHIR Tools for Anonymization
-   * put the deidentified data in Azure Data Lake Gen2
+   * put the deidentified data in **Azure Data Lake Gen2**
 
 ## To complete this challenge successfully, you will perform the following tasks.
 
@@ -38,7 +38,7 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 
 ## Getting Started
 
-## Task #1: Bulk Export
+## Task #1: Setup
 * Enable Export
    If you deployed Azure API for FHIR in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md) with EnableExport $false, then follow the instructions here for attaching the FHIR service to the storage account. <https://docs.microsoft.com/en-us/azure/healthcare-apis/configure-export-data>
 
@@ -57,63 +57,63 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 
    ```json
    {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "fhirserver-url": {
-            "value": "<<FHIR SERVER URL>>",
-            "metadata": {
-                "description":"https://<myfhir>.azurehealthcareapis.com  WARNING: make sure to remove the forward slash / after .com
-                If you are using the FHIR Proxy enter the fhir proxy url."
-            }
-        },
-        "fhirserver-clientid": {
-            "value": "<<FHIR SERVER CLIENT ID>>"
-        },
-        "fhirserver-clientSecret": {
-            "value": "<<FHIR SERVER CLIENT SECRET>>"
-        },
-        "fhirauth-tenantid": {
-            "value": "",
-            "metadata": {
-                "description": "Supply only if FHIR authenication and the deployment subscription are not in the same tenant. If you are unsure leave "" or remove entire segment"
-            }
-        },
-        "IntegrationStorageAccount":{
-            "value": "",
-            "metadata":{
-                "description": "If the FHIR integration has already been setup with a storage account, then add the name of the storage account here. Otherwise a new storage account will be created."
-            }
-        }
-    }
+       "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+       "contentVersion": "1.0.0.0",
+       "parameters": {
+           "fhirserver-url": {
+               "value": "<<FHIR SERVER URL>>",
+               "metadata": {
+                   "description":"https://<myfhir>.azurehealthcareapis.com  WARNING: make sure to remove the forward slash / after .com
+                   If you are using the FHIR Proxy enter the fhir proxy url."
+               }
+           },
+           "fhirserver-clientid": {
+               "value": "<<FHIR SERVER CLIENT ID>>"
+           },
+           "fhirserver-clientSecret": {
+               "value": "<<FHIR SERVER CLIENT SECRET>>"
+           },
+           "fhirauth-tenantid": {
+               "value": "",
+               "metadata": {
+                   "description": "Supply only if FHIR authenication and the deployment subscription are not in the same tenant. If you are unsure leave "" or remove entire segment"
+               }
+           },
+           "IntegrationStorageAccount":{
+               "value": "",
+               "metadata":{
+                   "description": "If the FHIR integration has already been setup with a storage account, then add the name of the storage account here. Otherwise a new storage account will be created."
+               }
+           }
+       }
    }
    ```
 
    Save & close the parameters file.
 
-## Task #2: Setup to Bulk Export and Anonymize FHIR data
+## Task #2: Deploy to Bulk Export and Anonymize FHIR data
 
 * Open **PowerShell** and navigate to this directiory
    ```powershell
    cd health-architectures/FHIRExportQuickStart
     ```
 
-* Connect to Azure
+* **Connect** to Azure
     ```powershell
     Connect-AzAccount
     ```
 
-* Get subscriptions for this account
+* **Get** subscriptions for this account
     ```powershell
     Get-AzSubscription
     ```
 
-* Select the right subscription
+* **Select** the right subscription
     ```powershell
     Select-AzSubscription -SubscriptionId "<SubscriptionId>"
     ```
 
-* Create the PowerShell variables required by the template and deploy the pipeline
+* Create the PowerShell variables required by the template and **Deploy** the pipeline
    ```powershell
    $EnvironmentName = "<NAME HERE>" #The name must be lowercase, begin with a letter, end with a letter or digit, and not contain hyphens.
    $EnvironmentLocation = "<LOCATION HERE>" #optional input. The default is eastus2
@@ -133,8 +133,8 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
 * Common Azure Batch errors:
-   Azure Batch is not enabled in the subscription
-   Azure Batch already deployed the max number of time in a subscription
+   * Azure Batch is not enabled in the subscription
+   * Azure Batch already deployed the max number of time in a subscription
 
 * If you would like to adjust the start time or run interval, open the Logic App in the deployed resource group. The first step called 'Recurrence' is where the timer is stored.
 
