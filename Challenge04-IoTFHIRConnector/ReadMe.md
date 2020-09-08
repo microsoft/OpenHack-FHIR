@@ -113,9 +113,9 @@ You also team up with Data Scientist, where they want to analyze streaming obser
 
 ## Task #3: Validate data loaded using Postman
 * If you haven't done setting up Postman in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
-* Open "AuthorizeGetToken SetBearer", choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
-* Open "Get Device" and Click Send. This should return the device.
-* Open "Get Observation" and Click Send. This should return the observations.
+* Open "AuthorizeGetToken SetBearer" request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
+* Open "Get Device" request in FHIR Hack folder and Click Send. This should return the device.
+* Open "Get Observation" request in FHIR Hack folder and Click Send. This should return the observations.
 
 ## Congratulations! You have successfully completed Challenge04!
 

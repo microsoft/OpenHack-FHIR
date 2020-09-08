@@ -104,7 +104,7 @@ Let's get started:
 ## Task #3: Validate data load using Postman
 * If you haven't done setting up Postman in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
 * Open "AuthorizeGetToken SetBearer", choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
-* Open "Get Patient Filter HL7" and Click Send. This should return the patient with family name EVERYMAN from sample HL7 file loaded.
+* Open "Get Patient Filter HL7" request in FHIR Hack folder and Click Send. This should return the patient with family name EVERYMAN from sample HL7 file loaded.
 
 
 ## Congratulations! You have successfully completed Challenge02!
