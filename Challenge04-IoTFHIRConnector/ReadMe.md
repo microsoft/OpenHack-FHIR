@@ -103,10 +103,10 @@ You also team up with Data Scientist, where they want to analyze streaming obser
    * Select **Create** at the bottom of the page to deploy your application.
    * More details on [Continuous Patient Monitoring](https://docs.microsoft.com/en-us/azure/iot-central/healthcare/tutorial-continuous-patient-monitoring#create-an-application-template).
 * Connect your IoT data with the Azure IoT Connector for FHIR
-   * To ingest the telemetry from Smart Vitals Patch simulator into FHIR, navigate to IoT Central App created, click on **Data Export** under App Settings in the left navigation.
-   * Select **New Export**. Enter a display name for your new export, and make sure the data export is Enabled.
-   * Choose **Telemetry** as the type of data to export.
-   * Under **Destinations**, click create a new one. Enter a name for Destination Name, pick Azure Event Hubs for Destination Type, and paste the Connection String copied from above.
+   * To ingest the telemetry from Smart Vitals Patch simulator into FHIR, navigate to IoT Central App created, click on **Data Export (legacy)** under App Settings in the left navigation.
+   * Choose **New --> Azure Event Hubs**. Enter a display name for your new export, and make sure the data export is Enabled.
+   * Choose **Connection String** in Event Hubs namespace and paste the Connection String copied from above. Event Hub name will autofill.
+   * Make sure **Telemetry** is enabled, Devices and Device templates are disabled.
    * Click Save.
    * More details on [Data Export](https://docs.microsoft.com/en-us/azure/iot-central/core/howto-export-data#set-up-data-export).
 
