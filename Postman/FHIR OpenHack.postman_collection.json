@@ -659,12 +659,18 @@
 					}
 				],
 				"url": {
-					"raw": "{{fhirurl}}/Observation",
+					"raw": "{{fhirurl}}/Observation?code=http://loinc.org|8867-4",
 					"host": [
 						"{{fhirurl}}"
 					],
 					"path": [
 						"Observation"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "http://loinc.org|8867-4"
+						}
 					]
 				}
 			},
@@ -832,12 +838,18 @@
 					}
 				],
 				"url": {
-					"raw": "{{fhirurl}}/Device",
+					"raw": "{{fhirurl}}/Device?identifier=1qsi9p8t5l2",
 					"host": [
 						"{{fhirurl}}"
 					],
 					"path": [
 						"Device"
+					],
+					"query": [
+						{
+							"key": "identifier",
+							"value": "1qsi9p8t5l2"
+						}
 					]
 				}
 			},
