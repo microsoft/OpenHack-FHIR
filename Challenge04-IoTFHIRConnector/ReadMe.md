@@ -30,11 +30,10 @@ You also team up with Data Scientist, where they want to analyze streaming obser
 * **Deploy IoT Connector for FHIR**
    * **Go to Azure API for FHIR** resource deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md)
    * On the left-hand navigation menu, click on **IoT Connector** under the Add-ins section to open the IoT Connectors page.
-   * If you don't see a IoT Connector already, click on the Add button to open the **Create IoT Connector** page.
-      * Enter settings for the new Azure IoT Connector for FHIR. Click on Create button and await Azure IoT Connector for FHIR deployment.
-      * [NOTE] Must select Create as the value for the Resolution type drop down for this installation.
-      * Connector name should be unique within an Azure API for FHIR resource. The name can only contain lowercase letters, numbers, and the hyphen (-) character. It must start and end with a letter or a number, and must be between 3-24 characters in length.
-      * Resolution type can be Lookup or Create. Select Lookup if you have another process to create Device and Patient FHIR resources in your Azure API for FHIR. Azure IoT Connector for FHIR will use reference to these resources when creating an Observation FHIR resource to represent the device data. Select Create when you want Azure IoT Connector for FHIR to create bare-bones Device and Patient resources in your Azure API for FHIR using respective identifier values present in the device data.
+   * If you already see IoT Connector, go to next step. If you don't see a IoT Connector already, click on the Add button to open the **Create IoT Connector** page.
+      * Enter Connector name for the new Azure IoT Connector for FHIR. Choose Create  for Resolution Type and click on Create button.
+         * [NOTE] Connector name should be unique within an Azure API for FHIR resource. The name can only contain lowercase letters, numbers, and the hyphen (-) character. It must start and end with a letter or a number, and must be between 3-24 characters in length.
+         * [NOTE] Resolution type can be Lookup or Create. Select Lookup if you have another process to create Device and Patient FHIR resources in your Azure API for FHIR. In that case, Azure IoT Connector for FHIR will use reference to these resources when creating an Observation FHIR resource to represent the device data. Select Create when you want Azure IoT Connector for FHIR to create bare-bones Device and Patient resources in your Azure API for FHIR using respective identifier values present in the device data.
       * Once installation is complete, the newly created Azure IoT Connector for FHIR will show up on the IoT Connectors page.
 * **Configure Azure IoT Connector for FHIR**
    * Azure IoT Connector for FHIR needs **two mapping templates** to transform device messages into FHIR-based Observation resource(s): device mapping and FHIR mapping. Your Azure IoT Connector for FHIR isn't fully operational until these mappings are uploaded.
