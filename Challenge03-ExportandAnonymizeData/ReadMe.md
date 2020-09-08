@@ -50,11 +50,11 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 * Update Parameters file
    * Navigate to health-architectures/FHIR/FHIRExportwithAnonymization folder. 
    * Open the ./Assets/arm_template_parameters.json file in your perferred json editor. 
-   * Replace fhirserver-url value for the Azure API for FHIR Server typically https://{name}azurehealthcareapis.com
-   * Replace fhirserver-clientid value for the Confidential Client. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * Replace fhirserver-clientSecret value for the Confidential Client. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * Replace fhirauth-tenantid value for the SecondaryAD. You can get this from [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * No value is needed for IntegrationStorageAccount as a Storage Account will be created.
+   * Add value for fhirserver-url. This is Azure API for FHIR Server URL, typically https://{name}azurehealthcareapis.com
+   * Add value for fhirserver-clientid. This is Confidential Client ID. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Add value for fhirserver-clientSecret. This is Confidential Client Secret. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Add value for fhirauth-tenantid. This is SecondaryAD Tenant ID. You can get this from [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Add value for IntegrationStorageAccount. This is created in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md) typically {ENVIRONMENTNAME}export.
    * Save & close the parameters file.
 
 * Replace Template file
@@ -97,14 +97,18 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
    * Storage Account {ENVIRONMENTNAME}stg
    * Storage Account {ENVIRONMENTNAME}dlg2
 
+* Configure export setting and set up the storage account
+   * Navigate to Azure API for FHIR service and select Identity blade. Make sure the status to On will enable managed identity in Azure API for FHIR Service.
+   * Navigate to Access Control (IAM) blade in Storage Account {ENVIRONMENTNAME}stg and select Add Role Assignments. Add role Storage Blob Data Contributor to Azure API for FHIR service created in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Navigate to Integration blade in Azure API for FHIR service in Azure portal and select the storage account {ENVIRONMENTNAME}stg.
+
    Time to export data and do some research!
 
 ## Task #3: Validate data load
 * Go to Resource Group {ENVIRONMENTNAME} created.
 * Click on the Logic App and click Run Trigger. You can click on the Running status in Runs History below in the same screen. The time taken to complete depends on the volume of data you have in Azure API for FHIR.
 * When completed successfully, view the below
-   * {ENVIRONMENTNAME}export Storage Account will have a new container created and ndjson files for every resource will be exported.
-   * Compare {ENVIRONMENTNAME}stg and {ENVIRONMENTNAME}dlg2 Storage Accounts.  {ENVIRONMENTNAME}stg will have pre-anonymized ndjson files for every resource. {ENVIRONMENTNAME}dlg2 will have anonymized ndjson files for every resource.
+   * Compare the containers with suffix output in {ENVIRONMENTNAME}stg and {ENVIRONMENTNAME}dlg2 Storage Accounts. {ENVIRONMENTNAME}stg will have pre-anonymized ndjson files for every resource. {ENVIRONMENTNAME}dlg2 will have anonymized ndjson files for every resource.
 
 ## Congratulations! You have successfully completed Challenge03!
 
