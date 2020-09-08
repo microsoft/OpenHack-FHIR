@@ -1,45 +1,121 @@
 # Challenge04 - IoT Converter for FHIR
 
 ## Scenario
-The business unit you worked with is ecstatic with the data you provided and they’ve made tons of great progress driving new insights. Results have been so impressive that the Equipment Operations team has come to you with some hope – and some budget! They have lots of new COVID-related challenges as waves of infections cycle through some locations. They would love to know where equipment is, if it’s being used, and when was it last used and maintained.
+The business unit you worked with is ecstatic with the data you provided and they’ve made tons of great progress driving new insights. Results have been so impressive that the Medical Equipment Operations team has come to you with some hope – and some budget! They have lots of new COVID-related challenges as waves of infections cycle through some locations. They would love to know where equipment is, if it’s being used, and when was it last used and maintained.
 
 Medical device companies are getting better and better at providing intelligence on telemetry data, events, and more.
 
 As a software developer owning the Azure FHIR API, you must first set up the IoT ingestion.
-
-For the second half of the challenge, you are switching hats to a data analysis role. You need to visualize and then analyze observations from a set of medical devices.
-Data Scientist persona fits here, where they want to analyze streaming observations from devices to find patterns and make predictions. IoT remote patient monitoring sends basic healthcare telemetry. Do we need to explore respirator data?
-
-Same data science team is now learning FHIR and are very excited - so of course they want more data! [Not sure it makes sense, but can we generate synthetic respirator data to maintain COVID story? I’m thinking some limited number of devices and data points they can get their heads around since not everyone will be savvy on device data.]
-
-Task: Ingest IoT data [Jeff: ideally, this represents one or more COVID-related devices – like respirators. I think it’d be great to understand what machines were not/running and maybe last updated/maintained “checkpoints”.]
+For the second half of the challenge, you are switching hats to a data analysis role. You need to analyze observations from Smart Vitals medical device.
+You also team up with Data Scientist, where they want to analyze streaming observations from devices to find patterns and make predictions. IoT remote patient monitoring sends basic healthcare telemetry. 
 
 ## Reference Architecture
 <center><img src="../images/challenge04-architecture.png" width="350"></center>
 
-
 ## To complete this challenge successfully, you will perform the following tasks.
 
-* **Setup IoT Central** using continuous patient monitoring application template.
-* **Ingest data using IoT Connector for FHIR**. You will deploy the connector and use the simulated device to load that data into FHIR.
-* **Validate data load**. You will validate the data using Postman.
+* **Deploy and configure Azure IoT Connector for FHIR** using the Azure portal
+* **Setup IoT Device in IoT Central and Connect to FHIR** using continuous patient monitoring application template.
+* **Validate data load** using Postman.
 
 ## Before you start
 
-Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
+* Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
+
+* Make sure you have completed [Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge01-AzureAPIforFHIR/ReadMe.md).
 
 ## Getting Started
 
-## Task #1: Setup IoT Central
-Use the continuous data export feature in IoT Central to export data to Event Hub...
+## Task #1: Deploy and configure Azure IoT Connector for FHIR
+* **Deploy IoT Connector for FHIR**
+   * **Go to Azure API for FHIR** resource deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md)
+   * On the left-hand navigation menu, click on **IoT Connector** under the Add-ins section to open the IoT Connectors page.
+   * If you don't see a IoT Connector already, click on the Add button to open the **Create IoT Connector** page.
+      * Enter settings for the new Azure IoT Connector for FHIR. Click on Create button and await Azure IoT Connector for FHIR deployment.
+      * [NOTE] Must select Create as the value for the Resolution type drop down for this installation.
+      * Connector name should be unique within an Azure API for FHIR resource. The name can only contain lowercase letters, numbers, and the hyphen (-) character. It must start and end with a letter or a number, and must be between 3-24 characters in length.
+      * Resolution type can be Lookup or Create. Select Lookup if you have another process to create Device and Patient FHIR resources in your Azure API for FHIR. Azure IoT Connector for FHIR will use reference to these resources when creating an Observation FHIR resource to represent the device data. Select Create when you want Azure IoT Connector for FHIR to create bare-bones Device and Patient resources in your Azure API for FHIR using respective identifier values present in the device data.
+      * Once installation is complete, the newly created Azure IoT Connector for FHIR will show up on the IoT Connectors page.
+* **Configure Azure IoT Connector for FHIR**
+   * Azure IoT Connector for FHIR needs **two mapping templates** to transform device messages into FHIR-based Observation resource(s): device mapping and FHIR mapping. Your Azure IoT Connector for FHIR isn't fully operational until these mappings are uploaded.
+   * To **upload mapping templates**, click on the newly deployed Azure IoT Connector for FHIR to go to the IoT Connector page.
+      * Device mapping template transforms device data into a normalized schema. On the IoT Connector page, click on Configure device mapping button to go to the Device mapping page. On the Device mapping page, add the following script to the JSON editor and click Save.
+      ```
+      {
+        "templateType": "CollectionContent",
+        "template": [
+          {
+            "templateType": "IotJsonPathContent",
+            "template": {
+              "typeName": "heartrate",
+              "typeMatchExpression": "$..[?(@Body.HeartRate)]",
+              "patientIdExpression": "$.SystemProperties.iothub-connection-device-id",
+              "values": [
+                {
+                  "required": "true",
+                  "valueExpression": "$.Body.HeartRate",
+                  "valueName": "hr"
+                }
+              ]
+            }
+          }
+        ]
+      }
+     ``` 
+      * FHIR mapping template transforms a normalized message to a FHIR-based Observation resource. On the IoT Connector page, click on Configure FHIR mapping button to go to the FHIR mapping page. On the FHIR mapping page, add the following script to the JSON editor and click Save.
+      ```
+      {
+        "templateType": "CollectionFhir",
+        "template": [
+          {
+            "templateType": "CodeValueFhir",
+            "template": {
+              "codes": [
+                {
+                  "code": "8867-4",
+                  "system": "http://loinc.org",
+                  "display": "Heart rate"
+                }
+              ],
+              "periodInterval": 0,
+              "typeName": "heartrate",
+              "value": {
+                "unit": "count/min",
+                "valueName": "hr",
+                "valueType": "Quantity"
+              }
+            }
+          }
+        ]
+      }
+     ``` 
+* **Generate a connection string for IoT Device to connect**
+   * IoT device needs a connection string to connect and send messages to Azure IoT Connector for FHIR. On the IoT Connector page for the newly deployed Azure IoT Connector for FHIR, select Manage client connections button.
+   * Once on Connections page, click on Add button to create a new connection.
+   * Provide a friendly name for this connection on the overlay window and select the Create button.
+   * Select the newly created connection from the Connections page and copy the value of Primary connection string field from the overlay window on the right. **Preserve this connection string** to be used at a later step.
 
-## Task #2: IoT Converter Preview
-This section shows 
-*
+## Task #2: Setup IoT Device in IoT Central and Connect to FHIR
+* Create App in IoT Central
+   * Navigate to the {Azure IoT Central application manager website](https://apps.azureiotcentral.com/). Select **Build** from the left-hand navigation bar and then click the **Healthcare** tab.
+   * Click the **Create app** button to begin creating your application and then sign in with a Microsoft personal, work, or school account. It will take you to the **New application** page.
+   * Change the **Application name** and **URL** or leave as-is. 
+   * Check the **Pricing plan** and select free pricing plan or one of the standard pricing plans. 
+   * Select **Create** at the bottom of the page to deploy your application.
+   * More details on [Continuous Patient Monitoring](https://docs.microsoft.com/en-us/azure/iot-central/healthcare/tutorial-continuous-patient-monitoring#create-an-application-template).
+* Connect your IoT data with the Azure IoT Connector for FHIR
+   * To ingest the telemetry from Smart Vitals Patch simulator into FHIR, navigate to IoT Central App created, click on **Data Export** under App Settings in the left navigation.
+   * Select **New Export**. Enter a display name for your new export, and make sure the data export is Enabled.
+   * Choose **Telemetry** as the type of data to export.
+   * More details on [Data Export](https://docs.microsoft.com/en-us/azure/iot-central/core/howto-export-data#set-up-data-export).
+   * Under **Destinations**, click create a new one. Enter a name for Destination Name, pick Azure Event Hubs for Destination Type, and paste the Connection String copied from above.
+   * Click Save.
 
 ## Task #3: Validate data loaded using Postman
-* 
-
+* If you haven't done setting up Postman in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
+* Open "AuthorizeGetToken SetBearer", choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
+* Open "Get Device" and Click Send. This should return the device.
+* Open "Get Observation" and Click Send. This should return the observations.
 
 ## Congratulations! You have successfully completed Challenge04!
 
