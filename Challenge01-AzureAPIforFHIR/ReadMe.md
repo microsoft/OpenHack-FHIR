@@ -98,7 +98,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
    <center><img src="../images/challenge01-fhirhack-resources.png" width="850"></center>
 
-   The following resources in resource group **{ENVIRONMENTNAME}** will be created:
+   The following resources in resource group **{ENVIRONMENTNAME}** Ex:fhirhack will be created:
    * Azure API for FHIR ({ENVIRONMENTNAME}) is the FHIR server
    * Key Vault ({ENVIRONMENTNAME}-ts) stores all secrets for all clients (public for single page apps/javascripts that can't hold secrets, confidential for clients that hold secrets, service for service to service) needs to talk to FHIR server.
    * App Service/Dashboard App ({ENVIRONMENTNAME}dash) used to analyze data loaded.
@@ -156,7 +156,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
  
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
-    * Open Postman and import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json) 
+    * Open Postman and import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json).
     * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
       * adtenantId: This is the **tenant Id of the Secondary AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-confidential-client-id" in "{your resource prefix}-ts" Key Vault.
@@ -166,7 +166,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       * resource: This is the Audience of the Azure API for FHIR **https://{your fhir name}.azurehealthcareapis.com** you created in Task #1 above.      
    * Import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json). Collection is a set of requests.
    * After you import, you will see both the Collection on the left and Environment on the top right.
-   <center><img src="../images/challenge01-postman.png" width="850"></center>
+      <center><img src="../images/challenge01-postman.png" width="850"></center>
    * Run Requests:
       * Open "AuthorizeGetToken SetBearer", make sure the environment you imported is selected in the drop-down in the top right. click Send. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable bearerToken. Shows in Body results how many seconds the token is valid before expires_in. 
       * Open "Get Metadata" and click Send. This will return the CapabilityStatement with a Status of 200 ....This request doesn't use the bearerToken.
