@@ -88,13 +88,15 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    cd fhir-server-samples/deploy/scripts
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The ENVIRONMENTNAME is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be globally unique, all lowercase and can't be longer than 13 characters. 
+   * The **ENVIRONMENTNAME Example:fhirhack** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be globally unique, all lowercase and can't be longer than 13 characters. 
    * If EnvironmentLocation is not specified, it defaults to westus.
    * This is a PaaS, so leave it as $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
    
 * On **successful completion**, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. NOTE: As AppInsights is not available in all location, by default will be created in East US.
+
+   <center><img src="../images/challenge01-fhirhack-resources" width="550"></center>
 
    The following resources in resource group **{ENVIRONMENTNAME}** will be created:
    * Azure API for FHIR ({ENVIRONMENTNAME}) is the FHIR server
@@ -154,16 +156,19 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
  
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
-    * Open Postman and import [Collection](../Postman/FHIR Hack.postman_collection.json) 
-    * Import [Environment](../Postman/FHIR%20Hack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
-      * adtenantId: This is the tenant Id of the Secondary AD tenant
-      * clientId: This is the client Id that is stored in Secret "{your resource prefix}-confidential-client-id" in "{your resource prefix}-ts" Key Vault.
-      * clientSecret: This is the client Secret that is stored in Secret "{your resource prefix}-confidential-client-secret" in "{your resource prefix}-ts" Key Vault.
-      * bearerToken: The value will be set when "AuthorizeGetToken SetBearer" request is sent.
-      * fhirurl: This is https://{your resource prefix}.azurehealthcareapis.com from Azure API for FHIR you created in Task #1 above
-      * resource: This is the Audience of the Azure API for FHIR https://{your fhir name}.azurehealthcareapis.com you created in Task #1 above.      
-    * Import [Collection](../Postman/FHIR%20Hack.postman_collection.json). Collection is a set of requests.
-      * Open "AuthorizeGetToken SetBearer", make sure the environment you imported in selected in the drop-down in the top right. click Send. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable bearerToken. Shows in Body results how many seconds the token is valid before expires_in. 
+    * Open Postman and import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json) 
+    * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
+      * adtenantId: This is the **tenant Id of the Secondary AD** tenant
+      * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-confidential-client-id" in "{your resource prefix}-ts" Key Vault.
+      * clientSecret: This is the **client Secret** that is stored in **Secret** "{your resource prefix}-confidential-client-secret" in "{your resource prefix}-ts" Key Vault.
+      * bearerToken: The value will be set when "AuthorizeGetToken SetBearer" request below is sent.
+      * fhirurl: This is **https://{your resource prefix}.azurehealthcareapis.com** from Azure API for FHIR you created in Task #1 above
+      * resource: This is the Audience of the Azure API for FHIR **https://{your fhir name}.azurehealthcareapis.com** you created in Task #1 above.      
+   * Import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json). Collection is a set of requests.
+   * After you import, you will see both the Collection on the left and Environment on the top right.
+   <center><img src="../images/challenge01-git-client-install.png" width="850"></center>
+   * Run Requests:
+      * Open "AuthorizeGetToken SetBearer", make sure the environment you imported is selected in the drop-down in the top right. click Send. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable bearerToken. Shows in Body results how many seconds the token is valid before expires_in. 
       * Open "Get Metadata" and click Send. This will return the CapabilityStatement with a Status of 200 ....This request doesn't use the bearerToken.
       * Open "Get Patient" and click Send. This will return all Patients stored in your FHIR server. Not all might be returned in Postman.
       * "Get Patient Count" will return Count of Patients stored in your FHIR server.
@@ -175,24 +180,25 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       * "Get Filter Multiple ResourceTypes" will return multiple resource types in _type. Change to other resource type and analyze the results.
       * NOTE: bearerToken expires in ...so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to set new value to bearerToken variable.
 
+
 ## Congratulations! You have successfully completed Challenge01! 
 
 ## Help, I'm Stuck!
 Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
 * **{ENVIRONMENTNAME} variable error**: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 13 characters. Here's an example of an error you might see due to a long name.
-   <center><img src="../images/errors-envname-length.png" width="850"></center>
+   <center><img src="../images/challenge01-errors-envname-length.png" width="850"></center>
 
 * **PowerShell Execution Policy errors**: are another type of error that you might run into. In order to allow unsigned scripts and scripts from remote repositories, you might see a couple of different errors documented below.
-   <center><img src="../images/powershell-executionpolicy-1.png" width="850"></center>
-   <center><img src="../images/powershell-executionpolicy-2.png" width="850"></center>
+   <center><img src="../images/challenge01-powershell-executionpolicy-1.png" width="850"></center>
+   <center><img src="../images/challenge01-powershell-executionpolicy-2.png" width="850"></center>
 
    To allow PowerShell to run these scripts and resolve the errors, run the following command:
    ```powershell
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
    ```
 * **Git Missing**: This challenge uses scripts from Git that are downloaded and installed. If you don't have Git installed you might see the following error or something similiar. Get [Git](https://git-scm.com/downloads) and try again.
-   <center><img src="../images/git-client-install.png" width="850"></center>
+   <center><img src="../images/challenge01-git-client-install.png" width="850"></center>
 
 
 ***
