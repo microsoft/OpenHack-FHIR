@@ -46,6 +46,10 @@ Let's get started:
 
 * You should receive back an HL7 ACK message
    <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
+
+   The following resources in resource group name you provided above will be created:
+   <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
+
 * To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
     + Use a text editor to see contents
@@ -91,6 +95,12 @@ Let's get started:
    <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
 * After successful deployment your converter pipeline is now tied to your ingest platform from above. 
 * Go to Azure Portal, to the App Service in the target resource group created using deployhl72fhir. Click configuration and copy the API Key in CONVERSION_API_KEYS. Click overview and open the URL https://...azurewebsites.net, and paste the API Key in the popup and save. Click Load Template and choose ADT_A01.hbs. In the lower left window where the template has opened, change the type from transaction to batch. Azure API for FHIR doesn't support transaction as of now. Click Save.  
+
+* The following resources in resource group names you provided above will be created:
+   <center><img src="../images/challenge02-fhirhackhl7convert-resources.png" width="550"></center>
+
+   <center><img src="../images/challenge02-fhirhackhl7convertapp-resources.png" width="550"></center>
+
 * To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
     + Use a text editor to see contents

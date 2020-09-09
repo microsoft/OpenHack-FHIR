@@ -90,6 +90,8 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
    This deployment process may take 5 minutes or more to complete.
 
 * The following resources in resource group {ENVIRONMENTNAME} will be created:
+   <center><img src="../images/challenge02-fhirhackan-resources.png" width="550"></center>
+
    * Azure Data Factory {ENVIRONMENTNAME}adf
    * Batch Account {ENVIRONMENTNAME}batch
    * Key Vault {ENVIRONMENTNAME}kv

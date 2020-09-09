@@ -95,6 +95,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
    
 * On **successful completion**, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. NOTE: As AppInsights is not available in all location, by default will be created in East US.
+
    The following resources in resource group **{ENVIRONMENTNAME}** Ex:fhirhack will be created:
    <center><img src="../images/challenge01-fhirhack-resources.png" width="550"></center>
 
