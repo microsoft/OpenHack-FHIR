@@ -96,7 +96,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    
 * On **successful completion**, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. NOTE: As AppInsights is not available in all location, by default will be created in East US.
 
-   <center><img src="../images/challenge01-fhirhack-resources" width="550"></center>
+   <center><img src="../images/challenge01-fhirhack-resources.png" width="850"></center>
 
    The following resources in resource group **{ENVIRONMENTNAME}** will be created:
    * Azure API for FHIR ({ENVIRONMENTNAME}) is the FHIR server
@@ -166,7 +166,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       * resource: This is the Audience of the Azure API for FHIR **https://{your fhir name}.azurehealthcareapis.com** you created in Task #1 above.      
    * Import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json). Collection is a set of requests.
    * After you import, you will see both the Collection on the left and Environment on the top right.
-   <center><img src="../images/challenge01-git-client-install.png" width="850"></center>
+   <center><img src="../images/challenge01-postman.png" width="850"></center>
    * Run Requests:
       * Open "AuthorizeGetToken SetBearer", make sure the environment you imported is selected in the drop-down in the top right. click Send. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable bearerToken. Shows in Body results how many seconds the token is valid before expires_in. 
       * Open "Get Metadata" and click Send. This will return the CapabilityStatement with a Status of 200 ....This request doesn't use the bearerToken.
