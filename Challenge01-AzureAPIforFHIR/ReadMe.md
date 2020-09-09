@@ -96,7 +96,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    
 * On **successful completion**, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. NOTE: As AppInsights is not available in all location, by default will be created in East US.
 
-   <center><img src="../images/challenge01-fhirhack-resources.png" width="850"></center>
+   <center><img src="../images/challenge01-fhirhack-resources.png" width="550"></center>
 
    The following resources in resource group **{ENVIRONMENTNAME}** Ex:fhirhack will be created:
    * Azure API for FHIR ({ENVIRONMENTNAME}) is the FHIR server
@@ -108,6 +108,8 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    * Application Insights ({ENVIRONMENTNAME}imp) to monitor the Function App.
    * Storage Account ({ENVIRONMENTNAME}export) to store the data when exported from FHIR server.
    * Storage Account ({ENVIRONMENTNAME}impsa) is the storage account where synthetic data will be uploaded for loading to FHIR server.
+
+   <center><img src="../images/challenge01-fhirhacksof-resources.png" width="550"></center>
 
    The following resources in resource group **{ENVIRONMENTNAME}-sof** will be created for SMART ON FHIR applications:
    * App Service/Dashboard App ({ENVIRONMENTNAME}growth) supports {ENVIRONMENTNAME}dash App.
