@@ -93,8 +93,9 @@ You also team up with Data Scientist, where they want to analyze streaming obser
    * Once on Connections page, click on **Add** button to create a new connection.
    * Provide a friendly name for this connection on the overlay window and select the **Create** button.
    * Select the newly created connection from the Connections page and copy the value of Primary connection string field from the overlay window on the right. **Preserve this Primary connection string** to be used at a later step.
-* Your IoT Connector will looks like this:
-   <center><img src="../images/challenge04-fhirhackiotconnector.png" width="550"></center>
+* Your IoT Connector will looks like this
+
+   <center><img src="../images/challenge04-fhirhackiotconnector.png" width="850"></center>
 
 ## Task #2: Setup IoT Device in IoT Central and Connect to FHIR
 * Create App in IoT Central
