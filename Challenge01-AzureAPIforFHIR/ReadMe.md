@@ -18,12 +18,9 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
-* **Azure Subscription**: You will need permissions to perform CRUD operations in the Subscription.
+* **Azure Subscription**: You will need permissions to perform CRUD operations in your Azure subscription.
 
-* **Create Secondary AD tenant**: Azure API for FHIR needs to be deployed in Active Directory tenants for Data control plane authorization and Resource control plane for resources. Most of the companies lock down Active Directory App Registration for security where you can't publish App, register roles or grant permissions. So, you will create local Active Directory which is free. This will 
-   * Go to Portal, navigate to Azure Active Directory. Click "Create a tenant". Give it a name for example: "{yourname}fhirad" for Organization name and Initial domain name and click Create. This will be referred to as **Secondary AD** in this page for clarity. 
-
-* **PowerShell modules**: Primary script deployer is going to be PowerShell. Using either the Azure PowerShell or Windows PowerShell and make sure you are running it as administrator. 
+* **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts to provision your Azure API for FHIR resources. You can use either Azure PowerShell or Windows PowerShell and make sure you are running it as an administrator. (Right-click the PowerShell icon and choose Run as Administrator.)
    * Get PowerShell module version: Make sure your version is 5.1.19041.1. If not, install this version.
 
    ```powershell
@@ -36,7 +33,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    Get-InstalledModule -Name AzureAd
    ```  
 
-   * Uninstall and Re-install PowerShell modules: Uninstall Az and AzureAd modules and install the right version needed.
+   * If these aren't the versions you have installed, uninstall and re-install PowerShell modules: Uninstall Az and AzureAd modules and install the right version needed.
    ```powershell
    Uninstall-Module -Name Az
    Uninstall-Module -Name AzureAD
@@ -45,56 +42,54 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    ```powershell
    Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
    Install-Module AzureAD -RequiredVersion 2.0.2.4
-   ```  
+   ```
 
-   * Close PowerShell and open a new session.
+* **Create Secondary AD tenant**: Azure API for FHIR needs to be deployed in Active Directory tenants for Data control plane authorization and Resource control plane for resources. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate "secondary" Active Directory domain. (A basic Azure Active Directory domain is a free service.)
+   * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{yourname}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary AD** in this page for clarity. 
 
-   * Login to your Azure account where you want to deploy resources and authenticate. This will be called **Primary AD** in this page for clarity.
+   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be called **Primary AD** in this page for clarity.
    ```powershell
    Login-AzAccount
    ```
 
-   If you are seeing errors, or you don't see the subscription in your **Primary AD** you want to deploy, you might have wrong Azure Context. Clear, Set and verify Az Context.
+>   If you are seeing errors or you don't see the subscription in your **Primary AD**, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
+>   ```powershell
+>   Clear-AzContext
+>   Set-AzContext -TenantId **{YourPrimaryADTenantID}**
+>   Get-AzContext
+>   ```
+   * Connect to your **Secondary AD** and authenticate
    ```powershell
-   Clear-AzContext
-   ```
-   ```powershell
-   Set-AzContext -TenantId **{YourPrimaryADTenantID}**
-   ```
-   ```powershell
-   Get-AzContext
-   ```
-
-   * Connect to **Secondary AD** and authenticate
-   ```powershell
-   Connect-AzureAd -TenantDomain **{yourname}fhirad.onmicrosoft.com**
+   Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
    ``` 
-
-   * You will get security exception error if you haven't set the execution policy below. This is because the repo you will clone in the next step is a public repo, and the PowerShell is not signed and so you might not have access to run the script. So, set the execution policy and type A, to run unsigned Powershell scripts.
-   ```powershell
-   Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
-   ```
+   * Replace **{{yourname}fhirad}** with the name of the Secondary AD you created.
 
 ## Getting Started
 
 ## Task #1: Provision Azure API for FHIR demo environment.
 
-* **Get the repo** fhir-server-samples from Git. If you don't have Git, install from link in [Challenge00](../Challenge00-Prerequistes/ReadMe.md).
+   * You will get a security exception error if you haven't set the execution policy below. This is because the repo you will clone in the next step is a public repo, and the PowerShell script is not signed. Run the following PowerShell command to set the execution policy and type A, to run unsigned Powershell scripts.
+   ```powershell
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
+   ```
+   
+* **Get the repo** fhir-server-samples from Git. If you don't have Git, install it from the link in [Challenge00](../Challenge00-Prerequistes/ReadMe.md).
    ```powershell
    git clone https://github.com/Microsoft/fhir-server-samples
    ``` 
-* Navigate to the scripts directory where the Repo was downloaded to. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
+* This Git repo contains the script that will provision all of our Azure API for FHIR resources. Navigate to the scripts directory where the Git repo was downloaded. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
    ```powershell
    cd fhir-server-samples/deploy/scripts
+   
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The **ENVIRONMENTNAME Example:fhirhack** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be globally unique, all lowercase and can't be longer than 13 characters. 
+   * The **ENVIRONMENTNAME Example:fhirhack** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be globally unique, all lowercase and can't be longer than 13 characters.
    * If EnvironmentLocation is not specified, it defaults to westus.
-   * This is a PaaS, so leave it as $true.
+   * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
    
-* On **successful completion**, you'll have 2 resource groups and resources created with prefix as your ENVIRONMENTNAME. Explore these resources and get a feel what role they play in the FHIR demo environment. NOTE: As AppInsights is not available in all location, by default will be created in East US.
+* On **successful completion**, you'll have two resource groups and lots of resources created with the prefix <ENVIRONMENTNAME>. Explore these resources and try to understand the role they play in your FHIR demo environment. NOTE: Application Insights is not available in all locations and will be provisioned in East US.
 
    The following resources in resource group **{ENVIRONMENTNAME}** Ex:fhirhack will be created:
    <center><img src="../images/challenge01-fhirhack-resources.png" width="550"></center>
