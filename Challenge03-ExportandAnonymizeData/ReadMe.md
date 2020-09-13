@@ -42,7 +42,7 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 * Enable Export
    If you deployed Azure API for FHIR in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md) with EnableExport $false, then follow the instructions here for attaching the FHIR service to the storage account. <https://docs.microsoft.com/en-us/azure/healthcare-apis/configure-export-data>
 
-* Clone this repo
+* Clone this repo into C or sub-folder in C drive
    ```powershell
    git clone https://github.com/Microsoft/health-architectures
    ```

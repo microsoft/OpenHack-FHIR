@@ -3,7 +3,7 @@
 #### This chapter lists the technical and knowledge pre-requisites needed to complete all challenges.
 
 ## Technical prerequisites
-Needs to be installed for Challenge01:
+**Needs to be installed before starting Challenge01:**
 * [Azure Subscription](https://azure.microsoft.com/en-us/free/)
 * [Azure Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/)
 * [Azure Active Directory PowerShell Module](https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-adv2?view=azureadps-2.0)
@@ -11,14 +11,16 @@ Needs to be installed for Challenge01:
 * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)
 * [Postman](https://www.postman.com/downloads/)
 * [Git](https://git-scm.com/downloads)
+* [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 * [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
 
-Needs to be installed for Challenge02:
+**Needs to be installed before starting Challenge02:**
 * [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl) 
 * [Install a Linux Distribution](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro)
 * [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 
 ## Knowledge prerequisites
+The below services are used across all challenges. Familiarity of these services will not only help you complete but enhance your learning.
 * [HL7 FHIR](https://hl7.org/fhir/) FHIR is a standard for health care data exchange, published by HL7®.
 * [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/) enables to easily create and deploy a Fast Healthcare Interoperability Resources (FHIR®) service for health data solutions.
 * [Azure API for FHIR Documentation](https://docs.microsoft.com/en-us/azure/healthcare-apis/) is a managed, standards-based, compliant API for clinical health data that enables solutions for actionable analytics and machine learning.
@@ -42,6 +44,7 @@ Needs to be installed for Challenge02:
 ## References
 * [Microsoft Cloud for Healthcare](https://www.microsoft.com/en-us/industry/health/microsoft-cloud-for-healthcare)
 * [Microsoft Health Architecture GitHub](https://github.com/microsoft/health-architectures)
+* [Microsoft FHIR Server Samples](https://github.com/microsoft/fhir-server-samples)
 * [HIPPA Safe Harbor Method](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html)
 * [HL7 bulk export](https://hl7.org/Fhir/uv/bulkdata/export/index.html)
 * [FHIR Tools for Anonymization](https://github.com/microsoft/FHIR-Tools-for-Anonymization)
