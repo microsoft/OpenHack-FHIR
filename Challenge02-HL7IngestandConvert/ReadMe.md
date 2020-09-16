@@ -50,6 +50,8 @@ Let's get started:
    The following resources in resource group name you provided above will be created:
    <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
 
+* The resources deployed with be displayed between 2 double-star lines. Copy this and keep it handy for Task #2.
+
 * To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
     + Use a text editor to see contents
@@ -82,7 +84,7 @@ Let's get started:
    + The Client Secret for the Service Client. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
    + The AAD Tenant ID for the Service Client.
    + The Audience for the Azure API for FHIR Server typically https://{name}azurehealthcareapis.com
-* You will need the following information from the HL7 Ingest platform deployment (provided at the end of your deployment):
+* You will need the following information from the HL7 Ingest platform deployment (provided at the end of your Task #1 deployment):
    + The resource group name created
    + The storage account name created
    + The service bus namespace created
