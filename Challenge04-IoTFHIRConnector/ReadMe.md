@@ -22,13 +22,13 @@ You also team up with Data Scientist, where they want to analyze streaming obser
 
 * Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
-* Make sure you have completed [Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+* Make sure you have completed [Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](../Challenge01-AzureAPIforFHIR/ReadMe.md).
 
 ## Getting Started
 
 ## Task #1: Deploy and configure Azure IoT Connector for FHIR
 * **Deploy IoT Connector for FHIR**
-   * **Go to Azure API for FHIR** resource deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md)
+   * **Go to Azure API for FHIR** resource deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md)
    * On the left-hand navigation menu, click on **IoT Connector** under the Add-ins section to open the IoT Connectors page.
    * If you already see a IoT Connector created, go to next step. If you don't see a IoT Connector already, click on the Add button to open the **Create IoT Connector** page.
       * Enter Connector name for the new Azure IoT Connector for FHIR. Choose Create  for Resolution Type and click on Create button.
@@ -114,7 +114,7 @@ You also team up with Data Scientist, where they want to analyze streaming obser
    * More details on [Data Export](https://docs.microsoft.com/en-us/azure/iot-central/core/howto-export-data#set-up-data-export).
 
 ## Task #3: Validate data loaded using Postman
-* If you haven't done setting up Postman in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
+* If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
 * Open "AuthorizeGetToken SetBearer" request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
 * Open "Get Device" request in FHIR Hack folder and Click Send. This should return the device.
 * Open "Get Observation" request in FHIR Hack folder and Click Send. This should return the observations.

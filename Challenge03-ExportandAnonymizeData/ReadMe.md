@@ -34,13 +34,13 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 
 * Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
-* Make sure you have completed [Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+* Make sure you have completed [Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](../Challenge01-AzureAPIforFHIR/ReadMe.md).
 
 ## Getting Started
 
 ## Task #1: Setup
 * Enable Export
-   If you deployed Azure API for FHIR in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md) with EnableExport $false, then follow the instructions here for attaching the FHIR service to the storage account. <https://docs.microsoft.com/en-us/azure/healthcare-apis/configure-export-data>
+   If you deployed Azure API for FHIR in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) with EnableExport $false, then follow the instructions here for attaching the FHIR service to the storage account. <https://docs.microsoft.com/en-us/azure/healthcare-apis/configure-export-data>
 
 * Clone this repo into C or sub-folder in C drive
    ```powershell
@@ -51,10 +51,10 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
    * Navigate to health-architectures/FHIR/FHIRExportwithAnonymization folder. 
    * Open the ./Assets/arm_template_parameters.json file in your perferred json editor. 
    * Add value for fhirserver-url. This is Azure API for FHIR Server URL, typically https://{name}azurehealthcareapis.com
-   * Add value for fhirserver-clientid. This is Confidential Client ID. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * Add value for fhirserver-clientSecret. This is Confidential Client Secret. You can get this from Secret in Key Vault deployed in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * Add value for fhirauth-tenantid. This is SecondaryAD Tenant ID. You can get this from [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * Add value for IntegrationStorageAccount. This is created in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md) typically {ENVIRONMENTNAME}export.
+   * Add value for fhirserver-clientid. This is Confidential Client ID. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Add value for fhirserver-clientSecret. This is Confidential Client Secret. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Add value for fhirauth-tenantid. This is SecondaryAD Tenant ID. You can get this from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Add value for IntegrationStorageAccount. This is created in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) typically {ENVIRONMENTNAME}export.
    * Save & close the parameters file.
 
 * Replace Template file
@@ -101,7 +101,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 
 * Configure export setting and set up the storage account
    * Navigate to Azure API for FHIR service and select Identity blade. Make sure the status to On will enable managed identity in Azure API for FHIR Service.
-   * Navigate to Access Control (IAM) blade in Storage Account {ENVIRONMENTNAME}stg and select Add Role Assignments. Add role Storage Blob Data Contributor to Azure API for FHIR service created in [Challenge01](./Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Navigate to Access Control (IAM) blade in Storage Account {ENVIRONMENTNAME}stg and select Add Role Assignments. Add role Storage Blob Data Contributor to Azure API for FHIR service created in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
    * Navigate to Integration blade in Azure API for FHIR service in Azure portal and select the storage account {ENVIRONMENTNAME}stg.
 
    Time to export data and do some research!
