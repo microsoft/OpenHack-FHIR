@@ -113,11 +113,16 @@ You also team up with Data Scientist, where they want to analyze streaming obser
    * Click Save.
    * More details on [Data Export](https://docs.microsoft.com/en-us/azure/iot-central/core/howto-export-data#set-up-data-export).
 
-## Task #3: Validate data loaded using Postman
+## Task #3: Validate Data Loaded using Postman
 * If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
 * Open "AuthorizeGetToken SetBearer" request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
 * Open "Get Device" request in FHIR Hack folder and Click Send. This should return the device.
 * Open "Get Observation" request in FHIR Hack folder and Click Send. This should return the observations.
+
+## Task #4: Clean Up Resources
+* **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
+* **Delete** Azure resources created above if you DON'T need them anymore
+* **Disable** Data Export in IoT Central
 
 ## Congratulations! You have successfully completed Challenge04!
 

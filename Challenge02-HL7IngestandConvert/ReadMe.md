@@ -113,11 +113,14 @@ Let's get started:
 * You can also see execution from the HL7toFHIR Logic App Run History in the HL7toFHIR resource group.  
    <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
 
-## Task #3: Validate data load using Postman
+## Task #3: Validate Data Loaded using Postman
 * If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
 * Open "AuthorizeGetToken SetBearer", choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
 * Open "Get Patient Filter HL7" request in FHIR Hack folder and Click Send. This should return the patient with family name EVERYMAN from sample HL7 file loaded.
 
+## Task #4: Clean Up Resources
+* **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
+* **Delete** Azure resources created above if you DON'T need them anymore
 
 ## Congratulations! You have successfully completed Challenge02!
 

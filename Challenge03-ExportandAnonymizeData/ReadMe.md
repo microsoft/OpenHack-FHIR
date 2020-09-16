@@ -77,7 +77,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
    cd health-architectures\FHIR\FHIRExportwithAnonymization
     ```
 
-* **Connect to Secondary AD** and authenticate
+* **Connect to Secondary AD** and authenticate. **DO NOT SKIP THIS**.
     ```powershell
     Connect-AzureAd -TenantDomain **{yourname}fhirad.onmicrosoft.com**
     ```
@@ -106,11 +106,15 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 
    Time to export data and do some research!
 
-## Task #3: Validate data load
+## Task #3: Validate Data Loaded
 * Go to Resource Group {ENVIRONMENTNAME} created.
 * Click on the Logic App and click Run Trigger. You can click on the Running status in Runs History below in the same screen. The time taken to complete depends on the volume of data you have in Azure API for FHIR.
 * When completed successfully, view the below
    * Compare the containers with suffix output in {ENVIRONMENTNAME}stg and {ENVIRONMENTNAME}dlg2 Storage Accounts. {ENVIRONMENTNAME}stg will have pre-anonymized ndjson files for every resource. {ENVIRONMENTNAME}dlg2 will have anonymized ndjson files for every resource.
+
+## Task #4: Clean Up Resources
+* **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
+* **Delete** Azure resources created above if you DON'T need them anymore
 
 ## Congratulations! You have successfully completed Challenge03!
 

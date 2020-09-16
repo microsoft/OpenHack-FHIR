@@ -139,7 +139,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. You can go to the storage account and click Monitor to view status.
 
-## Task #3: Validate data load
+## Task #3: Validate Data Loaded
 
 * ### Use the Dashboard App
     * Go to **Secondary AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. Click on the admin user and Reset password.
@@ -174,6 +174,9 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       * "Get Filter Multiple ResourceTypes" will return multiple resource types in _type. Change to other resource type and analyze the results.
       * NOTE: bearerToken expires in ...so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to set new value to bearerToken variable.
 
+## Task #4: Clean Up Resources
+* **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
+* **Delete** Azure resources created above if you DON'T need them anymore
 
 ## Congratulations! You have successfully completed Challenge01! 
 
