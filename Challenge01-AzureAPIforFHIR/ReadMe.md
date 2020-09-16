@@ -58,7 +58,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 >   Set-AzContext -TenantId **{YourPrimaryADTenantID}**
 >   Get-AzContext
 >   ```
-   * Connect to your **Secondary AD** and authenticate
+   * Connect to your **Secondary AD** and authenticate. **DO NOT SKIP THIS**
    ```powershell
    Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
    ``` 
@@ -83,7 +83,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The **ENVIRONMENTNAME Example:fhirhack** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be globally unique, all lowercase and can't be longer than 13 characters.
+   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be **globally unique**, all lowercase and can't be longer than 13 characters.
    * If EnvironmentLocation is not specified, it defaults to westus.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
@@ -135,11 +135,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. You can go to the storage account and click Monitor to view status.
 
 * ### Option 2: Use Staged data
-   * For this option, we have already generated the sample data and loaded it into a publicly available storage account. The account URL and SAS token are included below.
-      ```shell
-      Account URL: https://a368608impsa.file.core.windows.net/
-      SAS Token: ?sv=2019-12-12&ss=bfqt&srt=c&sp=rwdlacupx&se=2020-08-21T05:50:18Z&st=2020-08-20T21:50:18Z&spr=https&sig=hLoeY7kq3B%2FXvmJsBLboMsdMmMnv%2F2liAX3l231ux00%3D
-      ```
+   * Download the generated [data](../Synthea/fhir.zip)
       * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. You can go to the storage account and click Monitor to view status.
 
