@@ -21,7 +21,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 * **Azure Subscription**: You will need permissions to perform CRUD operations in your Azure subscription.
 
 * **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts to provision your Azure API for FHIR resources. You can use either Azure PowerShell or Windows PowerShell and make sure you are running it as an administrator. (Right-click the PowerShell icon and choose **Run as Administrator**)
-   * Get PowerShell module version: Make sure your version is 5.1. If not, install this version.
+   * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
 
    ```powershell
    $PSVersionTable.PSVersion
