@@ -21,7 +21,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 * **Azure Subscription**: You will need permissions to perform CRUD operations in your Azure subscription.
 
 * **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts to provision your Azure API for FHIR resources. You can use either Azure PowerShell or Windows PowerShell and make sure you are running it as an administrator. (Right-click the PowerShell icon and choose **Run as Administrator**)
-   * Get PowerShell module version: Make sure your version is 5.1.19041.1. If not, install this version.
+   * Get PowerShell module version: Make sure your version is 5.1. If not, install this version.
 
    ```powershell
    $PSVersionTable.PSVersion
@@ -84,7 +84,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
    * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be **globally unique**, all lowercase and can't be longer than 13 characters.
-   * If EnvironmentLocation is not specified, it defaults to westus.
+   * EnvironmentLocation could specified, for this Hack leave the default as some services might not be available in the location you specify.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
