@@ -40,9 +40,9 @@ Let's get started:
 * [Install a Linux Distribution](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro)
 * [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 * Open a bash shell into the Azure CLI 2.0 environment installed.
-* Login using Az Login
-* Switch to the HL7Conversion subdirectory of this repo using cd /mnt/{Your HL7Conversion directory path}. Use cd one directory at a time if the whole path is not working.
-* Run the deployhl7ingest.bash script and follow the prompts to enter Subscription ID, Resource Group Name, Resource Group Location, Deployment Prefix... Will take ~5 minutes to complete.
+* Login using **az login**
+* Switch to the HL7Conversion subdirectory of this repo using **cd /mnt/{Your HL7Conversion directory path}**. Use cd one directory at a time if the whole path is not working.
+* Run the **./deployhl7ingest.bash** script and follow the prompts to enter Subscription ID, Resource Group Name, Resource Group Location, Deployment Prefix... Will take ~5 minutes to complete.
 
 * You should receive back an HL7 ACK message
    <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
@@ -50,7 +50,7 @@ Let's get started:
    The following resources in resource group name you provided above will be created:
    <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
 
-* The resources deployed with be displayed between 2 double-star lines. Copy this and keep it handy for Task #2.
+* The resources deployed with be displayed between 2 double-star lines. **Copy** this and keep it handy for Task #2.
 
 * To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
@@ -80,23 +80,27 @@ Features of the HL7toFHIR Conversion Platform:
 Let's get started:
 * [Deploy the HL7 Ingest Platform](#ingest) if you have not already
 * You will need the following information to configure the HL72FHIR services
-   + The Client ID for the Service Client. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
-   + The Client Secret for the Service Client. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
-   + The AAD Tenant ID for the Service Client.
-   + The Audience for the Azure API for FHIR Server typically https://{name}azurehealthcareapis.com
-* You will need the following information from the HL7 Ingest platform deployment (provided at the end of your Task #1 deployment):
+   + The **Client ID for the Service Client**. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
+   + The **Client Secret for the Service Client**. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
+   + The **AAD Tenant ID for the Service Client**.
+   + The **Audience for the Azure API for FHIR Server** typically https://{name}azurehealthcareapis.com
+* You will need the following information from the HL7 Ingest platform deployment (**provided at the end of your Task #1 deployment**):
    + The resource group name created
    + The storage account name created
    + The service bus namespace created
    + The service bus destination queue name created
 * Open a shell or command window into the Azure CLI 2.0 environment
 * Switch to HL7Conversion subdirectory of this repo
-* Run the deployhl72fhir.bash script and follow the prompts
+* Run the **./deployhl72fhir.bash** script and follow the prompts
 
 * You should receive back an HL7 ACK message  
    <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
 * After successful deployment your converter pipeline is now tied to your ingest platform from above. 
-* Go to Azure Portal, to the App Service in the target resource group created using deployhl72fhir. Click configuration and copy the API Key in CONVERSION_API_KEYS. Click overview and open the URL https://...azurewebsites.net, and paste the API Key in the popup and save. Click Load Template and choose ADT_A01.hbs. In the lower left window where the template has opened, change the type from transaction to batch. Azure API for FHIR doesn't support transaction as of now. Click Save.  
+* Go to Azure Portal, to the App Service in the target resource group created using deployhl72fhir. 
+   * Click configuration and copy the API Key in CONVERSION_API_KEYS. 
+   * Click overview and open the URL https://...azurewebsites.net, and paste the API Key in the popup and save. 
+   * Click Load Template and choose ADT_A01.hbs. 
+   * In the lower left window where the template has opened, change the type from transaction to batch. Azure API for FHIR doesn't support transaction as of now. Click Save.  
 
 * The following resources in resource group names you provided above will be created:
    <center><img src="../images/challenge02-fhirhackhl7convert-resources.png" width="550"></center>
