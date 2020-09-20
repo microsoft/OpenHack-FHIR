@@ -57,9 +57,6 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
    * Add value for IntegrationStorageAccount. This is created in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) typically {ENVIRONMENTNAME}export.
    * Save & close the parameters file.
 
-* Replace Template file
-   * Replace ./Assets/**arm_template_part2.json** file with [this](/arm_template_part2.json)
-
 * Optional Setup:
 The FHIR Export with Anonymization uses the default settings in the Anonymization toolset. If you would like other settings please follow theses steps prior to deployment:
    * Find and copy the zip file ./Assets/AdfApplication.zip to a new temporary location
@@ -74,7 +71,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 
 * Open **PowerShell** and navigate to this directiory
    ```powershell
-   cd health-architectures\FHIR\FHIRExportwithAnonymization
+   cd health-architectures\Research-and-Analytics\FHIRExportwithAnonymization
     ```
 
 * **Connect to Secondary AD** and authenticate. **DO NOT SKIP THIS**.
