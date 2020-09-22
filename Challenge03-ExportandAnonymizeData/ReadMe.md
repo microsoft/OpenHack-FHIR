@@ -48,7 +48,7 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
    ```
 
 * Update Parameters file
-   * Navigate to health-architectures/FHIR/FHIRExportwithAnonymization folder. 
+   * Navigate to health-architectures/Research-and-Analytics\FHIRExportwithAnonymization folder. 
    * Open the ./Assets/arm_template_parameters.json file in your perferred json editor. 
    * Add value for fhirserver-url. This is Azure API for FHIR Server URL, typically https://{name}azurehealthcareapis.com
    * Add value for fhirserver-clientid. This is Confidential Client ID. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
