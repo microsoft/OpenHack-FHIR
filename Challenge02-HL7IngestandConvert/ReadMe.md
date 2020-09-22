@@ -46,6 +46,9 @@ Let's get started:
 
 * The resources deployed with be displayed between 2 double-star lines. **Copy** this and keep it handy for Task #2.
 
+* The following resources in resource group name you provided above will be created:
+  <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
+
 * To test, send in an hl7 message via HL7 over HTTPS:
    * Locate the sample message samplemsg.hl7 in the root directory of the repo
    * Use a text editor to see contents
@@ -55,9 +58,6 @@ Let's get started:
      ``` 
    * You should receive back an HL7 ACK message
      <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
-
-     The following resources in resource group name you provided above will be created:
-     <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
 
    * Validate if the sample hl7 message has been stored in HL7 folder in the storage account created.
    * Congratulations!!! The sample hl7 message was accepted securely stored into blob storage and queued for further ingest processing on the deployed service bus queue
@@ -101,6 +101,13 @@ Let's get started:
 
    <center><img src="../images/challenge02-fhirhackhl7convertapp-resources.png" width="550"></center>
 
+* Go to Azure Portal, to the **target resource group (second screenshot above)** created using deployhl72fhir. You should see 3 resources.
+   * Click on the service **Type App Service**.
+   * Click **Configuration under Settings** and copy the API Key in **CONVERSION_API_KEYS**. 
+   * Click **Overview** and open the URL https://...azurewebsites.net, and paste the API Key in the popup and save. 
+   * Click **Load Template** and choose ADT_A01.hbs. 
+   * In the lower left window where the template has opened, **change the type from transaction to batch**. Azure API for FHIR doesn't support transaction as of now. Click Save.  
+
 * To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
     + Use a text editor to see contents
@@ -110,13 +117,6 @@ Let's get started:
       ``` 
 * You can also see execution from the HL7toFHIR Logic App Run History in the HL7toFHIR resource group.  
    <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
-
-* Go to Azure Portal, to the **target resource group (second screenshot above)** created using deployhl72fhir. You should see 3 resources.
-   * Click on the service **Type App Service**.
-   * Click **Configuration under Settings** and copy the API Key in **CONVERSION_API_KEYS**. 
-   * Click **Overview** and open the URL https://...azurewebsites.net, and paste the API Key in the popup and save. 
-   * Click **Load Template** and choose ADT_A01.hbs. 
-   * In the lower left window where the template has opened, **change the type from transaction to batch**. Azure API for FHIR doesn't support transaction as of now. Click Save.  
 
 ## Task #3: Validate Data Loaded using Postman
 * If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
