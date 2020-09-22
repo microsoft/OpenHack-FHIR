@@ -117,14 +117,22 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
 ## Task #2: Generate & Load synthetic data.
 
-* ### Option 1: Generate Synthea data
+* ### Option 1: Use Staged data
+   * Download the generated [data](../Synthea/fhir.zip)
+      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. 
+      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the funtion retries and loads into Azure API for FHIR.
+
+
+* ### Option 2: Generate Synthea data
    * **Setup Synthea**: 
       * This section shows how to setup and generate health records with [Synthea](https://github.com/synthetichealth/synthea). 
       * Synthea requires [Java 8 JDK](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Make sure to select the JDK and not the JRE install.
-      * After successfull install of Java 8, download the [Synthea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar) or open command prompt and run, .jar file will be downloaded to directory you are running the command from.
-      ```cmd
-      curl https://syntheahealth.github.io/synthea/build/libs/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
-      ```
+      * After successfull install of Java 8
+         * Option1: Manual Download: Download the [Synthea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar) 
+         * Option2: Script Download: Open command prompt and run the below command. The .jar file will be downloaded to directory you are running the command from.
+            ```cmd
+            curl https://synthetichealth.github.io/synthea/build/libs/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
+            ```
    * **Generate Data**:
       * Follow instructions below to generate your synthetic data set. Note that, we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to a output sub-folder.
       ```shell
@@ -132,12 +140,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       java -jar synthea-with-dependencies.jar -m "covid19" -p 50
       ```
       * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. 
-      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. You can go to the storage account and click Monitor to view status.
-
-* ### Option 2: Use Staged data
-   * Download the generated [data](../Synthea/fhir.zip)
-      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. 
-      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5 minutes. You can go to the storage account and click Monitor to view status.
+      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the funtion retries and loads into Azure API for FHIR.
 
 ## Task #3: Validate Data Loaded
 
@@ -151,7 +154,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
     * Open Postman and import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json).
-    * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a settings wheel on the top right). Click on the environment you imported. Enter these values for Initial Value:
+    * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a slider on the top right). Click on the environment you imported. Enter these values for Initial Value:
       * adtenantId: This is the **tenant Id of the Secondary AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-confidential-client-id" in "{your resource prefix}-ts" Key Vault.
       * clientSecret: This is the **client Secret** that is stored in **Secret** "{your resource prefix}-confidential-client-secret" in "{your resource prefix}-ts" Key Vault.
