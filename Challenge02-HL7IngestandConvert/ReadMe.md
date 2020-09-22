@@ -44,31 +44,31 @@ Let's get started:
 * Switch to the HL7Conversion subdirectory of this repo using **cd /mnt/{Your HL7Conversion directory path}**. Use cd one directory at a time if the whole path is not working.
 * Run the **./deployhl7ingest.bash** script and follow the prompts to enter Subscription ID, Resource Group Name, Resource Group Location, Deployment Prefix... Will take ~5 minutes to complete.
 
-* You should receive back an HL7 ACK message
-   <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
-
-   The following resources in resource group name you provided above will be created:
-   <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
-
 * The resources deployed with be displayed between 2 double-star lines. **Copy** this and keep it handy for Task #2.
 
 * To test, send in an hl7 message via HL7 over HTTPS:
-    + Locate the sample message samplemsg.hl7 in the root directory of the repo
-    + Use a text editor to see contents
-    + From the linux command shell run the following command to test the hl7overhttps ingest
-      ```
-        curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host name from above>/api/hl7ingest?code=<your ingest host key from above>
-      ``` 
-    + Validate if the sample hl7 message has been stored in HL7 folder in the storage account created.
-    + Congratulations!!! The sample hl7 message was accepted securely stored into blob storage and queued for further ingest processing on the deployed service bus queue
+   * Locate the sample message samplemsg.hl7 in the root directory of the repo
+   * Use a text editor to see contents
+   * From the linux command shell run the following command to test the hl7overhttps ingest. 
+     ```
+       curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host url from above>/api/hl7ingest?code=<your ingest host key from above>
+     ``` 
+   * You should receive back an HL7 ACK message
+     <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
+
+     The following resources in resource group name you provided above will be created:
+     <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
+
+   * Validate if the sample hl7 message has been stored in HL7 folder in the storage account created.
+   * Congratulations!!! The sample hl7 message was accepted securely stored into blob storage and queued for further ingest processing on the deployed service bus queue
 * [Optional] Send in HL7 messages using the local HL7 MLLP Relay. To run a local copy of the HL7 MLLP Relay:
-    + Make sure [Docker](https://www.docker.com/) is installed and running in your linux or windows environment
-    + From a command prompt run the runhl7relay.bash(linux) or runhl7relay.cmd(windows) passing in the hl7ingest Function App URL (Saved from Above) and the function app access key (Saved from above) as parameters.
+   * Make sure [Docker](https://www.docker.com/) is installed and running in your linux or windows environment
+   * From a command prompt run the runhl7relay.bash(linux) or runhl7relay.cmd(windows) passing in the hl7ingest Function App URL (Saved from Above) and the function app access key (Saved from above) as parameters.
         ```
         runhl7relay https://<your ingest host name from above/api/hl7ingest "<function app key from above>"
        ``` 
-    + You can now point any HL7 MLLP Engine to the HL7 Relay listening port (default is 8079) and it will transfer messages to the hl7ingest function app over https
-    + An appropriate HL7 ACK will be sent to the engine from the relay listener
+   * You can now point any HL7 MLLP Engine to the HL7 Relay listening port (default is 8079) and it will transfer messages to the hl7ingest function app over https
+   * An appropriate HL7 ACK will be sent to the engine from the relay listener
 
 
 ## Task #2: HL7 Conversion to FHIR
@@ -82,7 +82,7 @@ Let's get started:
 * You will need the following information to configure the HL72FHIR services
    + The **Client ID for the Service Client**. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
    + The **Client Secret for the Service Client**. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
-   + The **AAD Tenant ID for the Service Client**.
+   + The **Secondary AD Tenant ID for the Service Client**. You can get this from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
    + The **Audience for the Azure API for FHIR Server** typically https://{name}azurehealthcareapis.com
 * You will need the following information from the HL7 Ingest platform deployment (**provided at the end of your Task #1 deployment**):
    + The resource group name created
@@ -91,7 +91,7 @@ Let's get started:
    + The service bus destination queue name created
 * Open a shell or command window into the Azure CLI 2.0 environment
 * Switch to HL7Conversion subdirectory of this repo
-* Run the **./deployhl72fhir.bash** script and follow the prompts
+* Run the **./deployhl72fhir.bash** script and follow the prompts. Will take ~10 minutes to complete.
 
 * You should receive back an HL7 ACK message  
    <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
@@ -106,7 +106,7 @@ Let's get started:
     + Use a text editor to see contents
     + From the linux command shell run the following command to test the hl7overhttps ingest
       ```
-        curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host name from above>/api/hl7ingest?code=<your ingest host key from above>
+        curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host url from above>/api/hl7ingest?code=<your ingest host key from above>
       ``` 
 * You can also see execution from the HL7toFHIR Logic App Run History in the HL7toFHIR resource group.  
    <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
@@ -120,8 +120,8 @@ Let's get started:
 
 ## Task #3: Validate Data Loaded using Postman
 * If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
-* Open "AuthorizeGetToken SetBearer", choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
-* Open "Get Patient Filter HL7" request in FHIR Hack folder and Click Send. This should return the patient with family name EVERYMAN from sample HL7 file loaded.
+* Open **AuthorizeGetToken SetBearer**, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
+* Open **Get Patient Filter HL7** request in FHIR Hack folder and Click Send. This should return the patient with family name EVERYMAN from sample HL7 file loaded.
 
 ## Task #4: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
@@ -132,6 +132,10 @@ Let's get started:
 ## Help, I'm Stuck!
 Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 * If Logic App is failing at step "ConvertHL7WithTemplate" with app timeout error, continue reading. When deploying HL7Conversion flow using deployhl72fhir.bash, the App Service will deploy a P1v2 SKU. If your subscription doesn't have availability for Premium, you will get an error. Changing it to Standard S1 SKU will work.
+* When deploying ./deployhl7ingest.bash, you get the below error, delete the resource group partically created and re-run.
+   <center><img src="../images/challenge02-hl7ingesterror.png" width="550"></center>
+* When deploying ./deployhl7ingest.bash, you get the below error, re-clone the Git.
+   <center><img src="../images/challenge02-hl7ingesterrorpipe.png" width="550"></center>
 * The resources are inserted into the FHIR server every time the Logic App is ran. To change to update, double-click on Patient in the template, scroll all the way to the bottom of the template, change the method from POST to PUT. To have the resource be used the reference ID, change the url to resource?_id={{ID}} where resource is Patient in this case. Repeat the same for all resources.
 * If the .hl7 file you are trying to convert doesn't have out of the box template, check this [Git](https://github.com/microsoft/FHIR-Converter) on how to create new templates.
 
