@@ -30,8 +30,8 @@ You also team up with Data Scientist, where they want to analyze streaming obser
 * **Deploy IoT Connector for FHIR**
    * **Go to Azure API for FHIR** resource deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md)
    * On the left-hand navigation menu, click on **IoT Connector** under the Add-ins section to open the IoT Connectors page.
-   * If you already see a IoT Connector created, go to next step. If you don't see a IoT Connector already, click on the Add button to open the **Create IoT Connector** page.
-      * Enter Connector name for the new Azure IoT Connector for FHIR. Choose Create  for Resolution Type and click on Create button.
+   * If you already see a IoT Connector created, go to next step. If you don't see a IoT Connector already, click on the **Add** button to open the **Create IoT Connector** page.
+      * Enter Connector name for the new Azure IoT Connector for FHIR. Choose **Create** for Resolution Type and click on Create button.
          * [NOTE] Connector name should be unique within an Azure API for FHIR resource. The name can only contain lowercase letters, numbers, and the hyphen (-) character. It must start and end with a letter or a number, and must be between 3-24 characters in length.
          * [NOTE] Resolution type can be Lookup or Create. Select Lookup if you have another process to create Device and Patient FHIR resources in your Azure API for FHIR. In that case, Azure IoT Connector for FHIR will use reference to these resources when creating an Observation FHIR resource to represent the device data. Select Create when you want Azure IoT Connector for FHIR to create bare-bones Device and Patient resources in your Azure API for FHIR using respective identifier values present in the device data.
       * Once installation is complete, the newly created Azure IoT Connector for FHIR will show up on the IoT Connectors page.
@@ -111,13 +111,14 @@ You also team up with Data Scientist, where they want to analyze streaming obser
    * Choose **Connection String** in Event Hubs namespace and paste the Connection String copied from above. Event Hub name will autofill.
    * Make sure **Telemetry** is enabled, Devices and Device templates are disabled.
    * Click Save.
+   * It will take 10-15 mins for the data to load into FHIR
    * More details on [Data Export](https://docs.microsoft.com/en-us/azure/iot-central/core/howto-export-data#set-up-data-export).
 
 ## Task #3: Validate Data Loaded using Postman
 * If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
-* Open "AuthorizeGetToken SetBearer" request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
-* Open "Get Device" request in FHIR Hack folder and Click Send. This should return the device.
-* Open "Get Observation" request in FHIR Hack folder and Click Send. This should return the observations.
+* Open **AuthorizeGetToken SetBearer** request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
+* Open **Get Device** request in FHIR Hack folder and Click Send. This should return the device.
+* Open **Get Observation** request in FHIR Hack folder and Click Send. This should return the observations.
 
 ## Task #4: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
