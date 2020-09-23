@@ -52,7 +52,7 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Click Create. 
    * Once the deployment is complete, open SQL Database, and click on **Query editor** on the left.
    * Enter the **Login and Password** from above.
-   * If you get an error "Client with IP address is not allowed to access the server", Go to SQL Server, Firewalls and virtual networks and add Client IP.
+   * If you get an error "Client with IP address is not allowed to access the server", Click on the link or Go to SQL Server, Firewalls and virtual networks and add Client IP listed there.
    * Copy the [SQL DDL Script](./SQL%20DDL%20Script.txt), Paste in the Editor and **Run**. Check if 12 tables have been created in the database.
    * If you want to use SQL Server Data Tools (SSDT) or SQL Server Management Studio (SSMS), note down the Server name from Overview and add Client IP in Firewalls and virtual networks.
 * **Export Data** using Postman
@@ -83,8 +83,7 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Choose all the tables you are interested in analyzing/visualizing and click Transform data.
    * You are ready to transform and analyze the data.
 
-
-## Task #4: Clean Up Resources
+## Task #3: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
 * **Delete** Azure resources created above if you DON'T need them anymore
 * **Disable** Data Export in IoT Central
