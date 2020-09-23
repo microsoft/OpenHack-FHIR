@@ -11,29 +11,67 @@ Once your data is more “report-ready”, you’ll need to help your users unde
 <center><img src="../images/challenge05-architecture.png" width="450"></center>
 
 
-## To complete this challenge successfully, you will perform the following tasks.
+## To complete this challenge successfully, you will pick one option and will perform the following tasks.
 
-* **Convert FHIR data into ndjson** You will use Azure Data Factory for conversion.
-* **Process the data into structured format**. You will use Databricks to process and store the data in Azure SQL DB.
-* **Vizualize the data for analysis**. You will use PowerQuery to transform and PowerBI for vizualization.
+## **Option 1: Vizualize in PowerBI using PowerQuery Connector for FHIR**. 
+## **Option 2:** 
+   * **Process exported FHIR data using Databricks**. 
+   * **Persist structured data into Azure SQL DB**.
+   * **Vizualize in PowerBI using SQL Connector**.
 
 ## Before you start
 
-Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
+* Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
+
+* Make sure you have completed [Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](../Challenge01-AzureAPIforFHIR/ReadMe.md).
 
 ## Getting Started
 
-## Task #1: Export FHIR data to ndjson using Azure Data Factory
-This section shows 
-*
+## Option 1:
+* Go to **Secondary AD** tenant. 
+   * Go to Azure AD, click on Users. Part of the [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) deployment created an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. 
+   * Note down the admin user and password. If you don't remember the password, click Reset password. You will get temporary password, use can change password next time you login.
+   * Click on the user and note down the Object ID of the user.
+* Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
+   * Go to File --> Options and settings --> Data source settings and Click **Clear All Permissions** 
+   * Click **Get Data** from the menu.
+   * Search **FHIR**, select and click Connect.
+   * Type FHIR URL **https://{your resource prefix}.azurehealthcareapis.com**.
+   * Click Sign In.
+   * Use admin user from **Secondary tenant** and password.
+   * Click Connect.
+   * Choose the tables you are interested in analyzing and click **Transform data**.
+   * You should see all tables you selected loaded into Power Query Editor.
+   * You are ready to transform and analyze the data.
 
-## Task #2: Process and Load into Azure SQL Database using Azure Databricks
-This section shows 
-*
+## Option 2:
+## Task #1: Process and Load into Azure SQL Database using Azure Databricks
+* Azure SQL Server
+   * Create a SQL Server/SQL Database. Provide Database User name and Password. You will need these information in the Task #2 below.
+   * Open Editor and run DDL script
+* Databricks
+   * Create Cluster
+   * Import notebook
+   * Update all values
+   * Run All
+* Validate data loaded
+   * Run Select script
 
-## Task #3: Visualize in PowerBI using Power Query FHIR Converter
-This section shows 
-*
+## Task #2: Visualize in PowerBI using Azure SQL Server 
+* Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
+   * Go to File --> Options and settings --> Data source settings and Click **Clear All Permissions** 
+   * Click **Get Data** from the menu.
+   * Search **Azure SQL**, select and click Connect.
+   * Type in Server and Database from Task #1 above. Leave Import checked. Click Ok.
+   * Click Database on the left menu. Type in User name and Password from Task #1 above.
+   * Choose all the tables you are interested in analyzing/visualizing and click Transform data.
+   * You are ready to transform and analyze the data.
+
+
+## Task #4: Clean Up Resources
+* **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
+* **Delete** Azure resources created above if you DON'T need them anymore
+* **Disable** Data Export in IoT Central
 
 
 ## Congratulations! You have successfully completed Challenge05!
