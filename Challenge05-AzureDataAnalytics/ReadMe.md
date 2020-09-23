@@ -1,11 +1,9 @@
 # Challenge05 - Analytics on FHIR Data
 
 ## Scenario
-Now that you’ve dipped into the data analysis role a bit, let’s go a little deeper down the rabbit hole. We want to take a look at some other possible ways to utilize FHIR data to draw out additional insights. Can we do some basic analysis of the COVID-related observations that lead toward respirators? How many of those with symptoms moved to respirators? How fast did they move from first symptoms to respirator? How long did they stay on respirators?
+Now that you’ve loaded data into FHIR, let’s look at some possible ways to utilize FHIR data to draw out additional insights. Can we do some basic analysis of the COVID-related observations that lead toward respirators? How many of those with symptoms moved to respirators? How fast did they move from first symptoms to respirator? How long did they stay on respirators?
 
-From a data analytics perspective, it can often be helpful to first structure the data so that is your first task. [Jeff: I’d like to add more story here about the data story we are investigating. I’m open to ideas. One alternative idea was looking for common patient observations in certain geographies.]
-
-Once your data is more “report-ready”, you’ll need to help your users understand the data by visualizing it. 
+From a data analytics perspective, it can often be helpful to first structure the data so that is your first task. Data story we are investigating... looking for common patient observations in certain geographies... understand the data by visualizing it. 
 
 ## Reference Architecture
 <center><img src="../images/challenge05-architecture.png" width="450"></center>
@@ -13,8 +11,8 @@ Once your data is more “report-ready”, you’ll need to help your users unde
 
 ## To complete this challenge successfully, you will pick one option and will perform the following tasks.
 
-## **Option 1: Vizualize in PowerBI using PowerQuery Connector for FHIR**. 
-## **Option 2:** 
+## Option 1: Vizualize in PowerBI using PowerQuery Connector for FHIR. 
+## Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
    * **Process exported FHIR data using Databricks**. 
    * **Persist structured data into Azure SQL DB**.
    * **Vizualize in PowerBI using SQL Connector**.
@@ -27,35 +25,51 @@ Once your data is more “report-ready”, you’ll need to help your users unde
 
 ## Getting Started
 
-## Option 1:
+## Option 1: Vizualize in PowerBI using PowerQuery Connector for FHIR.
 * Go to **Secondary AD** tenant. 
-   * Go to Azure AD, click on Users. Part of the [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) deployment created an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. 
-   * Note down the admin user and password. If you don't remember the password, click Reset password. You will get temporary password, use can change password next time you login.
-   * Click on the user and note down the Object ID of the user.
+   * Go to Azure AD, click on Users. Part of the [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) deployment has created an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. 
+   * Note down the **admin user and password**. If you don't remember the password, click Reset password. You will get temporary password, use can change password next time you login.
+   * Click on the user and note down the **Object ID** of the user.
 * Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
    * Go to File --> Options and settings --> Data source settings and Click **Clear All Permissions** 
    * Click **Get Data** from the menu.
    * Search **FHIR**, select and click Connect.
-   * Type FHIR URL **https://{your resource prefix}.azurehealthcareapis.com**.
-   * Click Sign In.
-   * Use admin user from **Secondary tenant** and password.
-   * Click Connect.
+   * Type FHIR URL **https://{your resource prefix}.azurehealthcareapis.com**. You can get this from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Click **Sign In**.
+   * Enter **admin user from Secondary tenant and password**.
+   * Click **Connect**.
    * Choose the tables you are interested in analyzing and click **Transform data**.
    * You should see all tables you selected loaded into Power Query Editor.
-   * You are ready to transform and analyze the data.
+   * You are ready to transform and analyze the data. You can use this [PowerBI](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix) to start.
 
-## Option 2:
-## Task #1: Process and Load into Azure SQL Database using Azure Databricks
-* Azure SQL Server
-   * Create a SQL Server/SQL Database. Provide Database User name and Password. You will need these information in the Task #2 below.
-   * Open Editor and run DDL script
-* Databricks
-   * Create Cluster
-   * Import notebook
-   * Update all values
-   * Run All
-* Validate data loaded
-   * Run Select script
+## Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
+## Task #1: Process and Load FHIR data into Azure SQL Database using Azure Databricks
+* Create Azure SQL Environment
+   * Go to Portal, search for **SQL databases**. Click Add. 
+   * Provide a new Resource Group name, **Database name**.
+   * Provide a **Server**, **Server admin login** and **Password**. Make sure you remember this, you will need this in the next Task #2 below.
+   * Click Create.
+   * Once the deployment is complete, open SQL Database, and click on **Query editor** on the left.
+   * Enter the Login and Password from above.
+   * Copy the [SQL DDL Script](./SQL%20DDL%20Script.txt), Paste in the Editor and **Run**. Check if 12 tables have been created in the database.
+   * If you want to use SQL Server Data Tools (SSDT) or SQL Server Management Studio (SSMS), note down the Server name from Overview and add Client IP in Firewalls and virtual networks.
+* Export Data using Postman
+   * Go to Portal, to the Resource group deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Click on the Azure API for FHIR resource. Click on **Integration** under Settings on the left. Note down the **Export Storage Account name**.
+   * If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
+   * Open **AuthorizeGetToken SetBearer** request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
+   * Open **Export** request in FHIR Hack folder and Click Send. This should export FHIR data into a Storage account.
+   * Go to **Export Storage Account name**, get the name of the **Storage Account**, **Storage Account Key** from Access Keys and **Container name** that was just created.
+   * Check if there are .ndjson files in that Container.
+* Create Databricks Environment
+   * Go to Portal, search for Azure Databricks. Click Add. 
+   * Create or use the same Resource group as Azure SQL. Enter Workspace name, choose the same Location as Azure SQL. Click Create.
+   * Once the deployment is complete, Click on Launch Workspace.
+   * Click Clusters on the left and Create Cluster, default settings should be ok.
+   * Click Workspace on the left. Click on down-arrow next to Workspace and Import. Download [Databricks Notebook](./fhirhackdatabrickstemplate.dbc) and Upload or Browse and click Import.
+   * Search for **<** and update storage account name, storage account key and container name from the Step above.
+   * Start and attached your cluster.
+   * Click Run All.
+   * Go to **Query Editor** in the SQL DB you created and check if all 12 tables have data.
 
 ## Task #2: Visualize in PowerBI using Azure SQL Server 
 * Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.

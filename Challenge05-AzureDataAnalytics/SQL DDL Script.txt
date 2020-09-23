@@ -1,16 +1,3 @@
-TRUNCATE TABLE Claim
-TRUNCATE TABLE Condition
-TRUNCATE TABLE Device
-TRUNCATE TABLE Encounter
-TRUNCATE TABLE ExplanationOfBenefit
-TRUNCATE TABLE Immunization
-TRUNCATE TABLE MedicalProcedure
-TRUNCATE TABLE MedicationRequest
-TRUNCATE TABLE Observation
-TRUNCATE TABLE Organization
-TRUNCATE TABLE Patient
-TRUNCATE TABLE Practitioner
-
 CREATE TABLE dbo.Claim 
 (
 ClaimID				varchar(255), 
@@ -167,15 +154,3 @@ StartPeriod			varchar(255),
 EndPeriod			varchar(255)
 )
 
-SELECT * FROM Claim
-SELECT * FROM Condition
-SELECT * FROM Device
-SELECT * FROM Encounter
-SELECT * FROM ExplanationOfBenefit
-SELECT * FROM Immunization
-SELECT * FROM MedicalProcedure
-SELECT * FROM MedicationRequest
-SELECT * FROM Observation
-SELECT * FROM Organization
-SELECT * FROM Patient
-SELECT * FROM Practitioner
