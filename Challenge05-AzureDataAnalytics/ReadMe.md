@@ -11,8 +11,8 @@ From a data analytics perspective, it can often be helpful to first structure th
 
 ## To complete this challenge successfully, you will pick one option and will perform the following tasks.
 
-## Option 1: Vizualize in PowerBI using PowerQuery Connector for FHIR. 
-## Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
+### Option 1: Vizualize in PowerBI using PowerQuery Connector for FHIR. 
+### Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
    * **Process exported FHIR data using Databricks**. 
    * **Persist structured data into Azure SQL DB**.
    * **Vizualize in PowerBI using SQL Connector**.
@@ -44,31 +44,32 @@ From a data analytics perspective, it can often be helpful to first structure th
 
 ## Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
 ## Task #1: Process and Load FHIR data into Azure SQL Database using Azure Databricks
-* Create Azure SQL Environment
+* Create **Azure SQL Environment**
    * Go to Portal, search for **SQL databases**. Click Add. 
    * Provide a new Resource Group name, **Database name**.
    * Provide a **Server**, **Server admin login** and **Password**. Make sure you remember this, you will need this in the next Task #2 below.
+   * Click Configure database in **Compute + storage** and choose **Serverless**. Make sure **Enable auto-pause** is checked.
    * Click Create.
    * Once the deployment is complete, open SQL Database, and click on **Query editor** on the left.
-   * Enter the Login and Password from above.
+   * Enter the **Login and Password** from above.
    * Copy the [SQL DDL Script](./SQL%20DDL%20Script.txt), Paste in the Editor and **Run**. Check if 12 tables have been created in the database.
    * If you want to use SQL Server Data Tools (SSDT) or SQL Server Management Studio (SSMS), note down the Server name from Overview and add Client IP in Firewalls and virtual networks.
-* Export Data using Postman
+* **Export Data** using Postman
    * Go to Portal, to the Resource group deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Click on the Azure API for FHIR resource. Click on **Integration** under Settings on the left. Note down the **Export Storage Account name**.
    * If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
    * Open **AuthorizeGetToken SetBearer** request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
    * Open **Export** request in FHIR Hack folder and Click Send. This should export FHIR data into a Storage account.
    * Go to **Export Storage Account name**, get the name of the **Storage Account**, **Storage Account Key** from Access Keys and **Container name** that was just created.
    * Check if there are .ndjson files in that Container.
-* Create Databricks Environment
-   * Go to Portal, search for Azure Databricks. Click Add. 
-   * Create or use the same Resource group as Azure SQL. Enter Workspace name, choose the same Location as Azure SQL. Click Create.
-   * Once the deployment is complete, Click on Launch Workspace.
-   * Click Clusters on the left and Create Cluster, default settings should be ok.
-   * Click Workspace on the left. Click on down-arrow next to Workspace and Import. Download [Databricks Notebook](./fhirhackdatabrickstemplate.dbc) and Upload or Browse and click Import.
+* Create **Databricks** Environment
+   * Go to Portal, search for **Azure Databricks**. Click Add. 
+   * Create or use the same Resource group as Azure SQL. Enter **Workspace name**, choose the same Location as Azure SQL. Click Create.
+   * Once the deployment is complete, Click on **Launch Workspace**.
+   * Click Clusters on the left and **Create Cluster**, default settings should be ok. Make sure **Terminate** is enabled.
+   * Click Workspace on the left. Click on down-arrow next to Workspace and **Import**. Download [Databricks Notebook](./fhirhackdatabrickstemplate.dbc) and Upload or Browse and click Import.
    * Search for **<** and update storage account name, storage account key and container name from the Step above.
    * Start and attached your cluster.
-   * Click Run All.
+   * Click **Run All**.
    * Go to **Query Editor** in the SQL DB you created and check if all 12 tables have data.
 
 ## Task #2: Visualize in PowerBI using Azure SQL Server 
