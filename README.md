@@ -4,7 +4,7 @@
 The architectures illustrate end-to-end best practices for using the Azure API for FHIR and related technologies. 
 
 ## Scenario
-Coming Soon... 
+Coming Soon...
 
 ## Reference Architectures
 <center><img src="images//azure-api-fhir-paas.png" width="850"></center>
