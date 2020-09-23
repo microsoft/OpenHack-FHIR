@@ -49,9 +49,10 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Provide a new Resource Group name, **Database name**.
    * Provide a **Server**, **Server admin login** and **Password**. Make sure you remember this, you will need this in the next Task #2 below.
    * Click Configure database in **Compute + storage** and choose **Serverless**. Make sure **Enable auto-pause** is checked.
-   * Click Create.
+   * Click Create. 
    * Once the deployment is complete, open SQL Database, and click on **Query editor** on the left.
    * Enter the **Login and Password** from above.
+   * If you get an error "Client with IP address is not allowed to access the server", Go to SQL Server, Firewalls and virtual networks and add Client IP.
    * Copy the [SQL DDL Script](./SQL%20DDL%20Script.txt), Paste in the Editor and **Run**. Check if 12 tables have been created in the database.
    * If you want to use SQL Server Data Tools (SSDT) or SQL Server Management Studio (SSMS), note down the Server name from Overview and add Client IP in Firewalls and virtual networks.
 * **Export Data** using Postman
