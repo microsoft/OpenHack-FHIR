@@ -61,14 +61,14 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Open **AuthorizeGetToken SetBearer** request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
    * Open **Export** request in FHIR Hack folder and Click Send. This should export FHIR data into a Storage account.
    * Go to **Export Storage Account name**, get the name of the **Storage Account**, **Storage Account Key** from Access Keys and **Container name** that was just created.
-   * Check if there are .ndjson files in that Container.
+   * Make a **list of the .ndjson files** in that Container.
 * Create **Databricks** Environment
    * Go to Portal, search for **Azure Databricks**. Click Add. 
    * Create or use the same Resource group as Azure SQL. Enter **Workspace name**, choose the same Location as Azure SQL. Click Create.
    * Once the deployment is complete, Click on **Launch Workspace**.
    * Click Clusters on the left and **Create Cluster**, default settings should be ok. Make sure **Terminate** is enabled.
-   * Click Workspace on the left. Click on down-arrow next to Workspace and **Import**. Download [Databricks Notebook](./fhirhackdatabrickstemplate.dbc) and Upload or Browse and click Import.
-   * Search for **<** and update storage account name, storage account key and container name from the Step above.
+   * Click Workspace on the left. Click on down-arrow next to Workspace and **Import**. Download [Databricks Notebook](./fhirhackdatabrickstemplate.dbc) and Upload or Browse and click Import. **NOTE:** This notebook has code for all files that will be created in all challenges. If you are doing this challenge before completing all challenges, you won't have all .ndjson files in the Export Container. **Comment** out the code for the files that don't exist and **uncomment** when you complete all challenges.
+   * Search for **<** and update storage account name, storage account key in Cmd 3 and container name in Cmd 7 from the Step above.
    * Start and attached your cluster.
    * Click **Run All**.
    * Go to **Query Editor** in the SQL DB you created and check if all 12 tables have data.
