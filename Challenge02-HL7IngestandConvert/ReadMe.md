@@ -37,7 +37,7 @@ In this task, you will:
 Let's get started:
 * Downloaded this [repo](https://github.com/microsoft/health-architectures).
 * [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl) 
-* [Install a Linux Distribution](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro)
+* [Install a Linux Distribution](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro). Download Ubuntu from Microsoft Store.
 * [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 * Open a bash shell into the Azure CLI 2.0 environment installed.
 * Login using **az login**
@@ -100,13 +100,6 @@ Let's get started:
    <center><img src="../images/challenge02-fhirhackhl7convert-resources.png" width="550"></center>
 
    <center><img src="../images/challenge02-fhirhackhl7convertapp-resources.png" width="550"></center>
-
-* Go to Azure Portal, to the **target resource group (second screenshot above)** created using deployhl72fhir. You should see 3 resources.
-   * Click on the service **Type App Service**.
-   * Click **Configuration under Settings** and copy the API Key in **CONVERSION_API_KEYS**. 
-   * Click **Overview** and open the URL https://...azurewebsites.net, and paste the API Key in the popup and save. 
-   * Click **Load Template** and choose ADT_A01.hbs. 
-   * In the lower left window where the template has opened, **change the type from transaction to batch**. Azure API for FHIR doesn't support transaction as of now. Click Save.  
 
 * To test, send in an hl7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
