@@ -11,7 +11,7 @@
 * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)
 * [Postman](https://www.postman.com/downloads/)
 * [Git](https://git-scm.com/downloads)
-* [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+* [.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 * [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
 
 **Needs to be installed before starting Challenge02:**
