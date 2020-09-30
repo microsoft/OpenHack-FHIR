@@ -50,7 +50,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    Login-AzAccount
    ```
 
-   >   If you are seeing errors or you don't see the subscription in your **Primary AD**, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
+   >   If you are seeing errors or you don't see the correct subscription in your **Primary AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
    >   ```powershell
    >   Clear-AzContext
    >   Connect-AzAccount
