@@ -44,21 +44,23 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    Install-Module AzureAD -RequiredVersion 2.0.2.4
    ```
 
-* **Create Secondary AD tenant**: Azure API for FHIR needs to be deployed in Active Directory tenants for Data control plane authorization and Resource control plane for resources. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate "secondary" Active Directory domain. (A basic Azure Active Directory domain is a free service.)
-   * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{yourname}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary AD** in this page for clarity. 
-
-   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be called **Primary AD** in this page for clarity.
+* **Log into Primary AD tenant**:
+   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary AD** for clarity.
    ```powershell
    Login-AzAccount
    ```
 
->   If you are seeing errors or you don't see the subscription in your **Primary AD**, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
->   ```powershell
->   Clear-AzContext
->   Connect-AzAccount
->   Set-AzContext -TenantId **{YourPrimaryADTenantID}**
->   Get-AzContext
->   ```
+   >   If you are seeing errors or you don't see the subscription in your **Primary AD**, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
+   >   ```powershell
+   >   Clear-AzContext
+   >   Connect-AzAccount
+   >   Set-AzContext -TenantId **{YourPrimaryADTenantID}**
+   >   Get-AzContext
+   >   ```
+
+* **Create Secondary AD tenant**: Azure API for FHIR needs to be deployed in Active Directory tenants for Data control plane authorization and Resource control plane for resources. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate "secondary" Active Directory domain. (A basic Azure Active Directory domain is a free service.)
+   * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{yourname}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary AD** for clarity. 
+
    * Connect to your **Secondary AD** and authenticate. **DO NOT SKIP THIS**
    ```powershell
    Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
