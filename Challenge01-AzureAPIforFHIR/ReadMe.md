@@ -45,7 +45,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    ```
 
 * **Log into Primary AD tenant**:
-   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary AD** for clarity.
+   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary AD**, for clarity.
    ```powershell
    Login-AzAccount
    ```
@@ -86,7 +86,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be **globally unique**, all lowercase and can't be longer than 13 characters.
+   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be **globally unique**, all lowercase and can't be longer than 12 characters.
    * EnvironmentLocation could specified, for this Hack leave the default as some services might not be available in the location you specify.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
