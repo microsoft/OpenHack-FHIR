@@ -68,8 +68,11 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Once the deployment is complete, Click on **Launch Workspace**.
    * Click Clusters on the left and **Create Cluster**, default settings should be ok. Make sure **Terminate** is enabled.
    * Click Workspace on the left. Click on down-arrow next to Workspace and **Import**. Download [Databricks Notebook](./fhirhackdatabrickstemplate.dbc) and Upload or Browse and click Import. **NOTE:** This notebook has code for all files that will be created in all challenges. If you are doing this challenge before completing all challenges, you won't have all .ndjson files in the Export Container. **Comment** out the code for the files that don't exist and **uncomment** when you complete all challenges.
-   * Search for **<** and update storage account name, storage account key in Cmd 3 and container name in Cmd 7 from the Step above.
-   * Start and attached your cluster.
+   * Search for **<** and 
+      * Update storage account name, storage account key in Cmd 3 
+      * Update container name in Cmd 7 from the Step above
+      * Update user and password in Cmd 11
+   * Start and attach your cluster.
    * Click **Run All**.
    * Go to **Query Editor** in the SQL DB you created and check if all 12 tables have data.
 
