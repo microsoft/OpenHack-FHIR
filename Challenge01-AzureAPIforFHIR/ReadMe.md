@@ -29,8 +29,8 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2, then proceed to login step. If not, get the right versions.
 
    ```powershell
-   Get-InstalledModule -Name Az
-   Get-InstalledModule -Name AzureAd
+   Get-InstalledModule -Name Az -AllVersions
+   Get-InstalledModule -Name AzureAd -AllVersions
    ```  
 
    * If these aren't the versions you have installed, uninstall and re-install PowerShell modules: Uninstall Az and AzureAd modules and install the right version needed.
@@ -120,7 +120,8 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
 * ### Option 1: Use Staged data
    * Download the generated [data](../Synthea/fhir.zip)
-      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. 
+      * NOTE: there are 109 files in fhir.zip, you can choose to upload a small subset (10 files) to complete the upload faster, and still able to learn all functionality. 
+      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the funtion retries and loads into Azure API for FHIR.
 
 
@@ -140,7 +141,8 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
       cd {directory_you_downloaded_synthea_to}
       java -jar synthea-with-dependencies.jar -m "covid19" -p 50
       ```
-      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the data into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account. 
+      * NOTE: the above will generate 100+ files, you can choose to upload a small subset (10 files) to complete the upload faster, and still able to learn all functionality. 
+      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the funtion retries and loads into Azure API for FHIR.
 
 ## Task #3: Validate Data Loaded
