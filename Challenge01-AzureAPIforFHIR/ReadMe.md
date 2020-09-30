@@ -44,6 +44,11 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    Install-Module AzureAD -RequiredVersion 2.0.2.4
    ```
 
+* **Active Directory Tenants**
+Active Directory is usually locked down at many customers as a securtiy best practice. Administrators control App Registrations and privilege to grant Role Assignments, users need extensive permissioning to get that unlocked. To avoid that road block, you can create another AD tenant.
+   * ** Primary AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
+   * ** Secondard AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
+
 * **Log into Primary AD tenant**:
    * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary AD** for clarity.
    ```powershell
@@ -65,7 +70,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    ```powershell
    Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
    ``` 
-   * Replace **{{yourname}fhirad}** with the name of the Secondary AD you created.
+   * Replace **{{yourname}fhirad}** with the name of the **Secondary AD** you created.
 
 ## Getting Started
 
@@ -205,6 +210,8 @@ Below are some common setup issues that you might run into with possible resolut
 * **Git Missing**: This challenge uses scripts from Git that are downloaded and installed. If you don't have Git installed you might see the following error or something similiar. Get [Git](https://git-scm.com/downloads) and try again.
    <center><img src="../images/challenge01-git-client-install.png" width="850"></center>
 
+* **Windows Terminal running PowerShell**: This is a known issue.
+Connect-AzureAD -TenantID <tenantid> does not open the Auth Login popup. This happens in both admin mode and non-admin mode.
 
 ***
 
