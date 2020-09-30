@@ -46,8 +46,8 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
 * **Active Directory Tenants**
 Active Directory is usually locked down at many customers as a securtiy best practice. Administrators control App Registrations and privilege to grant Role Assignments, users need extensive permissioning to get that unlocked. To avoid that road block, you can create another AD tenant.
-   * ** Primary AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
-   * ** Secondard AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
+   * **Primary AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
+   * **Secondard AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
 
 * **Log into Primary AD tenant**:
    * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary AD**, for clarity.
