@@ -50,12 +50,12 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * ** Secondard AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
 
 * **Log into Primary AD tenant**:
-   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary AD** for clarity.
+   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary AD**, for clarity.
    ```powershell
    Login-AzAccount
    ```
 
-   >   If you are seeing errors or you don't see the subscription in your **Primary AD**, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
+   >   If you are seeing errors or you don't see the correct subscription in your **Primary AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
    >   ```powershell
    >   Clear-AzContext
    >   Connect-AzAccount
@@ -63,7 +63,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    >   Get-AzContext
    >   ```
 
-* **Create Secondary AD tenant**: Azure API for FHIR needs to be deployed in Active Directory tenants for Data control plane authorization and Resource control plane for resources. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate "secondary" Active Directory domain. (A basic Azure Active Directory domain is a free service.)
+* **Create Secondary AD tenant**: Azure API for FHIR needs to be deployed into an Azure Active Directory tenant that allows for Data and Resource control plane authorization. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate "secondary" Active Directory domain. (A basic Azure Active Directory domain is a free service.)
    * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{yourname}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary AD** for clarity. 
 
    * Connect to your **Secondary AD** and authenticate. **DO NOT SKIP THIS**
@@ -91,7 +91,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be **globally unique**, all lowercase and can't be longer than 13 characters.
+   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be **globally unique**, all lowercase and can't be longer than 12 characters.
    * EnvironmentLocation could specified, for this Hack leave the default as some services might not be available in the location you specify.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
@@ -196,7 +196,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 ## Help, I'm Stuck!
 Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
-* **{ENVIRONMENTNAME} variable error**: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 13 characters. Here's an example of an error you might see due to a long name.
+* **{ENVIRONMENTNAME} variable error**: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 12 characters. Here's an example of an error you might see due to a long name.
    <center><img src="../images/challenge01-errors-envname-length.png" width="850"></center>
 
 * **PowerShell Execution Policy errors**: are another type of error that you might run into. In order to allow unsigned scripts and scripts from remote repositories, you might see a couple of different errors documented below.
