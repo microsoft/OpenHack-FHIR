@@ -168,7 +168,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
     * Open Postman and import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json). Collection is a set of requests.
-    * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a slider on the top right). Click on the environment **FHIR OpenHack** you imported. Enter these values for Initial and Current Value. You can also choose the **FHIR OpenHack** environment you imported in the drop-down and click eye icon and click Edit and enter these values for Initial and Current Value.
+    * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a slider on the top right next to eye icon). Click on the environment **FHIR OpenHack** you imported. Enter these values for Initial and Current Value. You can also choose the **FHIR OpenHack** environment you imported in the drop-down and click eye icon and click Edit and enter these values for Initial and Current Value.
       * adtenantId: This is the **tenant Id of the Secondary (Data) AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
       * clientSecret: This is the **client Secret** that is stored in **Secret** "{your resource prefix}-service-client-secret" in "{your resource prefix}-ts" Key Vault.
