@@ -26,7 +26,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    ```powershell
    $PSVersionTable.PSVersion
    ```  
-   * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2, then proceed to login step. If not, get the right versions.
+   * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2.4, then proceed to login step. If not, get the right versions.
 
    ```powershell
    Get-InstalledModule -Name Az -AllVersions
