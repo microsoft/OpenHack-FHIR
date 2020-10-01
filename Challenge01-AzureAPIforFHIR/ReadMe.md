@@ -46,31 +46,31 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
 * **Active Directory Tenants**
 Active Directory is usually locked down at many customers as a securtiy best practice. Administrators control App Registrations and privilege to grant Role Assignments, users need extensive permissioning to get that unlocked. To avoid that road block, you can create another AD tenant.
-   * **Primary AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
-   * **Secondard AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
+   * **Primary (Resource) AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
+   * **Secondard (Data) AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
 
-* **Log into Primary AD tenant**:
-   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary AD**, for clarity.
+* **Log into Primary (Resource) AD tenant**:
+   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary (Resource) AD**, for clarity.
    ```powershell
    Login-AzAccount
    ```
 
-   >   If you are seeing errors or you don't see the correct subscription in your **Primary AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
+   >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
    >   ```powershell
    >   Clear-AzContext
    >   Connect-AzAccount
-   >   Set-AzContext -TenantId **{YourPrimaryADTenantID}**
+   >   Set-AzContext -TenantId **{YourPrimary or Resoruce ADTenantID}**
    >   Get-AzContext
    >   ```
 
-* **Create Secondary AD tenant**: Azure API for FHIR needs to be deployed into an Azure Active Directory tenant that allows for Data and Resource control plane authorization. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate "secondary" Active Directory domain. (A basic Azure Active Directory domain is a free service.)
-   * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{yourname}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary AD** for clarity. 
+* **Create Secondary (Data) AD tenant**: Azure API for FHIR needs to be deployed into an Azure Active Directory tenant that allows for Data and Resource control plane authorization. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate **Secondary (Data)** Active Directory domain. (A basic Azure Active Directory domain is a free service.)
+   * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{yourname}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary (Data) AD** for clarity. 
 
-   * Connect to your **Secondary AD** and authenticate. **DO NOT SKIP THIS**
+   * Connect to your **Secondary (Data) AD** and authenticate. **DO NOT SKIP THIS**
    ```powershell
    Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
    ``` 
-   * Replace **{{yourname}fhirad}** with the name of the **Secondary AD** you created.
+   * Replace **{{yourname}fhirad}** with the name of the **Secondary (Data) AD** you created.
 
 ## Getting Started
 
@@ -91,14 +91,15 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be **globally unique**, all lowercase and can't be longer than 12 characters.
+   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**.
    * EnvironmentLocation could specified, for this Hack leave the default as some services might not be available in the location you specify.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
-   * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
-     * To check on the status of the deployment you can open the Azure Portal of the **Primary AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. You can look at the "deployments" to check the status of your resource creation, there will be 5 total deployments between the two resource groups. 
-   <center><img src="../images/challenge01-checkdeploy01.PNG" width="850"></center> 
-   <center><img src="../images/challenge01-checkdeploy02.PNG" width="850"></center>
+   * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. Note down the Key, Value and Name of **dashboardUserPassword** that is displayed when deployment is complete. You will need this in Task #3.
+   * If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
+   * To check on the status of the deployment you can open the Azure Portal of the **Primary (Resource) AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. You can look at the "deployments" to check the status of your resource creation, there will be 5 total deployments between the two resource groups. 
+      <center><img src="../images/challenge01-checkdeploy01.PNG" width="850"></center> 
+      <center><img src="../images/challenge01-checkdeploy02.PNG" width="850"></center>
    
 * On **successful completion**, you'll have two resource groups and lots of resources created with the prefix <ENVIRONMENTNAME>. Explore these resources and try to understand the role they play in your FHIR demo environment. NOTE: Application Insights is not available in all locations and will be provisioned in East US.
 
@@ -158,23 +159,22 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 ## Task #3: Validate Data Loaded
 
 * ### Use the Dashboard App
-    * Go to **Secondary AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. Click on the admin user and Reset password.
-    * Go to **Primary AD** tenant. Click on the App Service "{your resource prefix}dash". Copy the URL. Open Portal "InPrivate" window. Go to the App Service URL and login using the admin user above. 
+    * Go to **Secondary (Data) AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. You can get the password from **dashboardUserPassword**  that you saved after Task #1. If you don't have it, click on the admin user and Reset password.
+    * Go to **Primary (Resource) AD** tenant. Click on the App Service "{your resource prefix}dash". Copy the URL. Open Portal "InPrivate" window. Go to the App Service URL and login using the admin user above. 
     * The dashboard will show you all the patients in the system and allows you to see the patients medical details. You can click on little black **fire** symbol against each records and view fhir bundle and details.
     * You can click on resource links lik Condition, Encounters...to view those resource. 
     * Go to Patients, and click on little black **i** icon next to a patient record. You will notice 2 buttons "Growth Chart" and "Medications" SMART ON FHIR Apps.
  
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
-    * Open Postman and import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json).
-    * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a slider on the top right). Click on the environment you imported. Enter these values for Initial Value:
-      * adtenantId: This is the **tenant Id of the Secondary AD** tenant
+    * Open Postman and import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json). Collection is a set of requests.
+    * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a slider on the top right). Click on the environment **FHIR OpenHack** you imported. Enter these values for Initial and Current Value. You can also choose the **FHIR OpenHack** environment you imported in the drop-down and click eye icon and click Edit and enter these values for Initial and Current Value.
+      * adtenantId: This is the **tenant Id of the Secondary (Data) AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
       * clientSecret: This is the **client Secret** that is stored in **Secret** "{your resource prefix}-service-client-secret" in "{your resource prefix}-ts" Key Vault.
       * bearerToken: The value will be set when "AuthorizeGetToken SetBearer" request below is sent.
       * fhirurl: This is **https://{your resource prefix}.azurehealthcareapis.com** from Azure API for FHIR you created in Task #1 above
       * resource: This is the Audience of the Azure API for FHIR **https://{your fhir name}.azurehealthcareapis.com** you created in Task #1 above.      
-   * Import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json). Collection is a set of requests.
    * After you import, you will see both the Collection on the left and Environment on the top right.
       <center><img src="../images/challenge01-postman.png" width="850"></center>
    * Run Requests:
@@ -199,7 +199,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 ## Help, I'm Stuck!
 Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
-* **{ENVIRONMENTNAME} variable error**: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be globally unique and can't be longer than 12 characters. Here's an example of an error you might see due to a long name.
+* **{ENVIRONMENTNAME} variable error**: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be **globally unique** and **can't be longer than 12 characters**. Here's an example of an error you might see due to a long name.
    <center><img src="../images/challenge01-errors-envname-length.png" width="850"></center>
 
 * **PowerShell Execution Policy errors**: are another type of error that you might run into. In order to allow unsigned scripts and scripts from remote repositories, you might see a couple of different errors documented below.
