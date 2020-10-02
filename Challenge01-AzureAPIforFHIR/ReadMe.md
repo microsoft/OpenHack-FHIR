@@ -131,9 +131,9 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
 * ### Option 1: Use Staged data
    * Download the generated [data](../Synthea/fhir.zip)
-      * NOTE: there are 109 files in fhir.zip, you can choose to upload a small subset (10 files) to complete the upload faster, and still able to learn all functionality. 
-      * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
-      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the funtion retries and loads into Azure API for FHIR.
+      * **NOTE:** there are 109 files in fhir.zip, you can choose to upload a small subset (10 files) to complete the upload faster, and still able to learn all functionality. 
+      * Once the data has been downloaded, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
+      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the funtion retries and loads into Azure API for FHIR.
 
 
 * ### Option 2: Generate Synthea data
@@ -171,10 +171,10 @@ Active Directory is usually locked down at many customers as a securtiy best pra
     * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a slider on the top right next to eye icon). Click on the environment **FHIR OpenHack** you imported. Enter these values for Initial and Current Value. You can also choose the **FHIR OpenHack** environment you imported in the drop-down and click eye icon and click Edit and enter these values for Initial and Current Value.
       * adtenantId: This is the **tenant Id of the Secondary (Data) AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
-      * clientSecret: This is the **client Secret** that is stored in **Secret** "{your resource prefix}-service-client-secret" in "{your resource prefix}-ts" Key Vault.
+      * clientSecret: This is the **client Secret** that is stored in **Secret** "{ENVIRONMENTNAME}-service-client-secret" in "{ENVIRONMENTNAME}-ts" Key Vault.
       * bearerToken: The value will be set when "AuthorizeGetToken SetBearer" request below is sent.
-      * fhirurl: This is **https://{your resource prefix}.azurehealthcareapis.com** from Azure API for FHIR you created in Task #1 above
-      * resource: This is the Audience of the Azure API for FHIR **https://{your fhir name}.azurehealthcareapis.com** you created in Task #1 above.      
+      * fhirurl: This is **https://{ENVIRONMENTNAME}.azurehealthcareapis.com** from Azure API for FHIR you created in Task #1 above.
+      * resource: This is the Audience of the Azure API for FHIR **https://{ENVIRONMENTNAME}.azurehealthcareapis.com** you created in Task #1 above. You can find this Audience when you click Authetication in Azure API for FHIR you created in Task #1 above.
    * After you import, you will see both the Collection on the left and Environment on the top right.
       <center><img src="../images/challenge01-postman.png" width="850"></center>
    * Run Requests:
@@ -188,7 +188,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
       * "Get Patient Filter Exact" will return a specific Patient with a given name. Change to different name and analyze the results.
       * "Get Patient Filter Contains" will return Patients with letters in the given name. Change to different letters and analyze the results.
       * "Get Filter Multiple ResourceTypes" will return multiple resource types in _type. Change to other resource type and analyze the results.
-      * NOTE: bearerToken expires in  10 minutes so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to set new value to bearerToken variable.
+      * NOTE: bearerToken expires soon, so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to set new value to bearerToken variable.
 
 ## Task #4: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
