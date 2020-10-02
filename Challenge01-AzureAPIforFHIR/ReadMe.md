@@ -188,7 +188,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
       * "Get Patient Filter Exact" will return a specific Patient with a given name. Change to different name and analyze the results.
       * "Get Patient Filter Contains" will return Patients with letters in the given name. Change to different letters and analyze the results.
       * "Get Filter Multiple ResourceTypes" will return multiple resource types in _type. Change to other resource type and analyze the results.
-      * NOTE: bearerToken expires in ...so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to set new value to bearerToken variable.
+      * NOTE: bearerToken expires in  10 minutes so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to set new value to bearerToken variable.
 
 ## Task #4: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
