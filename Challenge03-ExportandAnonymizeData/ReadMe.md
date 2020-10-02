@@ -130,7 +130,7 @@ Below are some common setup issues that you might run into with possible resolut
 
 * Logic App succeeded but no output in Storage Account **{ENVIRONMENTNAME}dlg2**.  
    * Check if the Azure Data Factory succeeded. If you see the below error, check if you updated **{ENVIRONMENTNAME}kv KeyVault** for Export Storage Account
-      <center><img src="../images/challenge03-ADF-error.png" width="450"></center>
+   <center><img src="../images/challenge03-ADF-error.png" width="450"></center>
 ***
 
 [Go to Challenge04 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](../Challenge04-IoTFHIRConnector/ReadMe.md)
