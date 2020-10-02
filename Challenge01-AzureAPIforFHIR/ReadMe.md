@@ -46,7 +46,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
 * **Active Directory Tenants**
 Active Directory is usually locked down at many customers as a securtiy best practice. Administrators control App Registrations and privilege to grant Role Assignments, users need extensive permissioning to get that unlocked. To avoid that road block, you can create another AD tenant. 
-   * **NOTE** If you **have Administrator access** to a AD tenant where you can create App Registrations, Role Assignments and Azure Resources, example: Visual Studio Subscription, then **Primary AD tenant is same as Secondary AD tenant**, you the same AD tenant for both.
+   * **NOTE** If you have full **Administrator access** to a AD tenant where you can create App Registrations, Role Assignments, Azure Resources... example: Visual Studio Subscription, then **Primary AD tenant is same as Secondary AD tenant**, use the same AD tenant for both.
    * If you **don't have Administrator access**:
       * **Primary (Resource) AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
       * **Secondary (Data) AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
