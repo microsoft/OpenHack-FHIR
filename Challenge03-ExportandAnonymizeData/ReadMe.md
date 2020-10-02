@@ -47,7 +47,7 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
    git clone https://github.com/Microsoft/health-architectures
    ```
 
-* Update Parameters file
+* Update **Parameters** file
    * Navigate to health-architectures/Research-and-Analytics\FHIRExportwithAnonymization folder. 
    * Open the ./Assets/arm_template_parameters.json file in your perferred json editor. 
    * Add value for fhirserver-url. This is Azure API for FHIR Server URL, typically https://{name}azurehealthcareapis.com
@@ -93,21 +93,22 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
    * Batch Account {ENVIRONMENTNAME}batch
    * Key Vault {ENVIRONMENTNAME}kv
    * Logic App {ENVIRONMENTNAME}la
-   * Storage Account {ENVIRONMENTNAME}stg
    * Storage Account {ENVIRONMENTNAME}dlg2
 
-* Configure export setting and set up the storage account
-   * Navigate to Azure API for FHIR service and select Identity blade. Make sure the status to On will enable managed identity in Azure API for FHIR Service.
-   * Navigate to Access Control (IAM) blade in Storage Account {ENVIRONMENTNAME}stg and select Add Role Assignments. Add role Storage Blob Data Contributor to Azure API for FHIR service created in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * Navigate to Integration blade in Azure API for FHIR service in Azure portal and select the storage account {ENVIRONMENTNAME}stg.
+* Update {ENVIRONMENTNAME}kv **KeyVault** for Export Storage Account
+   * Open the Azure Portal. Navigate to **Resource Group** deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). 
+   * Locate the **{ENVIRONMENTNAME}export** Storage account. Click **Access key** under **Settings**. Copy one of the **connection string**s. 
+   * Navigate to the {ENVIRONMENTNAME}kv deployed above in this challenge. Click to open. 
+   * Click **Secrets** under **Settings**. Click the secret **blobstorageacctstring**. Click **+ New Version**. In the **Value** box paste the **connection string** you just copied. Click **Create** button at the bottom the page.
 
    Time to export data and do some research!
 
 ## Task #3: Validate Data Loaded
 * Go to Resource Group {ENVIRONMENTNAME} created.
 * Click on the Logic App and click Run Trigger. You can click on the Running status in Runs History below in the same screen. The time taken to complete depends on the volume of data you have in Azure API for FHIR.
-* When completed successfully, view the below
-   * Compare the containers with suffix output in {ENVIRONMENTNAME}stg and {ENVIRONMENTNAME}dlg2 Storage Accounts. {ENVIRONMENTNAME}stg will have pre-anonymized ndjson files for every resource. {ENVIRONMENTNAME}dlg2 will have anonymized ndjson files for every resource.
+* When completed successfully, compare the pre and post de-identified data. 
+   * **Pre de-identified data** is in the Storage Account **{ENVIRONMENTNAME}export** in **Resource Group** deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Look for the container with the latest date. The json files exported from Azure API for FHIR are stored here.
+   * **Post de-identified data** is in the Storage Account **{ENVIRONMENTNAME}dlg2** created in this Challenge. The json files de-identified are stored here.
 
 ## Task #4: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
