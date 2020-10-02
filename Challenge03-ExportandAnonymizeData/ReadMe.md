@@ -95,20 +95,20 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
    * Logic App {ENVIRONMENTNAME}la
    * Storage Account {ENVIRONMENTNAME}dlg2
 
-* Update {ENVIRONMENTNAME}kv **KeyVault** for Export Storage Account
+* Update **{ENVIRONMENTNAME}kv KeyVault** for Export Storage Account
    * Open the Azure Portal. Navigate to **Resource Group** deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). 
    * Locate the **{ENVIRONMENTNAME}export** Storage account. Click **Access key** under **Settings**. Copy one of the **connection string**s. 
-   * Navigate to the {ENVIRONMENTNAME}kv deployed above in this challenge. Click to open. 
+   * Navigate to the **{ENVIRONMENTNAME}kv** deployed above in this challenge. Click to open. 
    * Click **Secrets** under **Settings**. Click the secret **blobstorageacctstring**. Click **+ New Version**. In the **Value** box paste the **connection string** you just copied. Click **Create** button at the bottom the page.
 
    Time to export data and do some research!
 
 ## Task #3: Validate Data Loaded
-* Go to Resource Group {ENVIRONMENTNAME} created.
-* Click on the Logic App and click Run Trigger. You can click on the Running status in Runs History below in the same screen. The time taken to complete depends on the volume of data you have in Azure API for FHIR.
+* Go to Resource Group **{ENVIRONMENTNAME}** created in this Challenge.
+* Click on the **Logic App** and click **Run Trigger**. You can click on the Running status in Runs History below in the same screen. The time taken to complete depends on the volume of data you have in Azure API for FHIR.
 * When completed successfully, compare the pre and post de-identified data. 
-   * **Pre de-identified data** is in the Storage Account **{ENVIRONMENTNAME}export** in **Resource Group** deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Look for the container with the latest date. The json files exported from Azure API for FHIR are stored here.
-   * **Post de-identified data** is in the Storage Account **{ENVIRONMENTNAME}dlg2** created in this Challenge. The json files de-identified are stored here.
+   * **Pre de-identified data** is in the Storage Account **{ENVIRONMENTNAME}export** in **Resource Group** deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Look for the container with the latest date. The pre de-identified json files exported from Azure API for FHIR are stored here.
+   * **Post de-identified data** is in the Storage Account **{ENVIRONMENTNAME}dlg2** created in this Challenge. The post de-identified json files are stored here.
 
 ## Task #4: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
