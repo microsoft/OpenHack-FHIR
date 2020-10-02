@@ -108,7 +108,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 * Click on the **Logic App** and click **Run Trigger**. You can click on the Running status in Runs History below in the same screen. The time taken to complete depends on the volume of data you have in Azure API for FHIR.
 * When completed successfully, compare the pre and post de-identified data. 
    * **Pre de-identified data** is in the Storage Account **{ENVIRONMENTNAME}export** in **Resource Group** deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Look for the container with the latest date. The pre de-identified json files exported from Azure API for FHIR are stored here.
-   * **Post de-identified data** is in the Storage Account **{ENVIRONMENTNAME}dlg2** created in this Challenge. The post de-identified json files are stored here.
+   * **Post de-identified data** is in the Storage Account **{ENVIRONMENTNAME}dlg2** created in this Challenge. Look for the container with output as suffix. The post de-identified json files are stored here.
 
 ## Task #4: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
@@ -125,6 +125,9 @@ Below are some common setup issues that you might run into with possible resolut
 
 * If you would like to adjust the start time or run interval, open the Logic App in the deployed resource group. The first step called 'Recurrence' is where the timer is stored.
 
+* Logic App succeeded but no output in Storage Account **{ENVIRONMENTNAME}dlg2**.  
+   * Check if the Azure Data Factory succeeded. If you see the below error, check if you updated **{ENVIRONMENTNAME}kv KeyVault** for Export Storage Account
+   <center><img src="../images/challenge03-ADF-error.png" width="450"></center>
 ***
 
 [Go to Challenge04 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](../Challenge04-IoTFHIRConnector/ReadMe.md)
