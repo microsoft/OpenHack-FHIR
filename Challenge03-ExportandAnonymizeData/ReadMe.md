@@ -85,6 +85,9 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
    ```
 
    This deployment process may take 5 minutes or more to complete.
+*  Warning: Azure Key Vault now defaults to soft-delete, a manual removal of the Azure Key Vault is required if you need to delete this deployment and start over.
+   * Check if any Key Vaults are in soft-delete state: Get-AzKeyVault -InRemovedState
+   * Remove Key Vault in soft-delete state: Remove-AzKeyVault -VaultName <keyvaultname> -InRemovedState -Location <locationname>
 
 * The following resources in resource group {ENVIRONMENTNAME} will be created:
    <center><img src="../images/challenge03-fhirhackan-resources.png" width="550"></center>
@@ -127,7 +130,7 @@ Below are some common setup issues that you might run into with possible resolut
 
 * Logic App succeeded but no output in Storage Account **{ENVIRONMENTNAME}dlg2**.  
    * Check if the Azure Data Factory succeeded. If you see the below error, check if you updated **{ENVIRONMENTNAME}kv KeyVault** for Export Storage Account
-   <center><img src="../images/challenge03-ADF-error.png" width="450"></center>
+      <center><img src="../images/challenge03-ADF-error.png" width="450"></center>
 ***
 
 [Go to Challenge04 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](../Challenge04-IoTFHIRConnector/ReadMe.md)
