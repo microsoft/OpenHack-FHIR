@@ -10,8 +10,8 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 ## To complete this challenge successfully, you will perform the following tasks.
 
-* **Provision Azure API for FHIR demo environment**. Given the limited time, we'll provide a set of scripts to accomplish this. For step by step instructions, check the appendix.
-* **Load Synthetic data**. You can generate the data using Synthea or use a staged dataset that we'll provide.
+* **Provision Azure API for FHIR demo environment**. Given the limited time, we'll provide a set of scripts to accomplish this. If you are interested in the details behind the script, check the appendix.
+* **Load Synthetic data**. You can generate the data using Synthea or use a staged dataset we'll provide.
 * **Validate data load**. You can use the dashboard application to validate the data or the provided APIs by using Postman.
 
 ## Before you start
@@ -184,7 +184,7 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
  
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
-    * Open Postman and import [Collection](../Postman/FHIR%20OpenHack.postman_collection.json). Collection is a set of requests.
+    * Open Postman and we'll first import a pre-defined set of API calls. Go to the [Collection](../Postman/FHIR%20OpenHack.postman_collection.json) and click the **Raw** button. Copy all of this json to your clipboard. Click the **Import** button near the upper-left corner of the app. Click the **Raw Text** tab and paste the json content you copied here. 
     * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a slider on the top right next to eye icon). Click on the environment **FHIR OpenHack** you imported. Enter these values for Initial and Current Value. You can also choose the **FHIR OpenHack** environment you imported in the drop-down and click eye icon and click Edit and enter these values for Initial and Current Value.
       * adtenantId: This is the **tenant Id of the Secondary (Data) AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
