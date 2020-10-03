@@ -78,12 +78,12 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
 ## Task #1: Provision Azure API for FHIR demo environment.
 
-   * You will get a security exception error if you haven't set the execution policy below. This is because the repo you will clone in the next step is a public repo, and the PowerShell script is not signed. Run the following PowerShell command to set the execution policy and type A, to run unsigned Powershell scripts.
+   * You will get a security exception error if you haven't set the execution policy below. This is because the repo you will clone in the next step is a public repo, and the PowerShell script is not signed. Run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
    ```powershell
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
    ```
    
-* **Get the repo** fhir-server-samples from Git into C or sub-folder in C drive. If you don't have Git, install it from the link in [Challenge00](../Challenge00-Prerequistes/ReadMe.md).
+* **Get the repo** fhir-server-samples from Git into C: or a sub-folder in C: drive. If you don't have Git, install it from the link in [Challenge00](../Challenge00-Prerequistes/ReadMe.md).
    ```powershell
    git clone https://github.com/Microsoft/fhir-server-samples
    ``` 
@@ -93,8 +93,8 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value you type that will be used as the prefix for the Azure resources that the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**.
-   * EnvironmentLocation could specified, for this Hack leave the default as some services might not be available in the location you specify.
+   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value used as the prefix for the Azure resources the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**.
+   * EnvironmentLocation could be specified, but for this hack, leave the default (eastus) as not all of the services we are provisioning are available in all regions.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. Note down the Key, Value and Name of **dashboardUserPassword** that is displayed when deployment is complete. You will need this in Task #3.
