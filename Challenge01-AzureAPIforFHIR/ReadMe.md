@@ -20,7 +20,7 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
 * **Azure Subscription**: You will need permissions to perform CRUD operations in your Azure subscription.
 
-* **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts to provision your Azure API for FHIR resources. You can use either Azure PowerShell or Windows PowerShell and make sure you are running it as an administrator. (Right-click the PowerShell icon and choose **Run as Administrator**)
+* **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts to provision your Azure API for FHIR resources in Windows. You can use either Azure PowerShell or Windows PowerShell and make sure you are running it as an administrator. (Right-click the PowerShell icon and choose **Run as Administrator**)
    * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
 
    ```powershell
@@ -128,6 +128,10 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * App Service Plan ({ENVIRONMENTNAME}meds-plan) to support the meds App Service/Dashboard App.
 
 * Go to the **Secondard AD** in Portal. Go to App Registrations. All the 3 different clients are registered here.
+
+*  **Warning**: Azure Key Vault now **defaults to soft-delete**, a manual removal of the Azure Key Vault is required if you need to delete this deployment and start over.
+   * Check if any Key Vaults are in soft-delete state: **Get-AzKeyVault -InRemovedState**
+   * Remove Key Vault in soft-delete state: **Remove-AzKeyVault -VaultName {keyvaultname} -InRemovedState -Location {locationname}**
 
 ## Task #2: Generate & Load synthetic data.
 

@@ -85,7 +85,8 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
    ```
 
    This deployment process may take 5 minutes or more to complete.
-*  Warning: Azure Key Vault now defaults to soft-delete, a manual removal of the Azure Key Vault is required if you need to delete this deployment and start over.
+
+*  **Warning**: Azure Key Vault now **defaults to soft-delete**, a manual removal of the Azure Key Vault is required if you need to delete this deployment and start over.
    * Check if any Key Vaults are in soft-delete state: **Get-AzKeyVault -InRemovedState**
    * Remove Key Vault in soft-delete state: **Remove-AzKeyVault -VaultName {keyvaultname} -InRemovedState -Location {locationname}**
 
