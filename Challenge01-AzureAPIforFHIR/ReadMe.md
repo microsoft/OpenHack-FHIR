@@ -177,8 +177,8 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
 
 * ### Use the Dashboard App
     * Go to your **Secondary (Data) AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. You can get the password from **dashboardUserPassword** you saved after Task #1. If you don't have it, click on the admin user and Reset password.
-    * Go to **Primary (Resource) AD** tenant. Click on the App Service "{your resource prefix}dash". Copy the URL. Open the Azure portal in an "InPrivate" window. Go to the App Service URL and login using the admin user above. 
-    * The dashboard will show you all the patients in the system where you can view each patient's medical details. You can click on little black **fire** symbol against each record and view the FHIR bundle details.
+    * Go to **Primary (Resource) AD** tenant. Click on the App Service "{ENVIRONMENTNAME}dash". Copy the URL. Open the Azure portal in an "InPrivate" window. Go to the App Service URL and login using the admin user above. 
+    * The dashboard will show you all the patients in the system where you can view each patient's medical details. You can click on the little black **fire** symbol against each record and view the FHIR bundle details.
     * You can click on resource links (e.g. Condition, Encounters, etc.) to examine those resources. 
     * Go to Patients, and click on little black **i** icon next to a patient record. You will notice two buttons "Growth Chart" and "Medications" SMART ON FHIR Apps.
  
