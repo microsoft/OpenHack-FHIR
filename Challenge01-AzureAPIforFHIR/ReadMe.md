@@ -145,11 +145,11 @@ Team Discussion Q: How does FHIR improve on previous standards? (10 minutes)
    * Download the generated [data](../Synthea/fhir.zip)
       * **NOTE:** there are 109 files in fhir.zip. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
       * Once the data has been downloaded, extract the .zip file. You can use the Azure Storage Explorer in the Azure portal or from your desktop app to upload the json files into the **fhirimport** blob container in the **{ENVIRONMENTNAME}impsa** storage account created for you in Task #1. 
-      * Once the data is loaded into **fhirimport** container, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1,000 RUs for the Azure CosmosDB, it will take about 5-10 minutes to load the data. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
+      * As each file is loaded into the **fhirimport** container, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into your FHIR instance. For 50 users, assuming the default of 1,000 RUs for the Azure CosmosDB, it will take about 5-10 minutes to load the data. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete, all of your uploaded files will have been deleted. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click **Monitoring** and check **Log Stream**. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
 
 ---
 
-Team Discussion: What FHIR entities are most important for your first FHIR API project? (10 minutes)
+Team Discussion: What FHIR entities and attributes do you feel will be critical for your first FHIR API project? (10 minutes)
 
 ---
 
@@ -164,7 +164,7 @@ Team Discussion: What FHIR entities are most important for your first FHIR API p
             curl https://synthetichealth.github.io/synthea/build/libs/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
             ```
    * **Generate Data**:
-      * Follow instructions below to generate your synthetic data set. Note we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to an output sub-folder.
+      * Follow the instructions below to generate your synthetic data set. Note we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to an output sub-folder.
       ```shell
       cd {directory_you_downloaded_synthea_to}
       java -jar synthea-with-dependencies.jar -m "covid19" -p 50
