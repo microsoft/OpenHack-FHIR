@@ -26,62 +26,60 @@ Then you will use Logic Apps connector and FHIR Converter to convert those messa
 The [FHIR Converter](https://github.com/microsoft/FHIR-Converter) is an open source project that enables healthcare organizations to convert legacy data (currently HL7 v2 messages) into FHIR bundles. Converting legacy data to FHIR expands the use cases for health data and enables interoperability.
 
 ## Task #1: HL7 Ingest
-HL7 ingest platform is to consume HL7 Messages via MLLP and securely Transfer them to Azure via HL7overHTTPS and place in blob storage and produce a consumable event on a high speed ordered service bus for processing.  
+HL7 ingest platform is consumes HL7 Messages via MLLP and securely transfers them to Azure via HL7overHTTPS. The data lands in blob storage and produces a consumable event on a high-speed service bus for processing.  
 
 In this task, you will:
-* Consume MLLP HL7 Messages
-* Securely transfer them to Azure via [HL7overHTTPS](https://hapifhir.github.io/hapi-hl7v2/hapi-hl7overhttp/specification.html)
-* Place in blob storage for audit/errors
-* Produce a consumable event on a high speed ordered service bus for processing
+1 Consume MLLP HL7 Messages
+2 Securely transfer them to Azure via [HL7overHTTPS](https://hapifhir.github.io/hapi-hl7v2/hapi-hl7overhttp/specification.html)
+3 Place in blob storage for audit/errors
+4 Produce a consumable event on a high-speed service bus for processing
 
 Let's get started:
-* Downloaded this [repo](https://github.com/microsoft/health-architectures).
+* Download this [repo](https://github.com/microsoft/health-architectures).
 * [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl) 
 * [Install a Linux Distribution](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro). Download Ubuntu from Microsoft Store.
 * [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
-* Open a bash shell into the Azure CLI 2.0 environment installed.
+* Open a bash shell into the Azure CLI 2.0 environment.
 * Login using **az login**
 * Switch to the HL7Conversion subdirectory of this repo using **cd /mnt/{Your HL7Conversion directory path}**. Use cd one directory at a time if the whole path is not working.
 * Run the **./deployhl7ingest.bash** script and follow the prompts to enter Subscription ID, Resource Group Name, Resource Group Location, Deployment Prefix... Will take ~5 minutes to complete.
 
-* The resources deployed with be displayed between 2 double-star lines. **Copy** this and keep it handy for Task #2.
+* The resources deployed with be displayed between two double-star lines. **Copy** this and keep it handy for Task #2.
 
-* The following resources in resource group name you provided above will be created:
+* The following resources in the resource group name you provided above will be created:
   <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
 
-* To test, send in an hl7 message via HL7 over HTTPS:
-   * Locate the sample message samplemsg.hl7 in the root directory of the repo
-   * Use a text editor to see contents
-   * From the linux command shell run the following command to test the hl7overhttps ingest. 
+* To test, send an HL7 message via HL7 over HTTPS:
+   * Locate the sample message **samplemsg.hl7** in the root directory of the repo.
+   * Use a text editor to see contents.
+   * From the linux command shell, run the following command to test the hl7overhttps ingest. 
      ```
        curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host url from above>/api/hl7ingest?code=<your ingest host key from above>
      ``` 
-   * You should receive back an HL7 ACK message
+   * You should receive back an HL7 ACK message. (ACK is an 'Acknowledgement' message verifying the call was successful.)
      <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
 
-   * Validate if the sample hl7 message has been stored in HL7 folder in the storage account created.
-   * Congratulations!!! The sample hl7 message was accepted securely stored into blob storage and queued for further ingest processing on the deployed service bus queue
+   * Validate the sample HL7 message made its way to the HL7 folder in the storage account created.
+   * Congratulations!!! The sample HL7 message was accepted securely stored into blob storage and queued for further ingest processing on the deployed service bus queue
 * [Optional] Send in HL7 messages using the local HL7 MLLP Relay. To run a local copy of the HL7 MLLP Relay:
    * Make sure [Docker](https://www.docker.com/) is installed and running in your linux or windows environment
-   * From a command prompt run the runhl7relay.bash(linux) or runhl7relay.cmd(windows) passing in the hl7ingest Function App URL (Saved from Above) and the function app access key (Saved from above) as parameters.
+   * From a command prompt run the runhl7relay.bash(linux) or runhl7relay.cmd(windows) passing in the HL7ingest Function App URL (saved from above) and the function app access key (also saved from above) as parameters.
         ```
         runhl7relay https://<your ingest host name from above/api/hl7ingest "<function app key from above>"
        ``` 
    * You can now point any HL7 MLLP Engine to the HL7 Relay listening port (default is 8079) and it will transfer messages to the hl7ingest function app over https
    * An appropriate HL7 ACK will be sent to the engine from the relay listener
 
-
 ## Task #2: HL7 Conversion to FHIR
-A workflow that performs orderly conversion from HL7 to FHIR via the conversion API and persists the message into a FHIR Server and publishes change events referencing FHIR resources to a high speed event hub to interested subscribers.  
 In this task, you will:
-* Create a logic app based workflow that performs orderly conversion from HL7 to FHIR via the [FHIR Converter](https://github.com/microsoft/FHIR-Converter), persists the message into an [Azure API for FHIR Server Instance](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/) and publishes FHIR change events referencing FHIR resources to a high speed event hub to interested subscribers.
+* Create a logic app based workflow that performs orderly conversion from HL7 to FHIR via the [FHIR Converter](https://github.com/microsoft/FHIR-Converter), persists the message into an [Azure API for FHIR Server Instance](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/), and publishes FHIR change events referencing FHIR resources to a high speed event hub to interested subscribers.
 Features of the HL7toFHIR Conversion Platform:
 
 Let's get started:
-* [Deploy the HL7 Ingest Platform](#ingest) if you have not already
-* You will need the following information to configure the HL72FHIR services
-   + The **Client ID for the Service Client**. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
-   + The **Client Secret for the Service Client**. You can get this from Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
+* [Deploy the HL7 Ingest Platform](#ingest) if you have not already.
+* You will need the following information to configure the HL72FHIR services:
+   + The **Client ID for the Service Client**. You can get this from the corresponding Secret in your Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
+   + The **Client Secret for the Service Client**. You can get this from the corresponding Secret in your Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
    + The **Secondary AD Tenant ID for the Service Client**. You can get this from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
    + The **Audience for the Azure API for FHIR Server** typically https://{name}azurehealthcareapis.com
 * You will need the following information from the HL7 Ingest platform deployment (**provided at the end of your Task #1 deployment**):
@@ -95,13 +93,13 @@ Let's get started:
 
 * You should receive back an HL7 ACK message  
    <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
-* After successful deployment your converter pipeline is now tied to your ingest platform from above. 
+* After successful deployment, your converter pipeline is now tied to your ingest platform from above. 
 * The following resources in resource group names you provided above will be created:
    <center><img src="../images/challenge02-fhirhackhl7convert-resources.png" width="550"></center>
 
    <center><img src="../images/challenge02-fhirhackhl7convertapp-resources.png" width="550"></center>
 
-* To test, send in an hl7 message via HL7 over HTTPS:
+* To test, send in an HL7 message via HL7 over HTTPS:
     + Locate the sample message samplemsg.hl7 in the root directory of the repo
     + Use a text editor to see contents
     + From the linux command shell run the following command to test the hl7overhttps ingest
@@ -112,24 +110,24 @@ Let's get started:
    <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
 
 ## Task #3: Validate Data Loaded using Postman
-* If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
-* Open **AuthorizeGetToken SetBearer**, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
-* Open **Get Patient Filter HL7** request in FHIR Hack folder and Click Send. This should return the patient with family name EVERYMAN from sample HL7 file loaded.
+* If you haven't set up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
+* Open **AuthorizeGetToken SetBearer**, choose "FHIR Hack" in environments drop-down and click the **Send** button. This will set the Bearer Token to the variable.
+* Open **Get Patient Filter HL7** request in FHIR Hack folder and click the **Send** button. This should return the patient with the family name EVERYMAN from sample HL7 file loaded.
 
 ## Task #4: Clean Up Resources
-* **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
-* **Delete** Azure resources created above if you DON'T need them anymore
+* **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately.
+* **Delete** Azure resources created above if you DON'T need them anymore.
 
 ## Congratulations! You have successfully completed Challenge02!
 
 ## Help, I'm Stuck!
-Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
-* If Logic App is failing at step "ConvertHL7WithTemplate" with app timeout error, continue reading. When deploying HL7Conversion flow using deployhl72fhir.bash, the App Service will deploy a P1v2 SKU. If your subscription doesn't have availability for Premium, you will get an error. Changing it to Standard S1 SKU will work.
-* When deploying ./deployhl7ingest.bash, you get the below error, delete the resource group partically created and re-run.
+Below are some common setup issues you might run into with possible resolutions. If your error/issue are not listed here, please let your coach know.
+* If the Logic App is failing at step "ConvertHL7WithTemplate" with an app timeout error, continue reading. When deploying HL7Conversion flow using deployhl72fhir.bash, the App Service will deploy a P1v2 SKU. If your subscription doesn't support the Premium option, you will get an error. Change it to the Standard S1 SKU and it will still work.
+* When deploying ./deployhl7ingest.bash, if you get the below error, delete the resource group partically created and re-run.
    <center><img src="../images/challenge02-hl7ingesterror.png" width="550"></center>
-* When deploying ./deployhl7ingest.bash, you get the below error, re-clone the Git.
+* When deploying ./deployhl7ingest.bash, if you get the below error, re-clone the Git.
    <center><img src="../images/challenge02-hl7ingesterrorpipe.png" width="550"></center>
-* The resources are inserted into the FHIR server every time the Logic App is ran. To change to update, double-click on Patient in the template, scroll all the way to the bottom of the template, change the method from POST to PUT. To have the resource be used the reference ID, change the url to resource?_id={{ID}} where resource is Patient in this case. Repeat the same for all resources.
+* The resources are inserted into the FHIR server every time the Logic App runs. To change to update, double-click on Patient in the template, scroll all the way to the bottom of the template, change the method from POST to PUT. To have the resource be used the reference ID, change the url to resource?_id={{ID}} where resource is Patient in this case. Repeat the same for all resources.
 * If the .hl7 file you are trying to convert doesn't have out of the box template, check this [Git](https://github.com/microsoft/FHIR-Converter) on how to create new templates.
 
 
