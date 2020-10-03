@@ -23,7 +23,8 @@
 The below services are used across all challenges. Familiarity of these services will not only help you complete but enhance your learning.
 
 * **FHIR**
-   * [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/){target="_blank"} enables to easily create and deploy a Fast Healthcare Interoperability Resources (FHIR®) service for health data solutions.
+   * <a href="https://azure.microsoft.com/en-us/services/azure-api-for-fhir/" target="_blank">Azure API for FHIR</a>
+   * [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/) enables to easily create and deploy a Fast Healthcare Interoperability Resources (FHIR®) service for health data solutions.
    * [Azure API for FHIR Documentation](https://docs.microsoft.com/en-us/azure/healthcare-apis/) is a managed, standards-based, compliant API for clinical health data that enables solutions for actionable analytics and machine learning.
    * [HL7 FHIR](https://hl7.org/fhir/) FHIR is a standard for health care data exchange, published by HL7®.
    * [MLLP Relay](https://hapifhir.github.io/hapi-hl7v2/hapi-hl7overhttp/specification.html) is a standardized transport mechanism to send HL7 v2 messages over a network using the HTTP protocol.
