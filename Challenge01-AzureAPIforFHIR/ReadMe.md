@@ -133,7 +133,7 @@ Team Discussion Q: How does FHIR improve on previous standards? (10 minutes)
    * App Service/Dashboard App ({ENVIRONMENTNAME}meds) supports {ENVIRONMENTNAME}dash App.
    * App Service Plan ({ENVIRONMENTNAME}meds-plan) to support the meds App Service/Dashboard App.
 
-* Go to the **Secondard AD** in Portal. Go to App Registrations. All the 3 different clients are registered here.
+* Go to your **Secondary AD** in the Azure portal. Go to App Registrations. All three different client application types are registered here.
 
 *  **Warning**: Azure Key Vault now **defaults to soft-delete**, a manual removal of the Azure Key Vault is required if you need to delete this deployment and start over.
    * Check if any Key Vaults are in soft-delete state: **Get-AzKeyVault -InRemovedState**
@@ -143,9 +143,9 @@ Team Discussion Q: How does FHIR improve on previous standards? (10 minutes)
 
 * ### Option 1: Use Staged data
    * Download the generated [data](../Synthea/fhir.zip)
-      * **NOTE:** there are 109 files in fhir.zip, you can choose to upload a small subset (10 files) to complete the upload faster, and still able to learn all functionality. 
+      * **NOTE:** there are 109 files in fhir.zip. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
       * Once the data has been downloaded, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
-      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the funtion retries and loads into Azure API for FHIR.
+      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
 
 ---
 
@@ -164,12 +164,12 @@ Team Discussion: What FHIR entities are most important for your first FHIR API p
             curl https://synthetichealth.github.io/synthea/build/libs/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
             ```
    * **Generate Data**:
-      * Follow instructions below to generate your synthetic data set. Note that, we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to a output sub-folder.
+      * Follow instructions below to generate your synthetic data set. Note we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to an output sub-folder.
       ```shell
       cd {directory_you_downloaded_synthea_to}
       java -jar synthea-with-dependencies.jar -m "covid19" -p 50
       ```
-      * NOTE: the above will generate 100+ files, you can choose to upload a small subset (10 files) to complete the upload faster, and still able to learn all functionality. 
+      * NOTE: the above will generate 100+ files. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
       * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the funtion retries and loads into Azure API for FHIR.
 
@@ -195,7 +195,7 @@ Team Discussion: What FHIR entities are most important for your first FHIR API p
    * After you import, you will see both the Collection on the left and Environment on the top right.
       <center><img src="../images/challenge01-postman.png" width="850"></center>
    * Run Requests:
-      * Open "AuthorizeGetToken SetBearer", make sure the environment you imported is selected in the drop-down in the top right. click Send. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable bearerToken. Shows in Body results how many seconds the token is valid before expires_in. 
+      * Open "AuthorizeGetToken SetBearer". Confirm the environment you imported is selected in the drop-down in the top right. Click the Send button. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable bearerToken. Shows in Body results how many seconds the token is valid before expires_in. 
       * Open "Get Metadata" and click Send. This will return the CapabilityStatement with a Status of 200 ....This request doesn't use the bearerToken.
       * Open "Get Patient" and click Send. This will return all Patients stored in your FHIR server. Not all might be returned in Postman.
       * "Get Patient Count" will return Count of Patients stored in your FHIR server.
