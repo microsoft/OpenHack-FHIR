@@ -24,6 +24,7 @@ The below services are used across all challenges. Familiarity of these services
 
 * **FHIR**
    * <a href="https://azure.microsoft.com/en-us/services/azure-api-for-fhir/" target="_blank">Azure API for FHIR</a>
+<a href="test.html" onclick="return ! window.open(this.href);">Open in a new window</a>
    * [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/) enables to easily create and deploy a Fast Healthcare Interoperability Resources (FHIR®) service for health data solutions.
    * [Azure API for FHIR Documentation](https://docs.microsoft.com/en-us/azure/healthcare-apis/) is a managed, standards-based, compliant API for clinical health data that enables solutions for actionable analytics and machine learning.
    * [HL7 FHIR](https://hl7.org/fhir/) FHIR is a standard for health care data exchange, published by HL7®.
