@@ -183,8 +183,8 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
     * Back on the Patients screen, click the little black **i** icon next to a patient record. You can check out the "Growth Chart" SMART ON FHIR Apps or explore the generated list of Encounters.
  
 * ### Use Postman to run queries
-    * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
-    * Open Postman and we'll first import a pre-defined set of API calls. Go to the [Collection](../Postman/FHIR%20OpenHack.postman_collection.json) and click the **Raw** button. Copy all of this json to your clipboard. Click the **Import** button near the upper-left corner of the app. Click the **Raw Text** tab and paste the json content you copied here. 
+    * Open Postman. (You should have installed it as part of Challenge 0, but you can get [Postman here](https://www.postman.com/downloads/) if you didn't already.)
+    * We'll first import a pre-defined set of API calls. Go to the [Collection](../Postman/FHIR%20OpenHack.postman_collection.json) and click the **Raw** button. Copy all of this json to your clipboard. Click the **Import** button near the upper-left corner of the app. Click the **Raw Text** tab and paste the json content you copied here.  Click the **Continue** button and then the **Import** button. You should see a **FHIR OpenHack** collection in the left-hand pane in Postman.
     * Import [Environment](../Postman/FHIR%20OpenHack.postman_environment.json). An environment is a set of variables pre-created that will be used in requests. Click on Manage Environments (a slider on the top right next to eye icon). Click on the environment **FHIR OpenHack** you imported. Enter these values for Initial and Current Value. You can also choose the **FHIR OpenHack** environment you imported in the drop-down and click eye icon and click Edit and enter these values for Initial and Current Value.
       * adtenantId: This is the **tenant Id of the Secondary (Data) AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
