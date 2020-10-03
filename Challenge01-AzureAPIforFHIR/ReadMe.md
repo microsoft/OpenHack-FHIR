@@ -102,7 +102,13 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * To check on the status of the deployment you can open the Azure Portal of the **Primary (Resource) AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. You can look at the "deployments" to check the status of your resource creation, there will be 5 total deployments between the two resource groups. 
       <center><img src="../images/challenge01-checkdeploy01v2.png" width="550"></center> 
       <center><img src="../images/challenge01-checkdeploy02v2.png" width="550"></center>
-   
+      
+---
+
+Team Discussion Q: How does FHIR improve on previous standards? (10 minutes)  
+
+---
+
 * On **successful completion**, you'll have two resource groups and lots of resources created with the prefix <ENVIRONMENTNAME>. Explore these resources and try to understand the role they play in your FHIR demo environment. NOTE: Application Insights is not available in all locations and will be provisioned in East US.
 
    The following resources in resource group **{ENVIRONMENTNAME}** Ex:fhirhack will be created:
