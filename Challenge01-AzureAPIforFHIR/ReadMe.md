@@ -87,7 +87,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    ```powershell
    git clone https://github.com/Microsoft/fhir-server-samples
    ``` 
-* This Git repo contains the script that will provision all of our Azure API for FHIR resources. Navigate to the scripts directory where the Git repo was downloaded. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
+* This Git repo contains the script to provision all of our Azure API for FHIR resources. Navigate to the scripts directory where the Git repo was downloaded. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
    ```powershell
    cd fhir-server-samples/deploy/scripts
    
@@ -97,9 +97,9 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * EnvironmentLocation could be specified, but for this hack, leave the default (eastus) as not all of the services we are provisioning are available in all regions.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
-   * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. Note down the Key, Value and Name of **dashboardUserPassword** that is displayed when deployment is complete. You will need this in Task #3.
+   * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. Note down the Key, Value and Name of **dashboardUserPassword** displayed when deployment is complete. You will need this in Task #3.
    * If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
-   * To check on the status of the deployment you can open the Azure Portal of the **Primary (Resource) AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. You can look at the "deployments" to check the status of your resource creation, there will be 5 total deployments between the two resource groups. 
+   * To check on the status of the deployment you can open the Azure Portal of the **Primary (Resource) AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. You can look at the "deployments" to check the status of your resource creation. There should be five total deployments between the two resource groups. 
       <center><img src="../images/challenge01-checkdeploy01v2.png" width="550"></center> 
       <center><img src="../images/challenge01-checkdeploy02v2.png" width="550"></center>
       
@@ -144,8 +144,8 @@ Team Discussion Q: How does FHIR improve on previous standards? (10 minutes)
 * ### Option 1: Use Staged data
    * Download the generated [data](../Synthea/fhir.zip)
       * **NOTE:** there are 109 files in fhir.zip. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
-      * Once the data has been downloaded, extract the .zip file. You can use the Azure Storage Explorer in the Azure portal or from your desktop app to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created for you in Task #1. 
-      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1,000 RUs for the Azure CosmosDB, it will take about 5-10 minutes to load the data. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
+      * Once the data has been downloaded, extract the .zip file. You can use the Azure Storage Explorer in the Azure portal or from your desktop app to upload the json files into the **fhirimport** blob container in the **{ENVIRONMENTNAME}impsa** storage account created for you in Task #1. 
+      * Once the data is loaded into **fhirimport** container, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1,000 RUs for the Azure CosmosDB, it will take about 5-10 minutes to load the data. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
 
 ---
 
