@@ -180,7 +180,7 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
     * Go to **Primary (Resource) AD** tenant. Click on the App Service "{ENVIRONMENTNAME}dash". Copy the value of the App Service URL to your clipboard. Open the Azure portal in an "InPrivate" window. Navigate to the App Service URL from your clipboard and login using the admin user above. 
     * The dashboard will show you all the patients in the system where you can view each patient's medical details. You can click on the little black **fire** symbol against each record and view the FHIR bundle details.
       * You can click on resource links (e.g. Condition, Encounters, etc.) to examine those resources. 
-    * Back on the Patients screen, click the little black **i** icon next to a patient record. You will notice two buttons "Growth Chart" and "Medications" SMART ON FHIR Apps.
+    * Back on the Patients screen, click the little black **i** icon next to a patient record. You can check out the "Growth Chart" SMART ON FHIR Apps or explore the generated list of Encounters.
  
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
