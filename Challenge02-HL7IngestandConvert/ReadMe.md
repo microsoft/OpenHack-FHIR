@@ -1,7 +1,7 @@
 # Challenge02 - HL7 Ingest and Convert
 
 ## Scenario
-With Azure API for FHIR up and running with basic EHR synthetic data, you will focus on this challenge of ingesting legacy data that's in a different format into Azure API for FHIR. Most (but of course not all) of your existing healthcare applications use some version of HL7, and you have to ingest those HL7 messages and convert them into FHIR format. By establishing FHIR as a hub of sorts, you’ll be able to aggregate data from these various systems and enable interoperability.
+With Azure API for FHIR up and running with basic EHR synthetic data, you will focus on this challenge of ingesting legacy data from a different format into Azure API for FHIR. Most (but of course not all) of your existing healthcare applications use some version of HL7, and you have to ingest those HL7 messages and convert them into FHIR format. By establishing FHIR as a hub of sorts, you’ll be able to aggregate data from these various systems and enable interoperability.
 
 First, you need to ingest HL7 legacy data using secure transfer, place into an Azure Blob storage and create comsumable events on service bus for processing. You’ll validate if this is working by checking for the files loaded into the Azure Blob Storage using Storage Explorer.
 Then you will use Logic Apps connector and FHIR Converter to convert those messages into valid FHIR format to load into Azure API for FHIR. You’ll validate if this is working by learning some new query capabilities.
@@ -42,9 +42,9 @@ Let's get started:
 * Open a bash shell into the Azure CLI 2.0 environment.
 * Login using **az login**
 * Switch to the HL7Conversion subdirectory of this repo using **cd /mnt/{Your HL7Conversion directory path}**. Use cd one directory at a time if the whole path is not working.
-* Run the **./deployhl7ingest.bash** script and follow the prompts to enter Subscription ID, Resource Group Name, Resource Group Location, Deployment Prefix... Will take ~5 minutes to complete.
+* Run the **./deployhl7ingest.bash** script and follow the prompts to enter Subscription ID, Resource Group Name, Resource Group Location, Deployment Prefix, etc. This will take approximately five minutes to complete.
 
-* The resources deployed with be displayed between two double-star lines. **Copy** this and keep it handy for Task #2.
+* The resources deployed will be displayed between two double-star lines. **Copy** this and keep it handy for Task #2.
 
 * The following resources in the resource group name you provided above will be created:
   <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
@@ -67,8 +67,8 @@ Let's get started:
         ```
         runhl7relay https://<your ingest host name from above/api/hl7ingest "<function app key from above>"
        ``` 
-   * You can now point any HL7 MLLP Engine to the HL7 Relay listening port (default is 8079) and it will transfer messages to the hl7ingest function app over https
-   * An appropriate HL7 ACK will be sent to the engine from the relay listener
+   * You can now point any HL7 MLLP Engine to the HL7 Relay listening port (default is 8079) and it will transfer messages to the hl7ingest function app over https.
+   * An appropriate HL7 ACK will be sent to the engine from the relay listener.
 
 ## Task #2: HL7 Conversion to FHIR
 In this task, you will:
@@ -89,7 +89,7 @@ Let's get started:
    + The service bus destination queue name created
 * Open a shell or command window into the Azure CLI 2.0 environment
 * Switch to HL7Conversion subdirectory of this repo
-* Run the **./deployhl72fhir.bash** script and follow the prompts. Will take ~10 minutes to complete.
+* Run the **./deployhl72fhir.bash** script and follow the prompts. This will take ~10 minutes to complete.
 
 * You should receive back an HL7 ACK message  
    <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
