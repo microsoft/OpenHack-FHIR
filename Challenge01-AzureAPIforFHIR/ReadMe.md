@@ -145,7 +145,7 @@ Team Discussion Q: How does FHIR improve on previous standards? (10 minutes)
    * Download the generated [data](../Synthea/fhir.zip)
       * **NOTE:** there are 109 files in fhir.zip. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
       * Once the data has been downloaded, extract the .zip file. You can use the Azure Storage Explorer in the Azure portal or from your desktop app to upload the json files into the **fhirimport** blob container in the **{ENVIRONMENTNAME}impsa** storage account created for you in Task #1. 
-      * As each file is loaded into the **fhirimport** container, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into your FHIR instance. For 50 users, assuming the default of 1,000 RUs for the Azure CosmosDB, it will take about 5-10 minutes to load the data. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete, all of your uploaded files will have been deleted. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click **Monitoring** and check **Log Stream**. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
+      * As each file is loaded into the **fhirimport** container, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into your FHIR instance. For 50 users, assuming the default of 1,000 RUs for the Azure CosmosDB, it will take about 5-10 minutes to load the data. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete, all of your uploaded files will have been deleted. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click **Monitoring** and check **Log Stream** to view the status of the data import. If there are errors, the function retries and loads into Azure API for FHIR.
 
 ---
 
@@ -176,7 +176,7 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
 ## Task #3: Validate Data Loaded
 
 * ### Use the Dashboard App
-    * Go to **Secondary (Data) AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. You can get the password from **dashboardUserPassword** you saved after Task #1. If you don't have it, click on the admin user and Reset password.
+    * Go to your **Secondary (Data) AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. You can get the password from **dashboardUserPassword** you saved after Task #1. If you don't have it, click on the admin user and Reset password.
     * Go to **Primary (Resource) AD** tenant. Click on the App Service "{your resource prefix}dash". Copy the URL. Open the Azure portal in an "InPrivate" window. Go to the App Service URL and login using the admin user above. 
     * The dashboard will show you all the patients in the system where you can view each patient's medical details. You can click on little black **fire** symbol against each record and view the FHIR bundle details.
     * You can click on resource links (e.g. Condition, Encounters, etc.) to examine those resources. 
@@ -195,17 +195,17 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
    * After you import, you will see both the Collection on the left and Environment on the top right.
       <center><img src="../images/challenge01-postman.png" width="850"></center>
    * Run Requests:
-      * Open "AuthorizeGetToken SetBearer". Confirm the environment you imported is selected in the drop-down in the top right. Click the Send button. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable bearerToken. Shows in Body results how many seconds the token is valid before expires_in. 
-      * Open "Get Metadata" and click Send. This will return the CapabilityStatement with a Status of 200 ....This request doesn't use the bearerToken.
-      * Open "Get Patient" and click Send. This will return all Patients stored in your FHIR server. Not all might be returned in Postman.
+      * Open "AuthorizeGetToken SetBearer". Confirm the environment you imported is selected in the drop-down in the top right. Click the Send button. This should pass the values in the Body to AD Tenant, get the bearer token back and assign it to variable **bearerToken**. The Body results also show how many seconds the token is valid before expires_in.
+      * Open "Get Metadata" and click the **Send** button. This will return the CapabilityStatement with a Status of 200 ....This request doesn't use the bearerToken.
+      * Open "Get Patient" and click the **Send** button. This will return all Patients stored in your FHIR server. (Postman may not show all of the results.)
       * "Get Patient Count" will return Count of Patients stored in your FHIR server.
       * "Get Patient Sort LastUpdated" will returns Patients sorted by LastUpdated date. This is the default sort.
       * "Get Patient Filter ID" will return one Patient with that ID. Change the ID to one you have loaded and analyze the results.
-      * "Get Patient Filter Missing" will return data where gender is missing. Change to different column and analyze the results.
-      * "Get Patient Filter Exact" will return a specific Patient with a given name. Change to different name and analyze the results.
-      * "Get Patient Filter Contains" will return Patients with letters in the given name. Change to different letters and analyze the results.
-      * "Get Filter Multiple ResourceTypes" will return multiple resource types in _type. Change to other resource type and analyze the results.
-      * NOTE: bearerToken expires soon, so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to set new value to bearerToken variable.
+      * "Get Patient Filter Missing" will return data where gender is missing. Select a different column and analyze the results.
+      * "Get Patient Filter Exact" will return a specific Patient with a given name. Select a different name and analyze the results.
+      * "Get Patient Filter Contains" will return Patients with letters in the given name. Select different letters and analyze the results.
+      * "Get Filter Multiple ResourceTypes" will return multiple resource types in _type. Select another resource type and analyze the results.
+      * NOTE: bearerToken expires soon, so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to get a new bearerToken.
 
 ## Task #4: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use them immediately.
