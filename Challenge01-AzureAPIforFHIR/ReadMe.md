@@ -144,8 +144,8 @@ Team Discussion Q: How does FHIR improve on previous standards? (10 minutes)
 * ### Option 1: Use Staged data
    * Download the generated [data](../Synthea/fhir.zip)
       * **NOTE:** there are 109 files in fhir.zip. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
-      * Once the data has been downloaded, extract the .zip file. You can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created for you in Task #1. 
-      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
+      * Once the data has been downloaded, extract the .zip file. You can use the Azure Storage Explorer in the Azure portal or from your desktop app to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created for you in Task #1. 
+      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1,000 RUs for the Azure CosmosDB, it will take about 5-10 minutes to load the data. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
 
 ---
 
@@ -155,9 +155,9 @@ Team Discussion: What FHIR entities are most important for your first FHIR API p
 
 * ### Option 2: Generate Synthea data
    * **Setup Synthea**: 
-      * This section shows how to setup and generate health records with [Synthea](https://github.com/synthetichealth/synthea). 
+      * This section shows how to generate health records with [Synthea](https://github.com/synthetichealth/synthea). 
       * Synthea requires [Java 8 JDK](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Make sure to select the JDK and not the JRE install.
-      * After successfull install of Java 8
+      * After successfull installation of Java 8...
          * Option 2a: Manual Download: Download the [Synthea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar) 
          * Option 2b: Script Download: Open command prompt and run the below command. The .jar file will be downloaded to directory you are running the command from.
             ```cmd
@@ -208,18 +208,18 @@ Team Discussion: What FHIR entities are most important for your first FHIR API p
       * NOTE: bearerToken expires soon, so if you get Authentication errors in any requests, re-run "AuthorizeGetToken SetBearer" to set new value to bearerToken variable.
 
 ## Task #4: Clean Up Resources
-* **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
-* **Delete** Azure resources created above if you DON'T need them anymore
+* **Pause/Disable/Stop** Azure resources created above if you are NOT going to use them immediately.
+* **Delete** Azure resources created above if you DON'T need them anymore.
 
 ## Congratulations! You have successfully completed Challenge01! 
 
 ## Help, I'm Stuck!
-Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
+Below are some common setup issues you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
-* **{ENVIRONMENTNAME} variable error**: EnvironmentName is used a prefix for naming Azure resources, you have to adhere to Azure naming guidelines. The value has to be **globally unique** and **can't be longer than 12 characters**. Here's an example of an error you might see due to a long name.
+* **{ENVIRONMENTNAME} variable error**: EnvironmentName is used as a prefix for naming Azure resources and you must still adhere to Azure naming guidelines. The value has to be **globally unique** and **can't be longer than 12 characters**. Here's an example of an error you might see due to a long name:
    <center><img src="../images/challenge01-errors-envname-length.png" width="850"></center>
 
-* **PowerShell Execution Policy errors**: are another type of error that you might run into. In order to allow unsigned scripts and scripts from remote repositories, you might see a couple of different errors documented below.
+* **PowerShell Execution Policy errors**: In order to allow unsigned scripts and scripts from remote repositories, you might see one of the below errors:
    <center><img src="../images/challenge01-powershell-executionpolicy-1.png" width="850"></center>
    <center><img src="../images/challenge01-powershell-executionpolicy-2.png" width="850"></center>
 
@@ -227,7 +227,7 @@ Below are some common setup issues that you might run into with possible resolut
    ```powershell
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
    ```
-* **Git Missing**: This challenge uses scripts from Git that are downloaded and installed. If you don't have Git installed you might see the following error or something similiar. Get [Git](https://git-scm.com/downloads) and try again.
+* **Git Missing**: This challenge uses scripts from Git. If you don't have Git installed, you might see something similiar to the error below. Get [Git](https://git-scm.com/downloads) and try again.
    <center><img src="../images/challenge01-git-client-install.png" width="850"></center>
 
 * **Windows Terminal running PowerShell**: This is a known issue.
