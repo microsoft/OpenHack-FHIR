@@ -144,7 +144,7 @@ Team Discussion Q: How does FHIR improve on previous standards? (10 minutes)
 * ### Option 1: Use Staged data
    * Download the generated [data](../Synthea/fhir.zip)
       * **NOTE:** there are 109 files in fhir.zip. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
-      * Once the data has been downloaded, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
+      * Once the data has been downloaded, extract the .zip file. You can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created for you in Task #1. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp** Azure Function ** while the function is running**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
 
 ---
@@ -158,8 +158,8 @@ Team Discussion: What FHIR entities are most important for your first FHIR API p
       * This section shows how to setup and generate health records with [Synthea](https://github.com/synthetichealth/synthea). 
       * Synthea requires [Java 8 JDK](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Make sure to select the JDK and not the JRE install.
       * After successfull install of Java 8
-         * Option1: Manual Download: Download the [Synthea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar) 
-         * Option2: Script Download: Open command prompt and run the below command. The .jar file will be downloaded to directory you are running the command from.
+         * Option 2a: Manual Download: Download the [Synthea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar) 
+         * Option 2b: Script Download: Open command prompt and run the below command. The .jar file will be downloaded to directory you are running the command from.
             ```cmd
             curl https://synthetichealth.github.io/synthea/build/libs/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
             ```
@@ -171,16 +171,16 @@ Team Discussion: What FHIR entities are most important for your first FHIR API p
       ```
       * NOTE: the above will generate 100+ files. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
       * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
-      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the funtion retries and loads into Azure API for FHIR.
+      * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
 
 ## Task #3: Validate Data Loaded
 
 * ### Use the Dashboard App
-    * Go to **Secondary (Data) AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. You can get the password from **dashboardUserPassword**  that you saved after Task #1. If you don't have it, click on the admin user and Reset password.
-    * Go to **Primary (Resource) AD** tenant. Click on the App Service "{your resource prefix}dash". Copy the URL. Open Portal "InPrivate" window. Go to the App Service URL and login using the admin user above. 
-    * The dashboard will show you all the patients in the system and allows you to see the patients medical details. You can click on little black **fire** symbol against each records and view fhir bundle and details.
-    * You can click on resource links lik Condition, Encounters...to view those resource. 
-    * Go to Patients, and click on little black **i** icon next to a patient record. You will notice 2 buttons "Growth Chart" and "Medications" SMART ON FHIR Apps.
+    * Go to **Secondary (Data) AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. You can get the password from **dashboardUserPassword** you saved after Task #1. If you don't have it, click on the admin user and Reset password.
+    * Go to **Primary (Resource) AD** tenant. Click on the App Service "{your resource prefix}dash". Copy the URL. Open the Azure portal in an "InPrivate" window. Go to the App Service URL and login using the admin user above. 
+    * The dashboard will show you all the patients in the system where you can view each patient's medical details. You can click on little black **fire** symbol against each record and view the FHIR bundle details.
+    * You can click on resource links (e.g. Condition, Encounters, etc.) to examine those resources. 
+    * Go to Patients, and click on little black **i** icon next to a patient record. You will notice two buttons "Growth Chart" and "Medications" SMART ON FHIR Apps.
  
 * ### Use Postman to run queries
     * Download [Postman](https://www.postman.com/downloads/) if you haven't already.
