@@ -26,13 +26,13 @@ Then you will use Logic Apps connector and FHIR Converter to convert those messa
 The [FHIR Converter](https://github.com/microsoft/FHIR-Converter) is an open source project that enables healthcare organizations to convert legacy data (currently HL7 v2 messages) into FHIR bundles. Converting legacy data to FHIR expands the use cases for health data and enables interoperability.
 
 ## Task #1: HL7 Ingest
-HL7 ingest platform is consumes HL7 Messages via MLLP and securely transfers them to Azure via HL7overHTTPS. The data lands in blob storage and produces a consumable event on a high-speed service bus for processing.  
+The HL7 ingest platform consumes HL7 Messages via MLLP and securely transfers them to Azure via HL7overHTTPS. The data lands in blob storage and produces a consumable event on a high-speed service bus for processing.
 
 In this task, you will:
-1 Consume MLLP HL7 Messages
-2 Securely transfer them to Azure via [HL7overHTTPS](https://hapifhir.github.io/hapi-hl7v2/hapi-hl7overhttp/specification.html)
-3 Place in blob storage for audit/errors
-4 Produce a consumable event on a high-speed service bus for processing
+1. Consume MLLP HL7 Messages
+2. Securely transfer them to Azure via [HL7overHTTPS](https://hapifhir.github.io/hapi-hl7v2/hapi-hl7overhttp/specification.html)
+3. Place in blob storage for audit/errors
+4. Produce a consumable event on a high-speed service bus for processing
 
 Let's get started:
 * Download this [repo](https://github.com/microsoft/health-architectures).
