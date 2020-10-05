@@ -46,7 +46,7 @@ Let's get started:
 
 * The resources deployed will be displayed between two double-star lines. **Copy** this and keep it handy for Task #2.
 
-* The following resources in the resource group name you provided above will be created:
+* Find the resource groups you created in your subscription and you should see the following resources:
   <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
 
 * To test, send an HL7 message via HL7 over HTTPS:
@@ -72,7 +72,7 @@ Let's get started:
 
 ## Task #2: HL7 Conversion to FHIR
 In this task, you will:
-* Create a logic app based workflow that performs orderly conversion from HL7 to FHIR via the [FHIR Converter](https://github.com/microsoft/FHIR-Converter), persists the message into an [Azure API for FHIR Server Instance](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/), and publishes FHIR change events referencing FHIR resources to a high speed event hub to interested subscribers.
+* Create a logic app based workflow to perform orderly conversion from HL7 to FHIR via the [FHIR Converter](https://github.com/microsoft/FHIR-Converter), persists the message into an [Azure API for FHIR Server Instance](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/), and publishes FHIR change events referencing FHIR resources to a high-speed event hub to interested subscribers.
 Features of the HL7toFHIR Conversion Platform:
 
 Let's get started:
@@ -100,9 +100,9 @@ Let's get started:
    <center><img src="../images/challenge02-fhirhackhl7convertapp-resources.png" width="550"></center>
 
 * To test, send in an HL7 message via HL7 over HTTPS:
-    + Locate the sample message samplemsg.hl7 in the root directory of the repo
-    + Use a text editor to see contents
-    + From the linux command shell run the following command to test the hl7overhttps ingest
+    + Locate the sample message **samplemsg.hl7** in the root directory of the repo.
+    + Use a text editor to see contents.
+    + From the linux command shell, run the following command to test the hl7overhttps ingest.
       ```
         curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host url from above>/api/hl7ingest?code=<your ingest host key from above>
       ``` 
