@@ -27,43 +27,43 @@ From a data analytics perspective, it can often be helpful to first structure th
 
 ## Option 1: Vizualize in PowerBI using PowerQuery Connector for FHIR.
 * Go to **Secondary AD** tenant. 
-   * Go to Azure AD, click on Users. Part of the [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) deployment has created an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. 
-   * Note down the **admin user and password**. If you don't remember the password, click Reset password. You will get temporary password, use can change password next time you login.
+   * Go to Azure AD, click on **Users**. Part of the [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) deployment created an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. 
+   * Note down the **admin user and password**. If you don't remember the password, click Reset password. You will get a temporary password you can use to change the password the next time you login.
    * Click on the user and note down the **Object ID** of the user.
 * Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
-   * Go to File --> Options and settings --> Data source settings and Click **Clear All Permissions** 
+   * Go to **File** --> **Options and settings** --> **Data source settings** and click **Clear All Permissions**.
    * Click **Get Data** from the menu.
-   * Search **FHIR**, select and click Connect.
-   * Type FHIR URL **https://{your resource prefix}.azurehealthcareapis.com**. You can get this from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
-   * Click **Sign In**.
+   * Search **FHIR**, select the result, and click **Connect**.
+   * Enter your FHIR URL **https://{your resource prefix}.azurehealthcareapis.com**. You can get this from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
+   * Click the **Sign In** button.
    * Enter **admin user from Secondary tenant and password**.
    * Click **Connect**.
-   * Choose the tables you are interested in analyzing and click **Transform data**.
+   * Choose the tables you are interested in analyzing and click the **Transform data** button.
    * You should see all tables you selected loaded into Power Query Editor.
    * You are ready to transform and analyze the data. You can use this [PowerBI](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix) to start.
 
 ## Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
 ## Task #1: Process and Load FHIR data into Azure SQL Database using Azure Databricks
 * Create **Azure SQL Environment**
-   * Go to Portal, search for **SQL databases**. Click Add. 
+   * Go to the Azure portal and search for **SQL databases**. Click the **Add** button.
    * Provide a new Resource Group name, **Database name**.
-   * Provide a **Server**, **Server admin login** and **Password**. Make sure you remember this, you will need this in the next Task #2 below.
-   * Click Configure database in **Compute + storage** and choose **Serverless**. Make sure **Enable auto-pause** is checked.
-   * Click Create. 
-   * Once the deployment is complete, open SQL Database, and click on **Query editor** on the left.
+   * Provide a **Server**, **Server admin login** and **Password**. Make sure you remember these credentials since you will need this in the next Task #2 below.
+   * Click Configure database in **Compute + storage** and choose **Serverless**. Make sure the **Enable auto-pause** option is checked.
+   * Click **Create** button.
+   * Once the deployment is complete, open your SQL Database, and click on **Query editor** on the left.
    * Enter the **Login and Password** from above.
-   * If you get an error "Client with IP address is not allowed to access the server", Click on the link or Go to SQL Server, Firewalls and virtual networks and add Client IP listed there.
-   * Copy the [SQL DDL Script](./SQL%20DDL%20Script.txt), Paste in the Editor and **Run**. Check if 12 tables have been created in the database.
-   * If you want to use SQL Server Data Tools (SSDT) or SQL Server Management Studio (SSMS), note down the Server name from Overview and add Client IP in Firewalls and virtual networks.
+   * If you get the error "Client with IP address is not allowed to access the server", click on the link or Go to SQL Server, Firewalls and virtual networks and add Client IP listed there.
+   * Copy the [SQL DDL Script](./SQL%20DDL%20Script.txt). Paste the value in the Editor and **Run**. Confirm 12 tables were created in the database.
+   * If you want to use SQL Server Data Tools (SSDT) or SQL Server Management Studio (SSMS), take note of the Server name from Overview and add Client IP in Firewalls and virtual networks.
 * **Export Data** using Postman
-   * Go to Portal, to the Resource group deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Click on the Azure API for FHIR resource. Click on **Integration** under Settings on the left. Note down the **Export Storage Account name**.
+   * Go to the Azure portal. Navigate to the Resource group deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Click on the Azure API for FHIR resource. Click on **Integration** under Settings on the left. Note down the **Export Storage Account name**.
    * If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
    * Open **AuthorizeGetToken SetBearer** request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
    * Open **Export** request in FHIR Hack folder and Click Send. This should export FHIR data into a Storage account.
    * Go to **Export Storage Account name**, get the name of the **Storage Account**, **Storage Account Key** from Access Keys and **Container name** that was just created.
    * Make a **list of the .ndjson files** in that Container.
 * Create **Databricks** Environment
-   * Go to Portal, search for **Azure Databricks**. Click Add. 
+   * Go to the Azure portal. Search for **Azure Databricks**. Click Add. 
    * Create or use the same Resource group as Azure SQL. Enter **Workspace name**, choose the same Location as Azure SQL. Click Create.
    * Once the deployment is complete, Click on **Launch Workspace**.
    * Click Clusters on the left and **Create Cluster**, default settings should be ok. Make sure **Terminate** is enabled.
@@ -78,10 +78,10 @@ From a data analytics perspective, it can often be helpful to first structure th
 
 ## Task #2: Visualize in PowerBI using Azure SQL Server 
 * Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
-   * Go to File --> Options and settings --> Data source settings and Click **Clear All Permissions** 
+   * Go to **File** --> **Options and settings** --> **Data source settings** and click **Clear All Permissions**.
    * Click **Get Data** from the menu.
    * Search **Azure SQL**, select and click Connect.
-   * Type in Server and Database from Task #1 above. Leave Import checked. Click Ok.
+   * Type in Server and Database from Task #1 above. Leave Import checked. Click the **Ok** button.
    * Click Database on the left menu. Type in User name and Password from Task #1 above.
    * Choose all the tables you are interested in analyzing/visualizing and click Transform data.
    * You are ready to transform and analyze the data.
@@ -91,11 +91,10 @@ From a data analytics perspective, it can often be helpful to first structure th
 * **Delete** Azure resources created above if you DON'T need them anymore
 * **Disable** Data Export in IoT Central
 
-
 ## Congratulations! You have successfully completed Challenge05!
 
 ## Help, I'm Stuck!
-* Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
+* Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here, please let your coach know.
 
 ***
 
