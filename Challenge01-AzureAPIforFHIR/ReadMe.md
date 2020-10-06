@@ -168,9 +168,9 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
       * Follow the instructions below to generate your synthetic data set. Note we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to an output sub-folder.
       ```shell
       cd {directory_you_downloaded_synthea_to}
-      java -jar synthea-with-dependencies.jar -m "covid19" -p 50
+      java -jar synthea-with-dependencies.jar -m "covid19" -p 10
       ```
-      * NOTE: the above will generate 100+ files. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
+      * NOTE: using a value for `-p` that is large may result in a throttling exceptions in Cosmos. Uploading more than 10 files should be done in smaller batches to avoid this case.
       * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
 
