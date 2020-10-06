@@ -49,7 +49,7 @@ The HL7 ingest platform consumes HL7 Messages via MLLP and securely transfers th
    * **Resource Group Location**: Recommed to use eastus.
    * **Deployment Prefix**: This will be the prefix for all resources created in this deployment.
 
-This will take approximately five minutes to complete.
+  **This will take ~5 minutes to complete.**
 
 * The resources deployed will be displayed between two double-star lines. **Copy** this and keep it handy for Task #2.
 
@@ -90,24 +90,24 @@ Features of the HL7toFHIR Conversion Platform:
 
 * Run the **./deployhl72fhir.bash** script and follow the prompts and enter:
    * **Subscription ID**: This is provided in square brackets, copy and paste this. You can also get this by searching for Subscriptions in your Portal.
-   * Enter these new information:
+   * Enter these **new** information:
       * **Resource Group Name**: Recommend to create a new Resource Group, provide a new globally unique name. All resources needed to **convert HL7 to FHIR** will be created as part of this Resource Group.
       * **Resource Group Location**: Recommed to use eastus.
       * **Deployment Prefix**: This will be the prefix for all resources created in this deployment.
       * **Resource Group Name to Deploy Converter**: Recommend to create a new Resource Group, provide a new globally unique name. 2 resources for **converter app** will be created as part of this Resource Group. **Converter App* is used to edit or create new templates used for converting HL7 to FHIR. You can also use the Resource Group you just provided above.
-   * You can get the following information from the HL7 Ingest platform deployment (**provided at the end of your Task #1 deployment above**):
+   * You can get the **existing** following information from the HL7 Ingest platform deployment (**provided at the end of your Task #1 deployment above**):
       * **HL7 Ingest Resource Group**
       * **HL7 Ingest storage account name**
       * **HL7 Service Bus namespace**
       * **HL7 Service Bus destination queue**
-   * You can get the following information from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md):
+   * You can get the **existing** following information from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md):
       * **FHIR Server URL**: This is the fhirurl **https://{ENVIRONMENTNAME}.azurehealthcareapis.com** deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
       * **FHIR Server Service Client Application ID**: This is **Client ID for the Service Client**. You can get this from the corresponding Secret in your Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
       * **FHIR Server Service Client Secret**: This is the **Client Secret for the Service Client**. You can get this from the corresponding Secret in your Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
       * **FHIR Server/Service Client Audience/Resource**: This is the fhirurl **https://{ENVIRONMENTNAME}.azurehealthcareapis.com** deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
       * **FHIR Server/Service Client Tenant ID**: This is **Secondary AD tenant ID** used in Postmand in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
 
-This will take ~10 minutes to complete.
+   **This will take ~10 minutes to complete.**
 
 * You should receive back an HL7 ACK message  
    <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
@@ -124,7 +124,7 @@ This will take ~10 minutes to complete.
       ```
         curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host url from above>/api/hl7ingest?code="<your ingest host key from above>"
       ``` 
-* Navigate to Resource Group created in Task #2, click on "HL7toFHIR" Logic App. View Run History.  
+* Navigate to Resource Group created in Task #2 above, click on "HL7toFHIR" Logic App. View Run History.  
    <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
 
 ## Task #3: Validate Data Loaded using Postman
