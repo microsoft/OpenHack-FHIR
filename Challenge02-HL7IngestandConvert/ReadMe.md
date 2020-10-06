@@ -106,7 +106,7 @@ Let's get started:
       ```
         curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host url from above>/api/hl7ingest?code="<your ingest host key from above>"
       ``` 
-* You can also see execution from the HL7toFHIR Logic App Run History in the HL7toFHIR resource group.  
+* You can also see execution from the "HL7toFHIR" Logic App Run History in the HL7 Ingest Resource Group created in Task 1.  
    <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
 
 ## Task #3: Validate Data Loaded using Postman
