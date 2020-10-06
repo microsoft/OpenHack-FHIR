@@ -104,7 +104,7 @@ Let's get started:
     + Use a text editor to see contents.
     + From the linux command shell, run the following command to test the hl7overhttps ingest.
       ```
-        curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host url from above>/api/hl7ingest?code=<your ingest host key from above>
+        curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host url from above>/api/hl7ingest?code="<your ingest host key from above>"
       ``` 
 * You can also see execution from the HL7toFHIR Logic App Run History in the HL7toFHIR resource group.  
    <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
