@@ -247,8 +247,6 @@ Connect-AzureAD -TenantID <tenantid> does not open the Auth Login popup. This ha
   ```powershell
   -adminPassword $(ConvertTo-SecureString -AsPlainText -Force '<Some Password Here>')
   ```
-
-
 ***
 
 [Go to Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge02-HL7IngestandConvert/ReadMe.md)
