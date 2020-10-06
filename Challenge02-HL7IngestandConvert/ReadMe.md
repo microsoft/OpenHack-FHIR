@@ -76,7 +76,7 @@ In this task, you will:
 Features of the HL7toFHIR Conversion Platform:
 
 Let's get started:
-* [Deploy the HL7 Ingest Platform](#ingest) if you have not already.
+* [Deploy the HL7 Ingest Platform](#task-1-hl7-ingest) if you have not already.
 * You will need the following information to configure the HL72FHIR services:
    + The **Client ID for the Service Client**. You can get this from the corresponding Secret in your Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
    + The **Client Secret for the Service Client**. You can get this from the corresponding Secret in your Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
