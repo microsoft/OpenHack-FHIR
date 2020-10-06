@@ -42,13 +42,10 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 * Enable Export
    If you deployed Azure API for FHIR in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) with EnableExport $false, then follow the instructions here for attaching the FHIR service to the storage account. <https://docs.microsoft.com/en-us/azure/healthcare-apis/configure-export-data>
 
-* Clone this repo into C: or sub-folder in C: drive
-   ```powershell
-   git clone https://github.com/Microsoft/health-architectures
-   ```
+* **Download the file** [health-architectures-master](../Scripts/health-architectures-master.zip) and unzip to local folder.
 
 * Update **Parameters** file
-   * Navigate to health-architectures/Research-and-Analytics\FHIRExportwithAnonymization folder. 
+   * Navigate to health-architectures-master/Research-and-Analytics\FHIRExportwithAnonymization folder. 
    * Open the ./Assets/arm_template_parameters.json file in your perferred json editor. 
    * Add the value for fhirserver-url. This is the Azure API for FHIR Server URL, typically https://{name}azurehealthcareapis.com.
    * Add the value for fhirserver-clientid. This is Service Client ID. You can get this from the Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
@@ -71,7 +68,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 
 * Open **PowerShell** and navigate to this directiory:
    ```powershell
-   cd health-architectures\Research-and-Analytics\FHIRExportwithAnonymization
+   cd health-architectures-master\Research-and-Analytics\FHIRExportwithAnonymization
     ```
 
 * **Connect to Secondary AD** and authenticate. **DO NOT SKIP THIS**.
