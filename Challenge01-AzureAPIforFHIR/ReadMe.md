@@ -84,11 +84,8 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
    ```
    
-* **Get the repo** fhir-server-samples from Git into C: or a sub-folder in C: drive. If you don't have Git, install it from the link in [Challenge00](../Challenge00-Prerequistes/ReadMe.md).
-   ```powershell
-   git clone https://github.com/Microsoft/fhir-server-samples
-   ``` 
-* This Git repo contains the script to provision all of our Azure API for FHIR resources. Navigate to the scripts directory where the Git repo was downloaded. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
+* **Download the file** [fhir-server-samples](../Scripts/fhir-server-samples.zip) and unzip to local folder.
+* This folder contains the script to provision all of the Azure API for FHIR resources. Navigate to the **fhir-server-samples\deploy\scripts** directory. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
    ```powershell
    cd fhir-server-samples/deploy/scripts
    

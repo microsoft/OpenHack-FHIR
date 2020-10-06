@@ -35,13 +35,14 @@ In this task, you will:
 4. Produce a consumable event on a high-speed service bus for processing
 
 Let's get started:
-* Download this [repo](https://github.com/microsoft/health-architectures).
+* **Download the file** [health-architectures-master](../Scripts/health-architectures-master.zip) and unzip to local folder.
 * [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl) 
 * [Install a Linux Distribution](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro). Download Ubuntu from Microsoft Store.
 * [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 * Open a bash shell into the Azure CLI 2.0 environment.
 * Login using **az login**
-* Switch to the HL7Conversion subdirectory of this repo using **cd /mnt/{Your HL7Conversion directory path}** (likely /mnt/health-architectures/HL7Conversion). Use cd one directory at a time if the whole path is not working.
+* Switch to the HL7Conversion subdirectory using **cd /mnt/{Your HL7Conversion directory path}** (likely /mnt/health-architectures/HL7Conversion). Use cd one directory at a time if the whole path is not working.
+* **NOTE**: For this challenge, run .bash as it is, no changes are needed. If you do open .bash file and want to Save, open in Linux and not Windows.
 * Run the **./deployhl7ingest.bash** script and follow the prompts to enter Subscription ID, Resource Group Name, Resource Group Location, Deployment Prefix, etc. This will take approximately five minutes to complete.
 
 * The resources deployed will be displayed between two double-star lines. **Copy** this and keep it handy for Task #2.
@@ -50,7 +51,7 @@ Let's get started:
   <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
 
 * To test, send an HL7 message via HL7 over HTTPS:
-   * Locate the sample message **samplemsg.hl7** in the "HL7Conversion" directory of the "health-archtiectures" repo.
+   * Locate the sample message **samplemsg.hl7** in the "HL7Conversion" directory.
    * Use a text editor to see contents.
    * From the linux command shell, run the following command to test the hl7overhttps ingest. 
      ```
@@ -88,7 +89,8 @@ Let's get started:
    + The service bus namespace created
    + The service bus destination queue name created
 * Open a shell or command window into the Azure CLI 2.0 environment
-* Switch to HL7Conversion subdirectory of this repo
+* Switch to HL7Conversion subdirectory
+* **NOTE**: For this challenge, run .bash as it is, no changes are needed. If you do open .bash file and want to Save, open in Linux and not Windows.
 * Run the **./deployhl72fhir.bash** script and follow the prompts. This will take ~10 minutes to complete.
 
 * You should receive back an HL7 ACK message  
@@ -100,7 +102,7 @@ Let's get started:
    <center><img src="../images/challenge02-fhirhackhl7convertapp-resources.png" width="550"></center>
 
 * To test, send in an HL7 message via HL7 over HTTPS:
-    + Locate the sample message **samplemsg.hl7** in the root directory of the repo.
+    + Locate the sample message **samplemsg.hl7** in the "HL7Conversion" directory.
     + Use a text editor to see contents.
     + From the linux command shell, run the following command to test the hl7overhttps ingest.
       ```
@@ -125,7 +127,7 @@ Below are some common setup issues you might run into with possible resolutions.
 * If the Logic App is failing at step "ConvertHL7WithTemplate" with an app timeout error, continue reading. When deploying HL7Conversion flow using deployhl72fhir.bash, the App Service will deploy a P1v2 SKU. If your subscription doesn't support the Premium option, you will get an error. Change it to the Standard S1 SKU and it will still work.
 * When deploying ./deployhl7ingest.bash, if you get the below error, delete the resource group partically created and re-run.
    <center><img src="../images/challenge02-hl7ingesterror.png" width="550"></center>
-* When deploying ./deployhl7ingest.bash, if you get the below error, re-clone the Git.
+* When deploying ./deployhl7ingest.bash, if you get the below error, you probably opened the file in Windows and not Linux editor. Download again and try.
    <center><img src="../images/challenge02-hl7ingesterrorpipe.png" width="550"></center>
 * The resources are inserted into the FHIR server every time the Logic App runs. To change to update, double-click on Patient in the template, scroll all the way to the bottom of the template, change the method from POST to PUT. To have the resource be used the reference ID, change the url to resource?_id={{ID}} where resource is Patient in this case. Repeat the same for all resources.
 * If the .hl7 file you are trying to convert doesn't have out of the box template, check this [Git](https://github.com/microsoft/FHIR-Converter) on how to create new templates.
