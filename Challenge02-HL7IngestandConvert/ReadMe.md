@@ -50,7 +50,7 @@ Let's get started:
   <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
 
 * To test, send an HL7 message via HL7 over HTTPS:
-   * Locate the sample message **samplemsg.hl7** in the root directory of the repo.
+   * Locate the sample message **samplemsg.hl7** in the "HL7Conversion" directory of the "health-archtiectures" repo.
    * Use a text editor to see contents.
    * From the linux command shell, run the following command to test the hl7overhttps ingest. 
      ```
