@@ -41,7 +41,7 @@ Let's get started:
 * [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 * Open a bash shell into the Azure CLI 2.0 environment.
 * Login using **az login**
-* Switch to the HL7Conversion subdirectory of this repo using **cd /mnt/{Your HL7Conversion directory path}**. Use cd one directory at a time if the whole path is not working.
+* Switch to the HL7Conversion subdirectory of this repo using **cd /mnt/{Your HL7Conversion directory path}** (likely /mnt/health-architectures/HL7Conversion). Use cd one directory at a time if the whole path is not working.
 * Run the **./deployhl7ingest.bash** script and follow the prompts to enter Subscription ID, Resource Group Name, Resource Group Location, Deployment Prefix, etc. This will take approximately five minutes to complete.
 
 * The resources deployed will be displayed between two double-star lines. **Copy** this and keep it handy for Task #2.
