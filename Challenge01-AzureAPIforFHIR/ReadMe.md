@@ -18,8 +18,10 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
-* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**.
+* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**, but hints are included for `*nix` users.
 * **Azure Subscription**: You will need permissions to perform CRUD operations in your Azure subscription.
+
+* **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
 
 * **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts to provision your Azure API for FHIR resources in Windows. You can use either Azure PowerShell or Windows PowerShell and make sure you are running it as an administrator. (Right-click the PowerShell icon and choose **Run as Administrator**)
    * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
