@@ -45,6 +45,12 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    Install-Module AzureAD -RequiredVersion 2.0.2.4
    ```
 
+   * __Note__: If you are using a `*nix` platform (Mac or Linux), you will need to install the `AzureAD.Standard.Preview` module instead of `AzureAD`:
+   ```powershell
+   Register-PackageSource -Trusted -ProviderName 'PowerShellGet' -Name 'Posh Test Gallery' -Location https://www.poshtestgallery.com/api/v2/'
+   Install-Module AzureAD.Standard.Preview
+   ```
+
 * **Active Directory Tenants**
 Active Directory is usually locked down at many customers as a securtiy best practice. Administrators control App Registrations and privilege to grant Role Assignments, users need extensive permissioning to get that unlocked. To avoid that road block, you can create another AD tenant. 
    * **NOTE** If you have full **Administrator access** to a AD tenant where you can create App Registrations, Role Assignments, Azure Resources... example: Visual Studio Subscription, then **Primary AD tenant is same as Secondary AD tenant**, use the same AD tenant for both.
@@ -98,6 +104,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * EnvironmentLocation could be specified, but for this hack, leave the default (eastus) as not all of the services we are provisioning are available in all regions.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
+   * If you are using a `*nix` platform (Mac or Linux) you will see the error `Unable to find type [System.Web.Security.Membership]` because the `System.Web.Security.Membership` module is not part of PS Core on `*nix` platforms. You can overcome this by providing a password using this argument: `-adminPassword $(ConvertTo-SecureString -AsPlainText -Force '<Some Password Here>')`
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. Note down the Key, Value and Name of **dashboardUserPassword** displayed when deployment is complete. You will need this in Task #3.
    * If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
    * To check on the status of the deployment you can open the Azure Portal of the **Primary (Resource) AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. You can look at the "deployments" to check the status of your resource creation. There should be five total deployments between the two resource groups. 
@@ -235,6 +242,12 @@ Below are some common setup issues you might run into with possible resolution. 
 
 * **Windows Terminal running PowerShell**: This is a known issue.
 Connect-AzureAD -TenantID <tenantid> does not open the Auth Login popup. This happens in both admin mode and non-admin mode.
+
+* **Unable to find type [System.Web.Security.Membership]**: This can occurr when running `Create-FhirServerSamplesEnvironment.ps1` because the `System.Web.Security.Membership` module is not part of PS Core on `*nix` platforms. You can overcome this by providing a password using this argument:
+  ```powershell
+  -adminPassword $(ConvertTo-SecureString -AsPlainText -Force '<Some Password Here>')
+  ```
+
 
 ***
 
