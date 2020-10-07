@@ -49,8 +49,15 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
 
    * __Note__: If you are using a `*nix` platform (Mac or Linux), you will need to install the `AzureAD.Standard.Preview` module instead of `AzureAD`:
    ```powershell
-   Register-PackageSource -Trusted -ProviderName 'PowerShellGet' -Name 'Posh Test Gallery' -Location https://www.poshtestgallery.com/api/v2/'
+   # Step 1: If you already installed the AzureAD module, uninstall it
+   Uninstall-Module AzureAD
+
+   # Step 2: Add a package source for AzureAD.Standard.Preview module
+   Register-PackageSource -Trusted -ProviderName 'PowerShellGet' -Name 'Posh Test Gallery' -Location https://www.poshtestgallery.com/api/v2/
+
+   # Step 3: Install and import AzureAD.Standard.Preview module
    Install-Module AzureAD.Standard.Preview
+   Import-Module AzureAD.Standard.Preview
    ```
 
 * **Active Directory Tenants**
