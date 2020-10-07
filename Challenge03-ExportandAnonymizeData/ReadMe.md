@@ -76,7 +76,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
     Connect-AzureAd -TenantDomain **{yourname}fhirad.onmicrosoft.com**
     ```
 
-* **Deploy** the pipeline and enter {ENVIRONMENTNAME} when prompted. EnvironmentLocation is eastus by default.
+* **Deploy** the pipeline and enter a **new {ENVIRONMENTNAME}** when prompted. This will create a new Resource Group with that name, and deploy all services in that Resource Group. EnvironmentLocation is eastus by default.
    ```powershell
    ./deployFHIRExportwithAnonymization.ps1 
    ```
@@ -120,14 +120,13 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 ## Help, I'm Stuck!
 Below are some common setup issues that you might run into with possible resolutions. If your error/issue is not here, please let your coach know.
 
-* Common Azure Batch errors:
-   * Azure Batch is not enabled in your subscription.
-   * Azure Batch already deployed the max number of time in your subscription.
+* If you get Azure Batch error, either Azure Batch is not enabled in your subscription or Azure Batch already deployed the max number of time in your subscription.
+   <center><img src="../images/challenge03-batch-error.png" width="450"></center>
 
 * If you would like to adjust the start time or run interval, open the Logic App in the deployed resource group. The first step called 'Recurrence' is where the timer is stored.
 
 * Logic App succeeded, but no output was found in Storage Account **{ENVIRONMENTNAME}dlg2**.  
-   * Check if the Azure Data Factory succeeded. If you see the below error, check if you updated **{ENVIRONMENTNAME}kv KeyVault** for Export Storage Account
+   * Check if the Azure Data Factory succeeded. Click on Data Factory resource in the Resource Group deployed above. Click Author and Monitor in the center of the screen, click on Monitor botton on the left, you will see Pipelines Runs. If you see the below error, check if you updated **blobstorageacctstring** secret in **{ENVIRONMENTNAME}kv KeyVault** with **connection string** of  Export Storage Account.
    <center><img src="../images/challenge03-ADF-error.png" width="450"></center>
 ***
 
