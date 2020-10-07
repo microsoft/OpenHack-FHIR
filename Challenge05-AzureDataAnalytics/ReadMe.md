@@ -40,7 +40,8 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Click **Connect**.
    * Choose the tables you are interested in analyzing and click the **Transform data** button.
    * You should see all tables you selected loaded into Power Query Editor.
-   * You are ready to transform and analyze the data. You can use this [PowerBI](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix) to start.
+   * You are ready to transform and analyze the data. 
+   * You can use this [PowerBI](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix) to start.
 
 ## Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
 ## Task #1: Process and Load FHIR data into Azure SQL Database using Azure Databricks
@@ -85,6 +86,7 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Click Database on the left menu. Type in User name and Password from Task #1 above.
    * Choose all the tables you are interested in analyzing/visualizing and click Transform data.
    * You are ready to transform and analyze the data.
+   * You can use this [PowerBI](./PowerBI%20-%20SQL%20Connector.pbix) to start.
 
 ## Task #3: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
