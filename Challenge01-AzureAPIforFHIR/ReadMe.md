@@ -31,21 +31,21 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    ```  
    * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2.4, then proceed to login step. If not, get the right versions.
 
-   ```powershell
-   Get-InstalledModule -Name Az -AllVersions
-   Get-InstalledModule -Name AzureAd -AllVersions
-   ```  
+      ```powershell
+      Get-InstalledModule -Name Az -AllVersions
+      Get-InstalledModule -Name AzureAd -AllVersions
+      ```  
 
    * If these aren't the versions you have installed, uninstall and re-install PowerShell modules: Uninstall Az and AzureAd modules and install the right version needed.
-   ```powershell
-   Uninstall-Module -Name Az
-   Uninstall-Module -Name AzureAD
-   ```  
+      ```powershell
+      Uninstall-Module -Name Az
+      Uninstall-Module -Name AzureAD
+      ```  
 
-   ```powershell
-   Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
-   Install-Module AzureAD -RequiredVersion 2.0.2.4
-   ```
+      ```powershell
+      Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
+      Install-Module AzureAD -RequiredVersion 2.0.2.4
+      ```
 
    * **NOTE**: If you are using a **`*nix` platform (Mac or Linux)**, you will need to install the `AzureAD.Standard.Preview` module instead of `AzureAD`:
       ```powershell
@@ -69,25 +69,25 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
 * **Log into Primary (Resource) AD tenant**:
    * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary (Resource) AD**, for clarity.
-   ```powershell
-   Login-AzAccount
-   ```
+      ```powershell
+      Login-AzAccount
+      ```
 
-   >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
-   >   ```powershell
-   >   Clear-AzContext
-   >   Connect-AzAccount
-   >   Set-AzContext -TenantId **{YourPrimary or Resoruce ADTenantID}**
-   >   Get-AzContext
-   >   ```
+      >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
+      >   ```powershell
+      >   Clear-AzContext
+      >   Connect-AzAccount
+      >   Set-AzContext -TenantId **{YourPrimary or Resoruce ADTenantID}**
+      >   Get-AzContext
+      >   ```
 
 * **Create Secondary (Data) AD tenant**: Azure API for FHIR needs to be deployed into an Azure Active Directory tenant that allows for Data and Resource control plane authorization. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate **Secondary (Data)** Active Directory domain. (A basic Azure Active Directory domain is a free service.)
    * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{yourname}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary (Data) AD** for clarity. 
 
    * Connect to your **Secondary (Data) AD** and authenticate. **DO NOT SKIP THIS**
-   ```powershell
-   Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
-   ``` 
+      ```powershell
+      Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
+      ``` 
    * Replace **{{yourname}fhirad}** with the name of the **Secondary (Data) AD** you created.
 
 ## Getting Started
@@ -95,9 +95,9 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 ## Task #1: Provision Azure API for FHIR demo environment.
 
    * You will get a security exception error if you haven't set the execution policy below. This is because the repo you will clone in the next step is a public repo, and the PowerShell script is not signed. Run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
-   ```powershell
-   Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
-   ```
+      ```powershell
+      Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
+      ```
    
 * **Download the file** [fhir-server-samples](../Scripts/fhir-server-samples.zip) and unzip to local folder.
 * This folder contains the script to provision all of the Azure API for FHIR resources. Navigate to the **fhir-server-samples\deploy\scripts** directory. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
@@ -179,10 +179,10 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
             ```
    * **Generate Data**:
       * Follow the instructions below to generate your synthetic data set. Note we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to an output sub-folder.
-      ```shell
-      cd {directory_you_downloaded_synthea_to}
-      java -jar synthea-with-dependencies.jar -m "covid19" -p 10
-      ```
+         ```shell
+         cd {directory_you_downloaded_synthea_to}
+         java -jar synthea-with-dependencies.jar -m "covid19" -p 10
+         ```
       * NOTE: using a value for `-p` that is large may result in a throttling exceptions in Cosmos. Uploading more than 10 files should be done in smaller batches to avoid this case. Higher throughput can be achieved by raising the Cosmos scaling thresholds, but the details of this are not covered in this challenge.
       * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
