@@ -20,7 +20,7 @@
 * [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 
 ## Knowledge prerequisites
-The below services are used across all challenges. Familiarity of these services will not only help you complete but enhance your learning.
+The below services are used across all challenges. Familiarity of these services will not only help you complete but enhance your learning. It's recommended you right-click on the links below and open in new tab.
 
 * **FHIR**
    * [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/) enables to easily create and deploy a Fast Healthcare Interoperability Resources (FHIR®) service for health data solutions.
