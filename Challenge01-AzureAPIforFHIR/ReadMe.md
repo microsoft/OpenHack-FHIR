@@ -256,6 +256,11 @@ Connect-AzureAD -TenantID <tenantid> does not open the Auth Login popup. This ha
   ```powershell
   -adminPassword $(ConvertTo-SecureString -AsPlainText -Force '<Some Password Here>')
   ```
+
+* **Assembly with same name is already loaded**: If you are following the hints for `*nix` users, you may see this in the case that the `AzureAD` was installed before attempting to install `AzureAD.Standard.Preview`. You can overcome this by uninstalling the `AzureAD` module before installing the `AzureAD.Standard.Preview` module:
+  ```powershell
+  Uninstall-Module AzureAD
+  ```
 ***
 
 [Go to Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge02-HL7IngestandConvert/ReadMe.md)
