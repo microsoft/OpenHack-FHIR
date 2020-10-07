@@ -77,7 +77,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
       >   ```powershell
       >   Clear-AzContext
       >   Connect-AzAccount
-      >   Set-AzContext -TenantId **{YourPrimary or Resoruce ADTenantID}**
+      >   Set-AzContext -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
       >   Get-AzContext
       >   ```
 
