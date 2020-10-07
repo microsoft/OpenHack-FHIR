@@ -18,8 +18,10 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
-* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**.
+* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**, but hints are included for `*nix` users.
 * **Azure Subscription**: You will need permissions to perform CRUD operations in your Azure subscription.
+
+* **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
 
 * **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts to provision your Azure API for FHIR resources in Windows. You can use either Azure PowerShell or Windows PowerShell and make sure you are running it as an administrator. (Right-click the PowerShell icon and choose **Run as Administrator**)
    * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
@@ -43,6 +45,19 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    ```powershell
    Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
    Install-Module AzureAD -RequiredVersion 2.0.2.4
+   ```
+
+   * __Note__: If you are using a `*nix` platform (Mac or Linux), you will need to install the `AzureAD.Standard.Preview` module instead of `AzureAD`:
+   ```powershell
+   # Step 1: If you already installed the AzureAD module, uninstall it
+   Uninstall-Module AzureAD
+
+   # Step 2: Add a package source for AzureAD.Standard.Preview module
+   Register-PackageSource -Trusted -ProviderName 'PowerShellGet' -Name 'Posh Test Gallery' -Location https://www.poshtestgallery.com/api/v2/
+
+   # Step 3: Install and import AzureAD.Standard.Preview module
+   Install-Module AzureAD.Standard.Preview
+   Import-Module AzureAD.Standard.Preview
    ```
 
 * **Active Directory Tenants**
@@ -95,6 +110,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * EnvironmentLocation could be specified, but for this hack, leave the default (eastus) as not all of the services we are provisioning are available in all regions.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
+   * If you are using a `*nix` platform (Mac or Linux) you will see the error `Unable to find type [System.Web.Security.Membership]` because the `System.Web.Security.Membership` module is not part of PS Core on `*nix` platforms. You can overcome this by providing a password using this argument: `-adminPassword $(ConvertTo-SecureString -AsPlainText -Force '<Some Password Here>')`
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. Note down the Key, Value and Name of **dashboardUserPassword** displayed when deployment is complete. You will need this in Task #3.
    * If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
    * To check on the status of the deployment you can open the Azure Portal of the **Primary (Resource) AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. You can look at the "deployments" to check the status of your resource creation. There should be five total deployments between the two resource groups. 
@@ -233,6 +249,15 @@ Below are some common setup issues you might run into with possible resolution. 
 * **Windows Terminal running PowerShell**: This is a known issue.
 Connect-AzureAD -TenantID <tenantid> does not open the Auth Login popup. This happens in both admin mode and non-admin mode.
 
+* **Unable to find type [System.Web.Security.Membership]**: This can occurr when running `Create-FhirServerSamplesEnvironment.ps1` because the `System.Web.Security.Membership` module is not part of PS Core on `*nix` platforms. You can overcome this by providing a password using this argument:
+  ```powershell
+  -adminPassword $(ConvertTo-SecureString -AsPlainText -Force '<Some Password Here>')
+  ```
+
+* **Assembly with same name is already loaded**: If you are following the hints for `*nix` users, you may see this in the case that the `AzureAD` was installed before attempting to install `AzureAD.Standard.Preview`. You can overcome this by uninstalling the `AzureAD` module before installing the `AzureAD.Standard.Preview` module:
+  ```powershell
+  Uninstall-Module AzureAD
+  ```
 ***
 
 [Go to Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge02-HL7IngestandConvert/ReadMe.md)
