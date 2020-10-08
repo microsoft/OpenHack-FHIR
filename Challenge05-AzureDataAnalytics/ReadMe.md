@@ -39,9 +39,9 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Enter **admin user from Secondary tenant and password**.
    * Click **Connect**.
    * Choose the tables you are interested in analyzing and click the **Transform data** button.
-   * You should see all tables you selected loaded into Power Query Editor.
-   * You are ready to transform and analyze the data. 
-   * You can use this [PowerBI](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix) to start.
+   * You should see all tables you selected are loaded into Power Query Editor.
+   * Transform, analyze and visualize the data. Here are couple links to get you started: [PowerBI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) and [PowerQuery](https://docs.microsoft.com/en-us/power-query/power-query-what-is-power-query).
+   * Here is an example using FHIR data in Azure API for FHIR: [PowerBI PowerQuery Connector](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix).
 
 ## Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
 ## Task #1: Process and Load FHIR data into Azure SQL Database using Azure Databricks
@@ -85,8 +85,8 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Type in Server and Database from Task #1 above. Leave Import checked. Click the **Ok** button.
    * Click Database on the left menu. Type in User name and Password from Task #1 above.
    * Choose all the tables you are interested in analyzing/visualizing and click Transform data.
-   * You are ready to transform and analyze the data.
-   * You can use this [PowerBI](./PowerBI%20-%20SQL%20Connector.pbix) to start.
+   * Transform, analyze and visualize the data. Here are couple links to get you started: [PowerBI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) and [PowerQuery](https://docs.microsoft.com/en-us/power-query/power-query-what-is-power-query).
+   * Here is an example using FHIR data exported to SQL DB: [PowerBI SQL Connector](./PowerBI%20-%20SQL%20Connector.pbix).
 
 ## Task #3: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately
