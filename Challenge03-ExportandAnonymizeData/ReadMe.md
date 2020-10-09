@@ -125,6 +125,11 @@ Below are some common setup issues that you might run into with possible resolut
 
 * If you would like to adjust the start time or run interval, open the Logic App in the deployed resource group. The first step called 'Recurrence' is where the timer is stored.
 
+* Logic App failed on **Get Token**
+   * Go to Portal, go to **Secondary AD tenant**, search App Registrations, click on {ENVIRONMENTNAME}-service-client. {ENVIRONMENTNAME} is the one you used in Challenge01. Click Certificates & Secrets on the left. Click + New client secret, type a name, click Add. **Copy** the new Secret.
+   * Go to the **Primary AD tenant**, go to the KeyVault created in Challenge01. Click Secrets on the left. Click on {ENVIRONMENTNAME}-service-client-secret. Click + New Version. **Paste** the Secret you copied above. Click Create.
+   * Re-run the Logic App.
+
 * Logic App succeeded, but no output was found in Storage Account **{ENVIRONMENTNAME}dlg2**.  
    * Check if the Azure Data Factory succeeded. Click on Data Factory resource in the Resource Group deployed above. Click Author and Monitor in the center of the screen, click on Monitor botton on the left, you will see Pipelines Runs. If you see the below error, check if you updated **blobstorageacctstring** secret in **{ENVIRONMENTNAME}kv KeyVault** with **connection string** of  Export Storage Account.
    <center><img src="../images/challenge03-ADF-error.png" width="450"></center>
