@@ -63,10 +63,10 @@ The HL7 ingest platform consumes HL7 Messages via MLLP and securely transfers th
      ```
        curl --trace-ascii - -H "Content-Type:text/plain" --data-binary @samplemsg.hl7 <your ingest host url from above>/api/hl7ingest?code="<your ingest host key from above>"
      ``` 
-   * You should receive back an HL7 ACK message. (ACK is an 'Acknowledgement' message verifying the call was successful.)
+   * You should receive message back like the below that the upload was successful.
      <center><img src="../images/challenge02-hl7ingest.png" width="550"></center>
 
-   * Navigate to the Resource Group created, click on the Storage Account, HL7 Container and check if the sample HL7 message is there. The file name will start with ADT_A01, which is the type of this sample message.
+   * Navigate to the Resource Group created above, click on the Storage Account, click on Container, click on HL7 Container and check if the sample HL7 message is there. The file name will start with ADT_A01, which is the type of this sample message.
    * Congratulations!!! The sample HL7 message was accepted securely, stored into blob storage and queued for further ingest processing on the deployed service bus queue.
 * [Optional] Send in HL7 messages using the local HL7 MLLP Relay. To run a local copy of the HL7 MLLP Relay:
    * Make sure [Docker](https://www.docker.com/) is installed and running in your linux or windows environment
@@ -109,7 +109,7 @@ Features of the HL7toFHIR Conversion Platform:
 
    **This will take ~10 minutes to complete.**
 
-* You should receive back an HL7 ACK message  
+* You should receive message back like the below that the deployment was successful.  
    <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
 * After successful deployment, your converter pipeline is now tied to your ingest platform from above. 
 * The following resources in resource group names you provided above will be created:
