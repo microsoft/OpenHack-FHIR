@@ -44,6 +44,7 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Here are couple links to get you started: [PowerBI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) and [PowerQuery](https://docs.microsoft.com/en-us/power-query/power-query-what-is-power-query).
    * Put on your analyst hat and explore/transform/visualize!
 * **2.2 Use pre-built template**
+   * **NOTE**: Depending on the data you loaded into FHIR in previous challenges you completed, you might have more or less fields than what's in the example below.
    * Open the example [PowerBI PowerQuery Connector Example](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix).
    * Put on your analyst hat and explore/transform/visualize!
 
@@ -84,6 +85,7 @@ From a data analytics perspective, it can often be helpful to first structure th
 
 ## Task #2: Visualize in PowerBI using Azure SQL Server 
 * **2.1 Create from scratch**
+   * NOTE**: If you created **SQL Database Serverless** in Task #1 above, and have the default Auto-pause enabled, make sure the SQL Database is Online by connecting using one of the tools like Query editor in Portal, SSMS, SSDT... before proceeding.
    * Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
    * Go to **File** --> **Options and settings** --> **Data source settings** and click **Clear All Permissions**.
    * Click **Get Data** from the menu.
