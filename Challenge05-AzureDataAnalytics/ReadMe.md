@@ -30,7 +30,7 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Go to Azure AD, click on **Users**. Part of the [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) deployment created an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. 
    * Note down the **admin user and password**. If you don't remember the password, click Reset password. You will get a temporary password you can use to change the password the next time you login.
    * Click on the user and note down the **Object ID** of the user.
-* 1.1 **Create from scratch**
+* **1.1 Create from scratch**
    * Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
    * Go to **File** --> **Options and settings** --> **Data source settings** and click **Clear All Permissions**.
    * Click **Get Data** from the menu.
@@ -43,7 +43,7 @@ From a data analytics perspective, it can often be helpful to first structure th
    * You should see all tables you selected are loaded into Power Query Editor.
    * Here are couple links to get you started: [PowerBI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) and [PowerQuery](https://docs.microsoft.com/en-us/power-query/power-query-what-is-power-query).
    * Put on your analyst hat and explore/transform/visualize!
-* 2.2 **Use pre-built template**
+* **2.2 Use pre-built template**
    * Open the example [PowerBI PowerQuery Connector Example](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix).
    * Put on your analyst hat and explore/transform/visualize!
 
@@ -83,7 +83,7 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Go to **Query Editor** in the SQL DB you created and check if all 12 tables have data.
 
 ## Task #2: Visualize in PowerBI using Azure SQL Server 
-* 2.1 **Create from scratch**
+* **2.1 Create from scratch**
    * Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
    * Go to **File** --> **Options and settings** --> **Data source settings** and click **Clear All Permissions**.
    * Click **Get Data** from the menu.
@@ -93,9 +93,10 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Choose all the tables you are interested in analyzing/visualizing and click Transform data.
    * Here are couple links to get you started: [PowerBI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) and [PowerQuery](https://docs.microsoft.com/en-us/power-query/power-query-what-is-power-query).
    * Put on your analyst hat and explore/transform/visualize!
-* 2.2 **Use pre-built template**
+* **2.2 Use pre-built template**
    * Open the template [PowerBI SQL Connector Template](./PowerBI%20-%20SQL%20Connector.pbit).
-   * Enter **SQL Server name** and ** SQL Database name** from Task #1 above, in the popup. Click the **Load** button.
+   * Enter **SQL Server name** and **SQL Database name** from Task #1 above, in the popup. Click the **Load** button.
+   * Choose **Database** in the left menu. Enter the SQL Server **User name** and **Password** and click **Connect**.
    * PowerBI will refresh data from SQL Server.
    * Put on your analyst hat and explore/transform/visualize!
 
