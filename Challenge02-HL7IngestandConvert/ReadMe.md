@@ -141,7 +141,9 @@ Features of the HL7toFHIR Conversion Platform:
 ## Help, I'm Stuck!
 Below are some common setup issues you might run into with possible resolutions. If your error/issue are not listed here, please let your coach know.
 * If the Logic App is failing at step "ConvertHL7WithTemplate" with an app timeout error, continue reading. When deploying HL7Conversion flow using deployhl72fhir.bash, the App Service will deploy a P1v2 SKU. If your subscription doesn't support the Premium option, you will get an error. Change it to the Standard S1 SKU and it will still work.
-* When deploying ./deployhl7ingest.bash, if you get the below error, delete the resource group partically created and re-run.
+* When deploying ./deployhl7ingest.bash, if you get the below error, it occurs when the bash script files were saved with windows style CRLF line endings rather that the unix style ones.
+   * Convert the file by running: dos2unix deployhl7ingest.bash. 
+   * If you get dos2unix command not found run this 1st: sudo apt install dos2unix
    <center><img src="../images/challenge02-hl7ingesterror.png" width="550"></center>
 * When deploying ./deployhl7ingest.bash, if you get the below error, you probably opened the file in Windows and not Linux editor. Download again and try.
    <center><img src="../images/challenge02-hl7ingesterrorpipe.png" width="550"></center>
