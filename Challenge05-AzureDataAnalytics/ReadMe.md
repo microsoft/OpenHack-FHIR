@@ -30,7 +30,8 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Go to Azure AD, click on **Users**. Part of the [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) deployment created an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. 
    * Note down the **admin user and password**. If you don't remember the password, click Reset password. You will get a temporary password you can use to change the password the next time you login.
    * Click on the user and note down the **Object ID** of the user.
-* Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
+* **1.1 Create from scratch**
+   * Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
    * Go to **File** --> **Options and settings** --> **Data source settings** and click **Clear All Permissions**.
    * Click **Get Data** from the menu.
    * Search **FHIR**, select the result, and click **Connect**.
@@ -39,8 +40,18 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Enter **admin user from Secondary tenant and password**.
    * Click **Connect**.
    * Choose the tables you are interested in analyzing and click the **Transform data** button.
-   * You should see all tables you selected loaded into Power Query Editor.
-   * You are ready to transform and analyze the data. You can use this [PowerBI](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix) to start.
+   * You should see all tables you selected are loaded into Power Query Editor.
+   * Here are couple links to get you started: [PowerBI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) and [PowerQuery](https://docs.microsoft.com/en-us/power-query/power-query-what-is-power-query).
+   * Put on your analyst hat and explore/transform/visualize!
+* **2.2 Use pre-built template**
+   * **NOTE**: Depending on the data you loaded into FHIR in previous challenges you completed, you might have more or less fields than what's in the example below.
+   * Open the example [PowerBI PowerQuery Connector Template](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix).
+   * Enter **FHIR Server URL** **https://{your resource prefix}.azurehealthcareapis.com**. You can get this from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). 
+   * Click the **Load** button.
+   * Sign-in using **admin user from Secondary tenant and password** and click **Connect**.
+   * Refresh time depends on volume of data in your Azure API for FHIR.
+   * Put on your analyst hat and explore/transform/visualize!
+   * Save by clicking File --> Save.
 
 ## Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
 ## Task #1: Process and Load FHIR data into Azure SQL Database using Azure Databricks
@@ -56,6 +67,7 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Copy the [SQL DDL Script](./SQL%20DDL%20Script.txt). Paste the value in the Editor and **Run**. Confirm 12 tables were created in the database.
    * If you want to use SQL Server Data Tools (SSDT) or SQL Server Management Studio (SSMS), take note of the Server name from Overview and add Client IP in Firewalls and virtual networks.
 * **Export Data** using Postman
+   * **NOTE**: To get the latest data from Azure API for FHIR, follow the below steps to export data from Azure API for FHIR into **Export Storage Account** created in Challenge01.
    * Go to the Azure portal. Navigate to the Resource group deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Click on the Azure API for FHIR resource. Click on **Integration** under Settings on the left. Note down the **Export Storage Account name**.
    * If you haven't done setting up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
    * Open **AuthorizeGetToken SetBearer** request in FHIR Hack folder, choose "FHIR Hack" in environments drop-down and Click Send. This will set the Bearer Token to the variable.
@@ -77,14 +89,24 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Go to **Query Editor** in the SQL DB you created and check if all 12 tables have data.
 
 ## Task #2: Visualize in PowerBI using Azure SQL Server 
-* Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
+* **2.1 Create from scratch**
+   * NOTE**: If you created **SQL Database Serverless** in Task #1 above, and have the default Auto-pause enabled, make sure the SQL Database is Online by connecting using one of the tools like Query editor in Portal, SSMS, SSDT... before proceeding.
+   * Open PowerBI Desktop. [Download](https://powerbi.microsoft.com/en-us/downloads/) if you don't have one.
    * Go to **File** --> **Options and settings** --> **Data source settings** and click **Clear All Permissions**.
    * Click **Get Data** from the menu.
    * Search **Azure SQL**, select and click Connect.
-   * Type in Server and Database from Task #1 above. Leave Import checked. Click the **Ok** button.
+   * Enter **SQL Server name** and ** SQL Database name** from Task #1 above. Leave Import checked. Click the **Ok** button.
    * Click Database on the left menu. Type in User name and Password from Task #1 above.
    * Choose all the tables you are interested in analyzing/visualizing and click Transform data.
-   * You are ready to transform and analyze the data.
+   * Here are couple links to get you started: [PowerBI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) and [PowerQuery](https://docs.microsoft.com/en-us/power-query/power-query-what-is-power-query).
+   * Put on your analyst hat and explore/transform/visualize!
+* **2.2 Use pre-built template**
+   * Open the template [PowerBI SQL Connector Template](./PowerBI%20-%20SQL%20Connector.pbit).
+   * Enter **SQL Server name** and **SQL Database name** from Task #1 above, in the popup. Click the **Load** button.
+   * Choose **Database** in the left menu. Enter the SQL Server **User name** and **Password** and click **Connect**.
+   * Refresh time depends on volume of data in your SQL Server.
+   * Put on your analyst hat and explore/transform/visualize!
+   * Save by clicking File --> Save.
 
 ## Task #3: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately

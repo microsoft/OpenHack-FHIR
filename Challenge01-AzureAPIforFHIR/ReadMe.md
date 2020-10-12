@@ -18,8 +18,10 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
 
-* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**.
+* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**, but hints are included for `*nix` users.
 * **Azure Subscription**: You will need permissions to perform CRUD operations in your Azure subscription.
+
+* **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
 
 * **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts to provision your Azure API for FHIR resources in Windows. You can use either Azure PowerShell or Windows PowerShell and make sure you are running it as an administrator. (Right-click the PowerShell icon and choose **Run as Administrator**)
    * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
@@ -29,21 +31,34 @@ Make sure you have completed the pre-work covered in the previous challenge: [Ch
    ```  
    * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2.4, then proceed to login step. If not, get the right versions.
 
-   ```powershell
-   Get-InstalledModule -Name Az -AllVersions
-   Get-InstalledModule -Name AzureAd -AllVersions
-   ```  
+      ```powershell
+      Get-InstalledModule -Name Az -AllVersions
+      Get-InstalledModule -Name AzureAd -AllVersions
+      ```  
 
    * If these aren't the versions you have installed, uninstall and re-install PowerShell modules: Uninstall Az and AzureAd modules and install the right version needed.
-   ```powershell
-   Uninstall-Module -Name Az
-   Uninstall-Module -Name AzureAD
-   ```  
+      ```powershell
+      Uninstall-Module -Name Az
+      Uninstall-Module -Name AzureAD
+      ```  
 
-   ```powershell
-   Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
-   Install-Module AzureAD -RequiredVersion 2.0.2.4
-   ```
+      ```powershell
+      Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
+      Install-Module AzureAD -RequiredVersion 2.0.2.4
+      ```
+
+   * **NOTE**: If you are using a **`*nix` platform (Mac or Linux)**, you will need to install the `AzureAD.Standard.Preview` module instead of `AzureAD`:
+      ```powershell
+      # Step 1: If you already installed the AzureAD module, uninstall it
+      Uninstall-Module AzureAD
+
+      # Step 2: Add a package source for AzureAD.Standard.Preview module
+      Register-PackageSource -Trusted -ProviderName 'PowerShellGet' -Name 'Posh Test Gallery' -Location https://www.poshtestgallery.com/api/v2/
+
+      # Step 3: Install and import AzureAD.Standard.Preview module
+      Install-Module AzureAD.Standard.Preview
+      Import-Module AzureAD.Standard.Preview
+      ```
 
 * **Active Directory Tenants**
 Active Directory is usually locked down at many customers as a securtiy best practice. Administrators control App Registrations and privilege to grant Role Assignments, users need extensive permissioning to get that unlocked. To avoid that road block, you can create another AD tenant. 
@@ -54,50 +69,48 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
 * **Log into Primary (Resource) AD tenant**:
    * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary (Resource) AD**, for clarity.
-   ```powershell
-   Login-AzAccount
-   ```
+      ```powershell
+      Login-AzAccount
+      ```
 
-   >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
-   >   ```powershell
-   >   Clear-AzContext
-   >   Connect-AzAccount
-   >   Set-AzContext -TenantId **{YourPrimary or Resoruce ADTenantID}**
-   >   Get-AzContext
-   >   ```
+      >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
+      >   ```powershell
+      >   Clear-AzContext
+      >   Connect-AzAccount
+      >   Set-AzContext -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
+      >   Get-AzContext
+      >   ```
 
 * **Create Secondary (Data) AD tenant**: Azure API for FHIR needs to be deployed into an Azure Active Directory tenant that allows for Data and Resource control plane authorization. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate **Secondary (Data)** Active Directory domain. (A basic Azure Active Directory domain is a free service.)
    * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{yourname}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary (Data) AD** for clarity. 
 
    * Connect to your **Secondary (Data) AD** and authenticate. **DO NOT SKIP THIS**
-   ```powershell
-   Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
-   ``` 
+      ```powershell
+      Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
+      ``` 
    * Replace **{{yourname}fhirad}** with the name of the **Secondary (Data) AD** you created.
 
 ## Getting Started
 
 ## Task #1: Provision Azure API for FHIR demo environment.
 
-   * You will get a security exception error if you haven't set the execution policy below. This is because the repo you will clone in the next step is a public repo, and the PowerShell script is not signed. Run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
-   ```powershell
-   Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
-   ```
+   * If you get a security exception error, run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
+      ```powershell
+      Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
+      ```
    
-* **Get the repo** fhir-server-samples from Git into C: or a sub-folder in C: drive. If you don't have Git, install it from the link in [Challenge00](../Challenge00-Prerequistes/ReadMe.md).
-   ```powershell
-   git clone https://github.com/Microsoft/fhir-server-samples
-   ``` 
-* This Git repo contains the script to provision all of our Azure API for FHIR resources. Navigate to the scripts directory where the Git repo was downloaded. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
+* **Download the file** [fhir-server-samples](../Scripts/fhir-server-samples.zip) and unzip to local folder.
+* This folder contains the script to provision all of the Azure API for FHIR resources. Navigate to the **fhir-server-samples\deploy\scripts** directory. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
    ```powershell
    cd fhir-server-samples/deploy/scripts
    
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The **ENVIRONMENTNAME Example:fhirhack THIS IS AN EXAMPLE, DO NOT USE THIS** is a value used as the prefix for the Azure resources the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**.
+   * The **ENVIRONMENTNAME Example:fhirhack, THIS IS AN EXAMPLE, DO NOT USE THIS,** is a value used as the prefix for the Azure resources the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**.
    * EnvironmentLocation could be specified, but for this hack, leave the default (eastus) as not all of the services we are provisioning are available in all regions.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
+   * **NOTE**: If you are using a **`*nix` platform (Mac or Linux)** you will see the error `Unable to find type [System.Web.Security.Membership]` because the `System.Web.Security.Membership` module is not part of PS Core on `*nix` platforms. You can overcome this by providing a password using this argument: `-adminPassword $(ConvertTo-SecureString -AsPlainText -Force '<Some Password Here>')`
    * If all goes well, the script will kickoff and will take about 10-15 minutes to complete. Note down the Key, Value and Name of **dashboardUserPassword** displayed when deployment is complete. You will need this in Task #3.
    * If the script throws an error, please check the **Help I'm Stuck!** section at the bottom of this page.
    * To check on the status of the deployment you can open the Azure Portal of the **Primary (Resource) AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. You can look at the "deployments" to check the status of your resource creation. There should be five total deployments between the two resource groups. 
@@ -160,17 +173,17 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
       * Synthea requires [Java 8 JDK](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Make sure to select the JDK and not the JRE install.
       * After successfull installation of Java 8...
          * Option 2a: Manual Download: Download the [Synthea Jar File](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar) 
-         * Option 2b: Script Download: Open command prompt and run the below command. The .jar file will be downloaded to directory you are running the command from.
+         * Option 2b: Script Download: Open command prompt and run the below command. The .jar file will be downloaded to directory you are running the command from. If this command fails, you can follow the [Basic Setup and Running](https://github.com/synthetichealth/synthea/wiki/Basic-Setup-and-Running) guide.
             ```cmd
-            curl -L https://synthetichealth.github.io/synthea/build/libs/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
+            curl -L https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar --output synthea-with-dependencies.jar
             ```
    * **Generate Data**:
       * Follow the instructions below to generate your synthetic data set. Note we are using the Covid19 module (-m "covid19") and generating a 50 person (-p 50) sample. 50 patients and related resources will be downloaded as json files to an output sub-folder.
-      ```shell
-      cd {directory_you_downloaded_synthea_to}
-      java -jar synthea-with-dependencies.jar -m "covid19" -p 50
-      ```
-      * NOTE: the above will generate 100+ files. You can choose to upload a small subset (10 files) to complete the upload faster and still have enough data to complete this OpenHack. 
+         ```shell
+         cd {directory_you_downloaded_synthea_to}
+         java -jar synthea-with-dependencies.jar -m "covid19" -p 10
+         ```
+      * NOTE: using a value for `-p` that is large may result in a throttling exceptions in Cosmos. Uploading more than 10 files should be done in smaller batches to avoid this case. Higher throughput can be achieved by raising the Cosmos scaling thresholds, but the details of this are not covered in this challenge.
       * Once the data has been generated, you can use the Azure Storage Explorer in Portal or from your desktop App to upload the json files into the **fhirimport** folder in **{ENVIRONMENTNAME}impsa** storage account created in Task #1. 
       * Once the data is loaded into **fhirimport** folder, the Azure function {ENVIRONMENTNAME}imp will be triggered to start the process of importing the data into {ENVIRONMENTNAME} FHIR instance. For 50 users, assuming the default of 1000 RUs for the Azure CosmosDB, it will take about 5-10 minutes. You can check the **fhirimport** folder in storage account **{ENVIRONMENTNAME}impsa** and when import is complete there won't be any files. You can also go to **{ENVIRONMENTNAME}imp**, click Monitoring and check Log Stream. You will see the status of files getting loaded. If there are errors, the function retries and loads into Azure API for FHIR.
 
@@ -186,7 +199,7 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
 * ### Use Postman to run queries
     * Open Postman. (You should have installed it as part of Challenge 0, but you can get [Postman here](https://www.postman.com/downloads/) if you didn't already.)
     * We'll first import a pre-defined set of API calls. Go to the [Collection](../Postman/FHIR%20OpenHack.postman_collection.json) and click the **Raw** button. Copy all of this json to your clipboard. Back in the Postman app, click the **Import** button near the upper-left corner of the app. Click the **Raw Text** tab and paste the json content you copied here.  Click the **Continue** button and then the **Import** button. You should see a **FHIR OpenHack** collection in the left-hand pane in Postman.
-    * Create an Environment. A Postman Environment is just a set of variables used across one or more of your API calls. Got to the [Environment](../Postman/FHIR%20OpenHack.postman_environment.json) and click the **Raw** button. Copy all of this json to your clipboard. Open Notepad, paste the json you just copied and save the file on your Desktop as **fhirenv.txt**. Back in Postman, in the upper-right, click the **Manage Environments** button (a gear icon). Click the **Import** button and click the **Choose Files** button. Browse to the **fhirenv.txt** file on your Desktop. Click the **FHIR OpenHack** environment to see it's list of variables. In the **Current Value** column for each of the following variables, enter the corresponding values:
+    * Create an Environment. A Postman Environment is just a set of variables used across one or more of your API calls. Go to the [Environment](../Postman/FHIR%20OpenHack.postman_environment.json) and click the **Raw** button. Copy all of this json to your clipboard. Open Notepad, paste the json you just copied and save the file on your Desktop as **fhirenv.txt**. Back in Postman, in the upper-right, click the **Manage Environments** button (a gear icon). Click the **Import** button and click the **Choose Files** button. Browse to the **fhirenv.txt** file on your Desktop. Click the **FHIR OpenHack** environment to see it's list of variables. In the **Current and Initial Value** columns for each of the following variables, enter the corresponding values:
       * adtenantId: This is the **tenant Id of the Secondary (Data) AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
       * clientSecret: This is the **client Secret** that is stored in **Secret** "{ENVIRONMENTNAME}-service-client-secret" in "{ENVIRONMENTNAME}-ts" Key Vault.
@@ -236,6 +249,15 @@ Below are some common setup issues you might run into with possible resolution. 
 * **Windows Terminal running PowerShell**: This is a known issue.
 Connect-AzureAD -TenantID <tenantid> does not open the Auth Login popup. This happens in both admin mode and non-admin mode.
 
+* **Unable to find type [System.Web.Security.Membership]**: This can occurr when running `Create-FhirServerSamplesEnvironment.ps1` because the `System.Web.Security.Membership` module is not part of PS Core on `*nix` platforms. You can overcome this by providing a password using this argument:
+  ```powershell
+  -adminPassword $(ConvertTo-SecureString -AsPlainText -Force '<Some Password Here>')
+  ```
+
+* **Assembly with same name is already loaded**: If you are following the hints for `*nix` users, you may see this in the case that the `AzureAD` was installed before attempting to install `AzureAD.Standard.Preview`. You can overcome this by uninstalling the `AzureAD` module before installing the `AzureAD.Standard.Preview` module:
+  ```powershell
+  Uninstall-Module AzureAD
+  ```
 ***
 
 [Go to Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge02-HL7IngestandConvert/ReadMe.md)

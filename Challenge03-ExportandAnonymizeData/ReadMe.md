@@ -42,13 +42,10 @@ First, you will need to bulk export the data from Azure API for FHIR into Azure 
 * Enable Export
    If you deployed Azure API for FHIR in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md) with EnableExport $false, then follow the instructions here for attaching the FHIR service to the storage account. <https://docs.microsoft.com/en-us/azure/healthcare-apis/configure-export-data>
 
-* Clone this repo into C: or sub-folder in C: drive
-   ```powershell
-   git clone https://github.com/Microsoft/health-architectures
-   ```
+* **Download the file** [health-architectures-master](../Scripts/health-architectures-master.zip) and unzip to local folder.
 
 * Update **Parameters** file
-   * Navigate to health-architectures/Research-and-Analytics\FHIRExportwithAnonymization folder. 
+   * Navigate to health-architectures-master/Research-and-Analytics\FHIRExportwithAnonymization folder. 
    * Open the ./Assets/arm_template_parameters.json file in your perferred json editor. 
    * Add the value for fhirserver-url. This is the Azure API for FHIR Server URL, typically https://{name}azurehealthcareapis.com.
    * Add the value for fhirserver-clientid. This is Service Client ID. You can get this from the Secret in Key Vault deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md).
@@ -71,7 +68,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 
 * Open **PowerShell** and navigate to this directiory:
    ```powershell
-   cd health-architectures\Research-and-Analytics\FHIRExportwithAnonymization
+   cd health-architectures-master\Research-and-Analytics\FHIRExportwithAnonymization
     ```
 
 * **Connect to Secondary AD** and authenticate. **DO NOT SKIP THIS**.
@@ -79,7 +76,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
     Connect-AzureAd -TenantDomain **{yourname}fhirad.onmicrosoft.com**
     ```
 
-* **Deploy** the pipeline and enter {ENVIRONMENTNAME} when prompted. EnvironmentLocation is eastus by default.
+* **Deploy** the pipeline and enter a **new {ENVIRONMENTNAME}** when prompted. This will create a new Resource Group with that name, and deploy all services in that Resource Group. EnvironmentLocation is eastus by default.
    ```powershell
    ./deployFHIRExportwithAnonymization.ps1 
    ```
@@ -123,14 +120,18 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 ## Help, I'm Stuck!
 Below are some common setup issues that you might run into with possible resolutions. If your error/issue is not here, please let your coach know.
 
-* Common Azure Batch errors:
-   * Azure Batch is not enabled in your subscription.
-   * Azure Batch already deployed the max number of time in your subscription.
+* If you get Azure Batch error, either Azure Batch is not enabled in your subscription or Azure Batch already deployed the max number of time in your subscription.
+   <center><img src="../images/challenge03-batch-error.png" width="450"></center>
 
 * If you would like to adjust the start time or run interval, open the Logic App in the deployed resource group. The first step called 'Recurrence' is where the timer is stored.
 
+* Logic App failed on **Get Token**
+   * Go to Portal, go to **Secondary AD tenant**, search App Registrations, click on {ENVIRONMENTNAME}-service-client. {ENVIRONMENTNAME} is the one you used in Challenge01. Click Certificates & Secrets on the left. Click + New client secret, type a name, click Add. **Copy** the new Secret.
+   * Go to the **Primary AD tenant**, go to the KeyVault created in Challenge01. Click Secrets on the left. Click on {ENVIRONMENTNAME}-service-client-secret. Click + New Version. **Paste** the Secret you copied above. Click Create.
+   * Re-run the Logic App.
+
 * Logic App succeeded, but no output was found in Storage Account **{ENVIRONMENTNAME}dlg2**.  
-   * Check if the Azure Data Factory succeeded. If you see the below error, check if you updated **{ENVIRONMENTNAME}kv KeyVault** for Export Storage Account
+   * Check if the Azure Data Factory succeeded. Click on Data Factory resource in the Resource Group deployed above. Click Author and Monitor in the center of the screen, click on Monitor botton on the left, you will see Pipelines Runs. If you see the below error, check if you updated **blobstorageacctstring** secret in **{ENVIRONMENTNAME}kv KeyVault** with **connection string** of  Export Storage Account.
    <center><img src="../images/challenge03-ADF-error.png" width="450"></center>
 ***
 
