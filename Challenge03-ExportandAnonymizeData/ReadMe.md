@@ -73,7 +73,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 
 * **Connect to Secondary AD** and authenticate. **DO NOT SKIP THIS**.
     ```powershell
-    Connect-AzureAd -TenantDomain **{yourname}fhirad.onmicrosoft.com**
+    Connect-AzureAd -TenantDomain **Secondary AD Tenant**
     ```
 
 * **Deploy** the pipeline and enter a **new {ENVIRONMENTNAME}** when prompted. This will create a new Resource Group with that name, and deploy all services in that Resource Group. EnvironmentLocation is eastus by default.

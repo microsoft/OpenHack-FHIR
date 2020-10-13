@@ -82,13 +82,13 @@ Active Directory is usually locked down at many customers as a securtiy best pra
       >   ```
 
 * **Create Secondary (Data) AD tenant**: Azure API for FHIR needs to be deployed into an Azure Active Directory tenant that allows for Data and Resource control plane authorization. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate **Secondary (Data)** Active Directory domain. (A basic Azure Active Directory domain is a free service.)
-   * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{yourname}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary (Data) AD** for clarity. 
+   * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{uniquename}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary (Data) AD** for clarity. 
 
    * Connect to your **Secondary (Data) AD** and authenticate. **DO NOT SKIP THIS**
       ```powershell
-      Connect-AzureAd -TenantDomain **{{yourname}fhirad}.onmicrosoft.com**
+      Connect-AzureAd -TenantDomain **{{uniquename}fhirad}.onmicrosoft.com**
       ``` 
-   * Replace **{{yourname}fhirad}** with the name of the **Secondary (Data) AD** you created.
+   * Replace **{{uniquename}fhirad}** with the name of the **Secondary (Data) AD** you created.
 
 ## Getting Started
 
@@ -190,7 +190,7 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
 ## Task #3: Validate Data Loaded
 
 * ### Use the Dashboard App
-    * Go to your **Secondary (Data) AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{yournamefhirad}.onmicrosoft.com. You can get the password from **dashboardUserPassword** you saved after Task #1. If you don't have it, click on the admin user and Reset password.
+    * Go to your **Secondary (Data) AD** tenant. Go to Azure AD, click on Users. Part of the deployment will create an admin user {ENVIRONMENTNAME}-admin@{uniquenamefhirad}.onmicrosoft.com. You can get the password from **dashboardUserPassword** you saved after Task #1. If you don't have it, click on the admin user and Reset password.
     * Go to **Primary (Resource) AD** tenant. Click on the App Service "{ENVIRONMENTNAME}dash". Copy the value of the App Service URL to your clipboard. Open the Azure portal in an "InPrivate" window. Navigate to the App Service URL from your clipboard and login using the admin user above. 
     * The dashboard will show you all the patients in the system where you can view each patient's medical details. You can click on the little black **fire** symbol against each record and view the FHIR bundle details.
       * You can click on resource links (e.g. Condition, Encounters, etc.) to examine those resources. 
