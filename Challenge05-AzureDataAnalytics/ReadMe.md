@@ -79,7 +79,7 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Create or use the same Resource group as Azure SQL. Enter **Workspace name**, choose the same Location as Azure SQL. Click Create.
    * Once the deployment is complete, Click on **Launch Workspace**.
    * Click Clusters on the left and **Create Cluster**, default settings should be ok. Make sure **Terminate** is enabled.
-   * Click Workspace on the left. Click on down-arrow next to Workspace and **Import**. Download [Databricks Notebook](./fhirhackdatabrickstemplate.dbc) and Upload or Browse and click Import. **NOTE:** This notebook has code for all files that will be created in all challenges. If you are doing this challenge before completing all challenges, you won't have all .ndjson files in the Export Container. **Comment** out the code for the files that don't exist and **uncomment** when you complete all challenges.
+   * Click Workspace on the left. Click on down-arrow next to Workspace and **Import**. Download [Databricks Notebook](./fhirhackdatabrickstemplate.dbc) and Upload or Browse and click Import.    **NOTE:** This notebook has code for all data that will be loaded in all challenges. If you are doing this challenge before completing all challenges, you won't have all data (.ndjson files) in the Export Container. **Comment** out the code for the files that don't exist and **uncomment** when you complete all challenges. You might also need to tweak the [SQL DDL Script](./SQL%20DDL%20Script.txt) that you ran above.
    * Search for **<** and 
       * Update **storage account name, storage account key** in **Cmd 3** 
       * Update **container name** in **Cmd 7** from the Step above
