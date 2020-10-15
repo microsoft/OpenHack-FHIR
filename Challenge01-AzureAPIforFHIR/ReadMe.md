@@ -119,7 +119,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
       
 ---
 
-Team Discussion Q: How does FHIR improve on previous standards? (10 minutes)  
+Team Discussion Q: What is FHIR and how does FHIR improve on previous standards? (10 minutes)  
 
 ---
 
@@ -226,6 +226,12 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
 ## Task #4: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use them immediately.
 * **Delete** Azure resources created above if you DON'T need them anymore.
+
+---
+
+Break (15 minutes)
+
+---
 
 ## Congratulations! You have successfully completed Challenge01! 
 

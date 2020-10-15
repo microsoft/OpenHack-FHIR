@@ -107,6 +107,13 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 ## Task #3: Validate Data Loaded
 * Go to Resource Group **{ENVIRONMENTNAME}** created in this Challenge.
 * Click on the **Logic App** and click **Run Trigger**. You can click on the Running status in Runs History below in the same screen. The time taken to complete depends on the volume of data you have in Azure API for FHIR.
+
+---
+
+Team Discussion: Is data Anonmyzation an option? When would it not be? (10 minutes)
+
+---
+
 * When completed successfully, compare the pre and post de-identified data. 
    * **Pre de-identified data** is in the Storage Account **{ENVIRONMENTNAME}export** in **Resource Group** deployed in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). Look for the container with the latest date. The pre de-identified json files exported from Azure API for FHIR are stored here.
    * **Post de-identified data** is in the Storage Account **{ENVIRONMENTNAME}dlg2** created in this Challenge. Look for the container with output as suffix. The post de-identified json files are stored here.
@@ -116,6 +123,12 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 * **Delete** Azure resources created above if you DON'T need them anymore.
 
 ## Congratulations! You have successfully completed Challenge03!
+
+---
+
+Break (15 minutes)
+
+---
 
 ## Help, I'm Stuck!
 Below are some common setup issues that you might run into with possible resolutions. If your error/issue is not here, please let your coach know.

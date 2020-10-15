@@ -53,6 +53,12 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Put on your analyst hat and explore/transform/visualize!
    * Save by clicking File --> Save.
 
+---
+
+Team Discussion: What are your thoughts on using PowerQuery Connector for FHIR? Is this an option customers would be interested? If not, why? (10 minutes)
+
+---
+
 ## Option 2: Vizualize in PowerBI using Azure SQL DB Connector.
 ## Task #1: Process and Load FHIR data into Azure SQL Database using Azure Databricks
 * Create **Azure SQL Environment**
@@ -88,6 +94,12 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Click **Run All**.
    * Go to **Query Editor** in the SQL DB you created and check if all 12 tables have data.
 
+---
+
+Break (15 minutes)
+
+---
+
 ## Task #2: Visualize in PowerBI using Azure SQL Server 
 * **2.1 Create from scratch**
    * NOTE**: If you created **SQL Database Serverless** in Task #1 above, and have the default Auto-pause enabled, make sure the SQL Database is Online by connecting using one of the tools like Query editor in Portal, SSMS, SSDT... before proceeding.
@@ -107,6 +119,12 @@ From a data analytics perspective, it can often be helpful to first structure th
    * Refresh time depends on volume of data in your SQL Server.
    * Put on your analyst hat and explore/transform/visualize!
    * Save by clicking File --> Save.
+
+---
+
+Team Discussion: What are your thoughts on using SQL DB Connector over PowerQuery Connector for FHIR? Compare and Contrast? (10 minutes)
+
+---
 
 ## Task #3: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately

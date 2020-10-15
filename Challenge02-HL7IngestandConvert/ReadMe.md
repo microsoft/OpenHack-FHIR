@@ -51,6 +51,12 @@ The HL7 ingest platform consumes HL7 Messages via MLLP and securely transfers th
 
   **This will take ~5 minutes to complete.**
 
+---
+
+Team Discussion: What are the common HL7 message formats? How are they generated at healthcare organizations? How much data is ingested everyday? (10 minutes)
+
+---
+
 * The resources deployed will be displayed between two double-star lines. **Copy** this and keep it handy for Task #2.
 
 * Find the resource group you created in your subscription and you should see the following resources:
@@ -109,6 +115,12 @@ Features of the HL7toFHIR Conversion Platform:
 
    **This will take ~10 minutes to complete.**
 
+---
+
+Team Discussion: How are the healthcare organizations converting HL7 messages into consumable common data model? (10 minutes)
+
+---
+
 * You should receive message back like the below that the deployment was successful.  
    <center><img src="../images/challenge02-hl7convert.png" width="550"></center>
 * After successful deployment, your converter pipeline is now tied to your ingest platform from above. 
@@ -137,6 +149,12 @@ Features of the HL7toFHIR Conversion Platform:
 * **Delete** Azure resources created above if you DON'T need them anymore.
 
 ## Congratulations! You have successfully completed Challenge02!
+
+---
+
+Break (15 minutes)
+
+---
 
 ## Help, I'm Stuck!
 Below are some common setup issues you might run into with possible resolutions. If your error/issue are not listed here, please let your coach know.
