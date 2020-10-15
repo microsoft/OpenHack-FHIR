@@ -110,7 +110,7 @@ The FHIR Export with Anonymization uses the default settings in the Anonymizatio
 
 ---
 
-Team Discussion: Is data Anonmyzation an option? When would it not be? (10 minutes)
+Team Discussion: Is data anonymization an option? What scenarios would it not be? (10 minutes)
 
 ---
 

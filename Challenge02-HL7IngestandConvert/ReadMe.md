@@ -53,7 +53,7 @@ The HL7 ingest platform consumes HL7 Messages via MLLP and securely transfers th
 
 ---
 
-Team Discussion: What are the common HL7 message formats? How are they generated at healthcare organizations? How much data is ingested everyday? (10 minutes)
+Team Discussion: What are the common HL7 message formats? How are they generated at healthcare organizations? How much data do you think is ingested everyday? (10 minutes)
 
 ---
 
@@ -117,7 +117,7 @@ Features of the HL7toFHIR Conversion Platform:
 
 ---
 
-Team Discussion: How are the healthcare organizations converting HL7 messages into consumable common data model? (10 minutes)
+Team Discussion: How are the healthcare organizations converting HL7 messages into consumable common data model? How does that compare with this? (10 minutes)
 
 ---
 

@@ -116,7 +116,7 @@ You also team up with Data Scientist, where they want to analyze streaming obser
 
 ---
 
-Team Discussion: What are the common IoMT devices that you used in healthcare? What is the value in loading IoMT data into FHIR? (10 minutes)
+Team Discussion: What are the common IoMT devices used in healthcare? What is the value in loading IoMT data into FHIR? (10 minutes)
 
 ---
 
