@@ -140,7 +140,7 @@ Below are some common setup issues that you might run into with possible resolut
 
 * Logic App failed on **Get Token**
    * Go to Portal, go to **Secondary AD tenant**, search App Registrations, click on {ENVIRONMENTNAME}-service-client. {ENVIRONMENTNAME} is the one you used in Challenge01. Click Certificates & Secrets on the left. Click + New client secret, type a name, click Add. **Copy** the new Secret.
-   * Go to the **Primary AD tenant**, go to the KeyVault created by the ARM template in Challenge 3. Click Secrets on the left. Click on {ENVIRONMENTNAME}-service-client-secret. Click + New Version. **Paste** the Secret you copied above. Click Create.
+   * Go to the **Primary AD tenant**, go to the KeyVault created by the ARM template in Challenge 3. Click Secrets on the left. Click on {ENVIRONMENTNAME}-clientsecret. Click + New Version. **Paste** the Secret you copied above. Click Create.
    * Re-run the Logic App.
 
 * Logic App succeeded, but no output was found in Storage Account **{ENVIRONMENTNAME}dlg2**.  
