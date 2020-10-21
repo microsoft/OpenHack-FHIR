@@ -12,7 +12,7 @@
 * [Postman](https://www.postman.com/downloads/)
 * [Git](https://git-scm.com/downloads)
 * [.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-* [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
+* Optional [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
 
 **Needs to be installed before starting Challenge02:**
 * [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl) 
