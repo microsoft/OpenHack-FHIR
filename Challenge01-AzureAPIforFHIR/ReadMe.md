@@ -16,49 +16,9 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 ## Before you start
 
-Make sure you have completed the pre-work covered in the previous challenge: [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](../Challenge00-Prerequistes/ReadMe.md).
+**If you haven't completed [Challenge00](../Challenge00-Prerequistes/ReadMe.md), complete them now.**
 
-* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**, but hints are included for `*nix` users.
 * **Azure Subscription**: You will need permissions to perform CRUD operations in your Azure subscription.
-
-* **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
-
-* **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts to provision your Azure API for FHIR resources in Windows. You can use either Azure PowerShell or Windows PowerShell and make sure you are running it as an administrator. (Right-click the PowerShell icon and choose **Run as Administrator**)
-   * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
-
-   ```powershell
-   $PSVersionTable.PSVersion
-   ```  
-   * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2.4, then proceed to login step. If not, get the right versions.
-
-      ```powershell
-      Get-InstalledModule -Name Az -AllVersions
-      Get-InstalledModule -Name AzureAd -AllVersions
-      ```  
-
-   * If these aren't the versions you have installed, uninstall and re-install PowerShell modules: Uninstall Az and AzureAd modules and install the right version needed.
-      ```powershell
-      Uninstall-Module -Name Az
-      Uninstall-Module -Name AzureAD
-      ```  
-
-      ```powershell
-      Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
-      Install-Module AzureAD -RequiredVersion 2.0.2.4
-      ```
-
-   * **NOTE**: If you are using a **`*nix` platform (Mac or Linux)**, you will need to install the `AzureAD.Standard.Preview` module instead of `AzureAD`:
-      ```powershell
-      # Step 1: If you already installed the AzureAD module, uninstall it
-      Uninstall-Module AzureAD
-
-      # Step 2: Add a package source for AzureAD.Standard.Preview module
-      Register-PackageSource -Trusted -ProviderName 'PowerShellGet' -Name 'Posh Test Gallery' -Location https://www.poshtestgallery.com/api/v2/
-
-      # Step 3: Install and import AzureAD.Standard.Preview module
-      Install-Module AzureAD.Standard.Preview
-      Import-Module AzureAD.Standard.Preview
-      ```
 
 * **Active Directory Tenants**
 Active Directory is usually locked down at many customers as a securtiy best practice. Administrators control App Registrations and privilege to grant Role Assignments, users need extensive permissioning to get that unlocked. To avoid that road block, you can create another AD tenant. 
