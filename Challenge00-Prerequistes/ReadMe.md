@@ -2,24 +2,74 @@
 
 #### This chapter lists the technical and knowledge pre-requisites needed to complete all challenges.
 
-## Technical prerequisites
+## Installation Prerequisites
+* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**, but hints are included for `*nix` users.
 **Needs to be installed before starting Challenge01:**
-* [Azure Subscription](https://azure.microsoft.com/en-us/free/)
-* [Azure Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/)
-* [Azure Active Directory PowerShell Module](https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-adv2?view=azureadps-2.0)
-* [Azure Powershell Module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-4.5.0)
-* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)
+* Check if you have one of the below **Azure Subscription**
+   * Your Work Internal Subscription
+   * Visual Studio Subscription
+   * [Free](https://azure.microsoft.com/en-us/free/)
+
+* **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
+
+* **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts in Windows for challenges in this Github. **Run PowerShell as Administrator**.
+   * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
+
+   ```powershell
+   $PSVersionTable.PSVersion
+   ```  
+   * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2.4, then proceed to login step. If not, get the right versions.
+
+      ```powershell
+      Get-InstalledModule -Name Az -AllVersions
+      Get-InstalledModule -Name AzureAd -AllVersions
+      ```  
+
+   * If these aren't the versions you have installed, uninstall and re-install PowerShell modules: Uninstall Az and AzureAd modules and install the right version needed. 
+      ```powershell
+      Uninstall-Module -Name Az
+      Uninstall-Module -Name AzureAD
+      ```  
+
+      ```powershell
+      Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
+      Install-Module AzureAD -RequiredVersion 2.0.2.4
+      ```
+      NOTE: If you get an error that AzureRM Module is conflicting with Az Module, run the below
+      ```powershell
+      Uninstall-Module -Name AzureRM
+      ```  
+
+   * **NOTE**: If you are using a **`*nix` platform (Mac or Linux)**, you will need to install the `AzureAD.Standard.Preview` module instead of `AzureAD`:
+      ```powershell
+      # Step 1: If you already installed the AzureAD module, uninstall it
+      Uninstall-Module AzureAD
+
+      # Step 2: Add a package source for AzureAD.Standard.Preview module
+      Register-PackageSource -Trusted -ProviderName 'PowerShellGet' -Name 'Posh Test Gallery' -Location https://www.poshtestgallery.com/api/v2/
+
+      # Step 3: Install and import AzureAD.Standard.Preview module
+      Install-Module AzureAD.Standard.Preview
+      Import-Module AzureAD.Standard.Preview
+      ```
+
+* Current Release of [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)
+
 * [Postman](https://www.postman.com/downloads/)
-* [Git](https://git-scm.com/downloads)
 * [.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-* Optional [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
+* **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
 
 **Needs to be installed before starting Challenge02:**
-* [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl) 
-* [Install a Linux Distribution](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro)
-* [Install Azure CLI 2.0 on Linux based System or Windows Linux Subsystem](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
+* [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl). You can use Windows Dialog or PowerShell. Restart Windows. 
+* [Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro). You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
+* Azure CLI 2.0 on Ubuntu
+   * Run the below in Ubuntu
+      ```bash
+      curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      ```
+   * [More on this](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 
-## Knowledge prerequisites
+## Knowledge References
 The below services are used across all challenges. Familiarity of these services will not only help you complete but enhance your learning. It's recommended you right-click on the links below and open in new tab.
 
 * **FHIR**
@@ -32,6 +82,10 @@ The below services are used across all challenges. Familiarity of these services
    * [Synthea](https://github.com/synthetichealth/synthea) is an open-source synthetic patient and associated health records generator that simulates the medical history of synthetic patients. Synthea generates HL7 FHIR records using the HAPI FHIR library to generate a FHIR Bundle
 
 * **Azure Services**
+   * [Azure Active Directory](https://docs.microsoft.com/en-us/azure/active-directory/)
+   * [Azure AD PowerShell](https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-adv2?view=azureadps-2.0)
+   * [Azure Powershell Module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-4.5.0)
+
    * [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction) is Microsoft's object storage solution, optimized for storing massive amounts of unstructured data. 
    * [Azure Data Lake Store Gen2](https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction) is a set of capabilities dedicated to big data analytics, is the result of converging the capabilities of our two existing storage services, Azure Blob storage and Azure Data Lake Storage Gen1.
    * [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/) is Azure storage management used to upload, download, and manage Azure blobs, files, queues, and tables, as well as Azure Cosmos DB and Azure Data Lake Storage entities.
