@@ -1,25 +1,23 @@
 # Challenge00 - Pre-requisites
 
-#### This chapter lists the technical and knowledge pre-requisites needed to complete all challenges.
+#### The below lists the Installation Prerequisites technical and Knowledge References needed to complete all challenges.
 
 ## Installation Prerequisites
 * **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**, but hints are included for `*nix` users.
 **Needs to be installed before starting Challenge01:**
-* Check if you have one of the below **Azure Subscription**
+1 * Check if you have one of the below **Azure Subscription**
    * Your Work Internal Subscription
    * Visual Studio Subscription
    * [Free](https://azure.microsoft.com/en-us/free/)
 
-* **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
+2 * **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
 
-* **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts in Windows for challenges in this Github. **Run PowerShell as Administrator**.
+3 * **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts in Windows for challenges in this Github. **Run PowerShell as Administrator**.
    * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
-
-   ```powershell
-   $PSVersionTable.PSVersion
-   ```  
+      ```powershell
+      $PSVersionTable.PSVersion
+      ```  
    * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2.4, then proceed to login step. If not, get the right versions.
-
       ```powershell
       Get-InstalledModule -Name Az -AllVersions
       Get-InstalledModule -Name AzureAd -AllVersions
@@ -53,21 +51,20 @@
       Import-Module AzureAD.Standard.Preview
       ```
 
-* Current Release of [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)
+4 * Current Release of [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)
 
-* [Postman](https://www.postman.com/downloads/)
-* [.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-* **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
+5 * [Postman](https://www.postman.com/downloads/)
+6 * [.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+7 * **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
 
 **Needs to be installed before starting Challenge02:**
-* [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl). You can use Windows Dialog or PowerShell. Restart Windows. 
-* [Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro). You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
-* Azure CLI 2.0 on Ubuntu
+8 * [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl). You can use Windows Dialog or PowerShell. Restart Windows. 
+9 * [Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro). You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
+10 * Azure CLI 2.0 on [Ubuntu](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command)
    * Run the below in Ubuntu
       ```bash
       curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
       ```
-   * [More on this](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command) 
 
 ## Knowledge References
 The below services are used across all challenges. Familiarity of these services will not only help you complete but enhance your learning. It's recommended you right-click on the links below and open in new tab.

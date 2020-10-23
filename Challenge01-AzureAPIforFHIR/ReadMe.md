@@ -16,7 +16,7 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 ## Before you start
 
-If you haven't completed [Challenge00](../Challenge00-Prerequistes/ReadMe.md), complete them now.
+**If you haven't completed [Challenge00](../Challenge00-Prerequistes/ReadMe.md), complete them now.**
 
 * **Azure Subscription**: You will need permissions to perform CRUD operations in your Azure subscription.
 
