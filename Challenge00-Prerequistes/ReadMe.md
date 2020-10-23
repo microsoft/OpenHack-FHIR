@@ -6,14 +6,14 @@
 * **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**, but hints are included for `*nix` users.
 
 ### Needs to be installed before starting Challenge01:
-* 1. Check if you have one of the below **Azure Subscription**
+* **1**. Check if you have one of the below **Azure Subscription**
    * Your Work Internal Subscription
    * Visual Studio Subscription
    * [Free](https://azure.microsoft.com/en-us/free/)
 
-* 2. **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
+* **2**. **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
 
-* 3. **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts in Windows for challenges in this Github. **Run PowerShell as Administrator**.
+* **3**. **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts in Windows for challenges in this Github. **Run PowerShell as Administrator**.
    * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
       ```powershell
       $PSVersionTable.PSVersion
@@ -52,16 +52,16 @@
       Import-Module AzureAD.Standard.Preview
       ```
 
-* 4. Current Release of [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)
+* **4**. Current Release of **[Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)**
 
-* 5. [Postman](https://www.postman.com/downloads/)
-* 6. [.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-* 7. **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
+* **5**. **[Postman](https://www.postman.com/downloads/)**
+* **6**. **[.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)**
+* **7**. **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
 
 ### Needs to be installed before starting Challenge02:
-* 8. [If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl). You can use Windows Dialog or PowerShell. Restart Windows. 
-* 9. [Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro). You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
-* 10. Azure CLI 2.0 on [Ubuntu](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command)
+* **8**. **[If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl).** You can use Windows Dialog or PowerShell. Restart Windows.
+* **9**. **[Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro).** You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
+* **10**. **Azure CLI 2.0** on [Ubuntu](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command)
    * Run the below in Ubuntu
       ```bash
       curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
