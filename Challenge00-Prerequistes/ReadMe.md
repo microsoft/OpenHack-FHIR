@@ -4,6 +4,7 @@
 
 ## Installation Prerequisites
 * **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**, but hints are included for `*nix` users.
+* **Download this Github to your local drive.**
 
 ### Needs to be installed before starting Challenge01:
 * **1**. Check if you have one of the below **Azure Subscription**
@@ -61,8 +62,7 @@
 ### Needs to be installed before starting Challenge02:
 * **8**. **[If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl).** You can use Windows Dialog or PowerShell. Restart Windows.
 * **9**. **[Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro).** You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
-* **10**. **Azure CLI 2.0** on [Ubuntu](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command)
-   * Run the below in Ubuntu
+* **10**. **Azure CLI 2.0** on [Ubuntu](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command). Run the below in Ubuntu.
       ```bash
       curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
       ```
