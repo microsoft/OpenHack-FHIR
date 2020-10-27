@@ -62,10 +62,11 @@
 ### Needs to be installed before starting Challenge02:
 * **8**. **[If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl).** You can use Windows Dialog or PowerShell. Restart Windows.
 * **9**. **[Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro).** You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
-* **10**. **Azure CLI 2.0** on [Ubuntu](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command). Run the below in Ubuntu.
-      ```bash
+* **10**. **Azure CLI 2.0** on [Ubuntu One Command Install](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command). Run the below in Ubuntu.
+      ```
       curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
       ```
+   * [Ubuntu Manual Install](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#manual-install-instructions)
 
 ## Knowledge References
 The below services are used across all challenges. Familiarity of these services will not only help you complete but enhance your learning. It's recommended you right-click on the links below and open in new tab.
