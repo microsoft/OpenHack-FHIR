@@ -43,9 +43,9 @@ From a data analytics perspective, it can often be helpful to first structure th
    * You should see all tables you selected are loaded into Power Query Editor.
    * Here are couple links to get you started: [PowerBI](https://docs.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview) and [PowerQuery](https://docs.microsoft.com/en-us/power-query/power-query-what-is-power-query).
    * Put on your analyst hat and explore/transform/visualize!
-* **2.2 Use pre-built template**
+* **1.2 Use pre-built template**
    * **NOTE**: Depending on the data you loaded into FHIR in previous challenges you completed, you might have more or less fields than what's in the example below.
-   * Open the example [PowerBI PowerQuery Connector Template](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbix).
+   * Open the example [PowerBI PowerQuery Connector Template](./PowerBI%20-%20PowerQuery%20Connector%20for%20FHIR.pbit).
    * Enter **FHIR Server URL** **https://{your resource prefix}.azurehealthcareapis.com**. You can get this from [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md). 
    * Click the **Load** button.
    * Sign-in using **admin user from Secondary tenant and password** and click **Connect**.
