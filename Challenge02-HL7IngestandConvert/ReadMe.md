@@ -170,8 +170,10 @@ Below are some common setup issues you might run into with possible resolutions.
 * If the Logic App **HL72FHIR** in Task #2 is failing at the last step 
    * With this error:
    <center><img src="../images/challenge02-hl7convert-logicapp.png" width="550"></center>
+
    * Go to the Function App deployed in Task #2, click on App Keys and copy the Value of _master:
    <center><img src="../images/challenge02-hl7convert-logicapp-functionkey.png" width="550"></center>
+
    * Go to the API Connection **FHIRServerProxy-1** deployed in Task #2, Edit the API Connection, and paste the key:
    <center><img src="../images/challenge02-hl7convert-logicapp-apikey.png" width="550"></center>
 
