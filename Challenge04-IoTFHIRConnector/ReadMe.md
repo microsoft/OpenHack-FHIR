@@ -142,8 +142,9 @@ Break (15 minutes)
 ## Help, I'm Stuck!
 * Below are some common setup issues that you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
-* In Postman, **Get Observation** in the Collection looks like this
-   * {{fhirurl}}/Observation?code=http://loinc.org|8867-4. If you get an error like below
+* In Postman, **Get Observation** in the Collection 
+   * Is this {{fhirurl}}/Observation?code=http://loinc.org|8867-4
+   * If you get an error like below
    <center><img src="../images/challenge04-observation.png" width="450"></center>
    * Change to {{fhirurl}}/Observation. Your code might be different.
 
