@@ -158,7 +158,7 @@ Break (15 minutes)
 
 ## Help, I'm Stuck!
 Below are some common setup issues you might run into with possible resolutions. If your error/issue are not listed here, please let your coach know.
-* If the Logic App is failing at step "ConvertHL7WithTemplate" with an app timeout error, continue reading. When deploying HL7Conversion flow using deployhl72fhir.bash, the App Service will deploy a P1v2 SKU. If your subscription doesn't support the Premium option, you will get an error. Change it to the Standard S1 SKU and it will still work.
+* If the Logic App in Task #1 is failing at step "ConvertHL7WithTemplate" with an app timeout error, continue reading. When deploying HL7Conversion flow using deployhl72fhir.bash, the App Service will deploy a P1v2 SKU. If your subscription doesn't support the Premium option, you will get an error. Change it to the Standard S1 SKU and it will still work.
 * When deploying ./deployhl7ingest.bash, if you get the below error, it occurs when the bash script files were saved with windows style CRLF line endings rather that the unix style ones.
    * Convert the file by running: dos2unix deployhl7ingest.bash. 
    * If you get dos2unix command not found run this 1st: sudo apt install dos2unix
@@ -167,6 +167,12 @@ Below are some common setup issues you might run into with possible resolutions.
    <center><img src="../images/challenge02-hl7ingesterrorpipe.png" width="550"></center>
 * The resources are inserted into the FHIR server every time the Logic App runs. To change to update, double-click on Patient in the template, scroll all the way to the bottom of the template, change the method from POST to PUT. To have the resource be used the reference ID, change the url to resource?_id={{ID}} where resource is Patient in this case. Repeat the same for all resources.
 * If the .hl7 file you are trying to convert doesn't have out of the box template, check this [Git](https://github.com/microsoft/FHIR-Converter) on how to create new templates.
+* If the Logic App **HL72FHIR** in Task #2 is failing at the last step like below
+   <center><img src="../images/challenge02-hl7convert-logicapp.png" width="550"></center>
+   * Go to the Function App deployed in Task #2, click on App Keys and copy the Value of _master, like below
+   <center><img src="../images/challenge02-hl7convert-logicapp-functionkey.png" width="550"></center>
+   * Go to the API Connection **FHIRServerProxy-1** deployed in Task #2, Edit the API Connection, and paste the key, like below
+   <center><img src="../images/challenge02-hl7convert-logicapp-apikey.png" width="550"></center>
 
 
 ***
