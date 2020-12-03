@@ -27,8 +27,13 @@ Active Directory is usually locked down at many customers as a securtiy best pra
       * **Primary (Resource) AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
       * **Secondary (Data) AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
 
+* Run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
+      ```powershell
+      Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
+      ```
+   
 * **Log into Primary (Resource) AD tenant**:
-   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary (Resource) AD**, for clarity.
+   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary (Resource) AD**.
       ```powershell
       Login-AzAccount
       ```
@@ -36,7 +41,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
       >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
       >   ```powershell
       >   Clear-AzContext
-      >   Connect-AzAccount
+      >   Connect-AzAccount -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
       >   Set-AzContext -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
       >   Get-AzContext
       >   ```
@@ -54,11 +59,6 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
 ## Task #1: Provision Azure API for FHIR demo environment.
 
-   * If you get a security exception error, run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
-      ```powershell
-      Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
-      ```
-   
 * **Download the file** [fhir-server-samples](../Scripts/fhir-server-samples.zip) and unzip to local folder.
 * This folder contains the script to provision all of the Azure API for FHIR resources. Navigate to the **fhir-server-samples\deploy\scripts** directory. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
    ```powershell
@@ -226,4 +226,6 @@ Connect-AzureAD -TenantID <tenantid> does not open the Auth Login popup. This ha
   ```
 ***
 
-[Go to Challenge02 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format](../Challenge02-HL7IngestandConvert/ReadMe.md)
+[Go to Challenge02.1 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Using Bash Scripts](../Challenge02.1-HL7IngestandConvertUsingBash/ReadMe.md)
+OR
+[Go to Challenge02.2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Using PowerShell Scripts](../Challenge02.1-HL7IngestandConvertUsingPS/ReadMe.md)
