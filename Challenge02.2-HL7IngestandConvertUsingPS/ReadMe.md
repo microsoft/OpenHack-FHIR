@@ -54,7 +54,7 @@ Team Discussion: What are the common HL7 message formats? How are they generated
 
 ---
 
-* The Ingest and Convert resources deployed will be displayed between two double-star lines. **Copy** this and keep it handy for Task #2.
+* The Ingest and Convert resources deployed will be displayed between two double-star lines. **Copy** this and keep it handy as you need it for below.
 
 * Find the resource group names you provided during the deployment in your subscription and you should see the following resources:
    <center><img src="../images/challenge02-fhirhackhl7ingest-resources.png" width="550"></center>
@@ -67,16 +67,16 @@ Team Discussion: What are the common HL7 message formats? How are they generated
 * To test, send an HL7 message via HL7 over HTTPS:
    * Locate the sample message **samplemsg.hl7** in the "HL7Conversion" directory.
    * Use a text editor to view contents, if needed.
-   * From PowerShell, replace the <ingest host name> and <ingest host key> below abd run the following command. 
+   * From PowerShell, replace **ingest host name** and **ingest host key** below and run the following command. 
       ```powershell
       Invoke-RestMethod -Headers @{"Accept" = "text/plain"} -uri "https://<ingest host name>.azurewebsites.net/api/hl7ingest?code=<ingest host key>" -Method Post -InFile ./samplemsg.hl7
       ``` 
    * You should receive a message like the below that indicates upload was successful.
-     <center><img src="../images/challenge02-hl7ingestandconvert.png" width="550"></center>
+     <center><img src="../images/challenge02-hl7ingestandconvert.png" width="650"></center>
 
    * Navigate to the Ingest Resource Group created above, click on the Storage Account, click on Container, click on HL7 Container and check if the sample HL7 message is there. The file name will start with ADT_A01, which is the type of this sample message.
    * Navigate to Convert Resource Group created above, click on "HL7toFHIR" Logic App. View Run History.  
-   <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
+      <center><img src="../images/challenge02-hl7convertsuccess.png" width="550"></center>
 
    * Congratulations!!! The sample HL7 message was ingested, converted and stored in Azure API for FHIR.
 
@@ -86,12 +86,12 @@ Team Discussion: How are the healthcare organizations converting HL7 messages in
 
 ---
 
-## Task #3: Validate Data Loaded using Postman
+## Task #2: Validate Data Loaded using Postman
 * If you haven't set up Postman in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), go back and complete that. 
 * Open **AuthorizeGetToken SetBearer**, choose "FHIR Hack" in environments drop-down and click the **Send** button. This will set the Bearer Token to the variable.
 * Open **Get Patient Filter HL7** request in FHIR Hack folder and click the **Send** button. This should return the patient with the family name EVERYMAN from sample HL7 file loaded.
 
-## Task #4: Clean Up Resources
+## Task #3: Clean Up Resources
 * **Pause/Disable/Stop** Azure resources created above if you are NOT going to use it immediately.
 * **Delete** Azure resources created above if you DON'T need them anymore.
 
@@ -105,16 +105,10 @@ Break (15 minutes)
 
 ## Help, I'm Stuck!
 Below are some common setup issues you might run into with possible resolutions. If your error/issue are not listed here, please let your coach know.
-* If the Logic App in Task #1 is failing at step "ConvertHL7WithTemplate" with an app timeout error, continue reading. When deploying HL7Conversion flow using deployhl72fhir.bash, the App Service will deploy a P1v2 SKU. If your subscription doesn't support the Premium option, you will get an error. Change it to the Standard S1 SKU and it will still work.
-* When deploying ./deployhl7ingest.bash, if you get the below error, it occurs when the bash script files were saved with windows style CRLF line endings rather that the unix style ones.
-   * Convert the file by running: dos2unix deployhl7ingest.bash. 
-   * If you get dos2unix command not found run this 1st: sudo apt install dos2unix
-   <center><img src="../images/challenge02-hl7ingesterror.png" width="550"></center>
-* When deploying ./deployhl7ingest.bash, if you get the below error, you probably opened the file in Windows and not Linux editor. Download again and try.
-   <center><img src="../images/challenge02-hl7ingesterrorpipe.png" width="550"></center>
+* If the Logic App in Task #1 is failing at step "ConvertHL7WithTemplate" with an app timeout error, continue reading. When deploying, the App Service will deploy a P1v2 SKU. If your subscription doesn't support the Premium option, you will get an error. Change it to the Standard S1 SKU and it will still work.
 * The resources are inserted into the FHIR server every time the Logic App runs. To change to update, double-click on Patient in the template, scroll all the way to the bottom of the template, change the method from POST to PUT. To have the resource be used the reference ID, change the url to resource?_id={{ID}} where resource is Patient in this case. Repeat the same for all resources.
 * If the .hl7 file you are trying to convert doesn't have out of the box template, check this [Git](https://github.com/microsoft/FHIR-Converter) on how to create new templates.
-* If the Logic App **HL72FHIR** in Task #2 is failing at the last step 
+* If the Logic App **HL72FHIR** in Task #1 is failing at the last step 
    * With this error:
    <center><img src="../images/challenge02-hl7convert-logicapp.png" width="550"></center>
 
