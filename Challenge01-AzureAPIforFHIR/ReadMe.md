@@ -66,7 +66,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    
   .\Create-FhirServerSamplesEnvironment.ps1 -EnvironmentName <ENVIRONMENTNAME> -EnvironmentLocation eastus -UsePaaS $true -EnableExport $true
    ```
-   * The **ENVIRONMENTNAME Example:fhirhack, THIS IS AN EXAMPLE, DO NOT USE THIS,** is a value used as the prefix for the Azure resources the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**.
+   * The **ENVIRONMENTNAME Example:fhirhack, THIS IS AN EXAMPLE, DO NOT USE THIS,** is a value used as the prefix for the Azure resources the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**. **NOTE:** If you are re-deploying after deleting the resources, KeyVault would only be soft-deleted. DO NOT use the same environment name unless you permanently deleted the KeyVault that was created during your previous deployment.
    * EnvironmentLocation could be specified, but for this hack, leave the default (eastus) as not all of the services we are provisioning are available in all regions.
    * We want the PaaS option, so leave that parameter set to $true.
    * When EnableExport is set to $true, bulkexport is turned on, service principle identity is turned on, storage account for export is created, access to storage account added to FHIR API through managed service identity, service principle identity is added to storage account.
@@ -209,6 +209,9 @@ Below are some common setup issues you might run into with possible resolution. 
    ```powershell
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
    ```
+* **The property "SecretValueText" cannot be found on this object. Verify that the property exists** error:
+   Run the deployment script with a new globally unique name, the KeyVault name is already being used. Even if the resources are deleted, KeyVault is by default set to soft-delete.
+
 * **Git Missing**: This challenge uses scripts from Git. If you don't have Git installed, you might see something similiar to the error below. Get [Git](https://git-scm.com/downloads) and try again.
    <center><img src="../images/challenge01-git-client-install.png" width="850"></center>
 
