@@ -13,7 +13,7 @@ Coming Soon...
 
 * [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge00-Prerequistes/ReadMe.md)
 * [Challenge01 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge01-AzureAPIforFHIR/ReadMe.md)
-* [Challenge02.1 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Bash](./Challenge02.1-HL7IngestandConvertUsingBash/ReadMe.md) OR [Challenge02.2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - PowerShell](./Challenge02.1-HL7IngestandConvertUsingPS/ReadMe.md)
+* [Challenge02.1 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Bash](./Challenge02.1-HL7IngestandConvertUsingBash/ReadMe.md) OR [Challenge02.2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - PowerShell](./Challenge02.2-HL7IngestandConvertUsingPS/ReadMe.md)
 * [Challenge03 - Export and Anonymize: Bulk export data from Azure API for FHIR and deidentify the data](./Challenge03-ExportandAnonymizeData/ReadMe.md)
 * [Challenge04 - IoT Connector for FHIR: Ingest and Persist device data from IoT Central](./Challenge04-IoTFHIRConnector/ReadMe.md)
 * [Challenge05 - Analytics using FHIR Data: Analytics using Azure Data Factory, Databricks and PowerBI](./Challenge05-AzureDataAnalytics/ReadMe.md)
