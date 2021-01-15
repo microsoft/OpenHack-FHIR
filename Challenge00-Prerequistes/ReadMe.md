@@ -15,6 +15,7 @@
 * **2**. **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
 
 * **3**. **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts in Windows for challenges in this Github. **Run PowerShell as Administrator**.
+   * **NOTE**: This section lists versions for Az and AzureAD modules. If you are having PowerShell issues in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), double-check all [PowerShell Modules](./powershell.txt).
    * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
       ```powershell
       $PSVersionTable.PSVersion

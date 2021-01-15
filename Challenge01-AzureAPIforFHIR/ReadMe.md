@@ -198,6 +198,8 @@ Break (15 minutes)
 ## Help, I'm Stuck!
 Below are some common setup issues you might run into with possible resolution. If your error/issue is not here and you need assistance, please let your coach know.
 
+* **PowerShell error**: If you get this error **The property 'SecretValueText' cannot be found on this object. Verify that the property exists. \deploy\scripts\Create-FhirServerSamplesEnvironment.ps1:154**, you might not have all the right PowerShell Modules. Double-check this list of [PowerShell Modules]((../Challenge00-Prerequistes/powershell.txt).
+
 * **{ENVIRONMENTNAME} variable error**: EnvironmentName is used as a prefix for naming Azure resources and you must still adhere to Azure naming guidelines. The value has to be **globally unique** and **can't be longer than 12 characters**. Here's an example of an error you might see due to a long name:
    <center><img src="../images/challenge01-errors-envname-length.png" width="850"></center>
 
