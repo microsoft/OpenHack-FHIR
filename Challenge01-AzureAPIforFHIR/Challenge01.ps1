@@ -2,6 +2,7 @@
 ####                   Challenge #1                   ####
 ##########################################################
 
+# ReadME instructions and origin  here: https://github.com/matthansen0/azure-fhir-automation
 
 $SubscriptionId = Read-Host -Prompt "Input the primary subscription ID"
 $TenantId = Read-Host -Prompt "Input the primary tenant ID"
