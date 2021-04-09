@@ -1,9 +1,14 @@
 # Creates Resource Group and Key Vault
+echo "Set Variables"
 environmentName="<ENVVIRONMENT_NAME>"
 environmentLocation="<ENVIRONMENT_LOCATION>"
 primarySubscription="<PRIMARY_SUBSCRIPTION>"
 resourceGroupName=${environmentName}
 keyvaultname="${environmentName}-ts"
+echo "Variables Set"
+
+# Set account to primary subscription where resources will be built
+az account set -s $primarySubscription
 
 # Create resource group
 echo "Creating Resource Group."
