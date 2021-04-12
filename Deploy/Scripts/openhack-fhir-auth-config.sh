@@ -1,31 +1,38 @@
-# This script assumes the account executing it has privileges to both subscriptions.
+# This script assumes the account executing it has privileges to both subscriptions...
 # And has the necessary Azure AD privileges in the secondary Subscription's AD tenant to create/manage App Registrations.
+# If using a separately created Azure AD tenant that has no subscriptions, you must loging using 'az login --allow-no-subscriptions'.
 
-echo "Set Variables"
+echo "Set Variables - START"
 environmentName="<ENVVIRONMENT_NAME>"
-primarySubscription="<PRIMARY_SUBSCRIPTION>"
-secondarySubscription="<SECONDAY_SUBSCRIPTION>"
-aadDomain="<AZURE_AD_DOMAIN_FOR_APP_REGISTRATIONS>"    # Azure AD domain name
+primarySubscription="<PRIMARY_SUBSCRIPTION_ID>"
+secondarySubscription="<SECONDAY_SUBSCRIPTION_ID>"
+aadDomain="<AZURE_AD_DOMAIN_FOR_APP_REGISTRATIONS>"    # Azure AD domain name (ex: contoso.com)
 adminPwd="<ADMIN_PASSWORD>"
 
 userNamePrefix="${environmentName}-"
 userId="${userNamePrefix}admin"
 userUpn="${userId}@${aadDomain}"
 keyvaultname="${environmentName}-ts"
-echo "Variables Set"
+echo "Set Variables - END"
 
 # Set account to secondary subscription/tenant where app registrrations will be built
 az account set -s $secondarySubscription
 echo "Account set to Seconday Subscription/Tenant"
 
 # FHIR API App
-fhirAppId=$(az ad app create --display-name $environmentName --identifier-uris $environmentName --app-roles '[{"allowedMemberTypes": ["User","Application"],"description": "globalAdmin","displayName": "globalAdmin","isEnabled": "true","value": "globalAdmin"}]' --query appId -o tsv)
+echo "FHIR API App Registraiton - START"
+fhirServiceUrl="https://${environmentName}.azurehealthcareapis.com"
+fhirAppId=$(az ad app create --display-name $fhirServiceUrl --identifier-uris $fhirServiceUrl --app-roles '[{"allowedMemberTypes": ["User","Application"],"description": "globalAdmin","displayName": "globalAdmin","isEnabled": "true","value": "globalAdmin"}]' --query appId -o tsv)
+fhirApiPermissionId=$(az ad app show --id $fhirAppId --query "[oauth2Permissions[?value=='user_impersonation'].id] | [0] | [0] " -o tsv)
+echo "FHIR API App Registraiton - END"
 
 # Confidential Client
-echo "Create Confidential Client App Registraiton"
+echo "Confidential Client App Registraiton - START"
+confidentialClientName="${environmentName}-confidential-client"
+
 confidentialAppUri="https://${environmentName}-confidential-client"
 replyUrls="https://${environmentName}dash.azurewebsites.net/.auth/login/aad/callback"
-confidentialClientId=$(az ad app create --display-name ${environmentName}-confidential-client --identifier-uris $confidentialAppUri --reply-urls $replyUrls --query appId -o tsv) 
+confidentialClientId=$(az ad app create --display-name $confidentialClientName --identifier-uris $confidentialAppUri --reply-urls $replyUrls --query appId -o tsv) 
 
 az ad sp create --id $confidentialClientId
 
@@ -37,10 +44,15 @@ az ad app permission add \
     --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope
 az ad app permission grant --id $confidentialClientId --api 00000003-0000-0000-c000-000000000000
 
-echo "Created Confidential Client App Registraiton"
+az ad app permission add \
+    --id $confidentialClientId \
+    --api $fhirAppId \
+    --api-permissions $fhirApiPermissionId=Scope
+#az ad app permission grant --id $confidentialClientId --api $fhirAppId
+echo "Confidential Client App Registraiton - END"
 
 # Service Client
-echo "Create Service Client App Registraiton"
+echo "Service Client App Registraiton - START"
 serviceClientAppId=$(az ad app create --display-name ${environmentName}-service-client --native-app --reply-urls "https://www.getpostman.com/oauth2/callback" --query appId -o tsv)
 
 az ad sp create --id $serviceClientAppId
@@ -52,10 +64,15 @@ az ad app permission add \
     --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope
 az ad app permission grant --id $serviceClientAppId --api 00000003-0000-0000-c000-000000000000
 
-echo "Created Service Client App Registraiton"
+az ad app permission add \
+    --id $serviceClientAppId \
+    --api $fhirAppId \
+    --api-permissions $fhirApiPermissionId=Scope
+#az ad app permission grant --id $confidentialClientId --api $fhirAppId
+echo "Service Client App Registraiton - END"
 
 # Public Client
-echo "Create Public Client App Registraiton"
+echo "Public Client App Registraiton - START"
 publicClientAppId=$(az ad app create --display-name ${environmentName}-public-client --native-app true --reply-urls "https://www.getpostman.com/oauth2/callback" --query appId -o tsv)
 
 az ad sp create --id $publicClientAppId
@@ -66,14 +83,18 @@ az ad app permission add \
     --api 00000003-0000-0000-c000-000000000000 \
     --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope
 az ad app permission grant --id $publicClientAppId --api 00000003-0000-0000-c000-000000000000
+echo "Public Client App Registraiton - END"
 
-echo "Created Public Client App Registraiton"
-
+az ad app permission add \
+    --id $publicClientAppId \
+    --api $fhirAppId \
+    --api-permissions $fhirApiPermissionId=Scope
+#az ad app permission grant --id $confidentialClientId --api $fhirAppId
 
 # Save variables to Key Vault located in primary subscription
 echo "Switch to Primary Subscription"
 az account set -s $primarySubscription
-echo "Set Key Vault Secrets"
+echo "Set Key Vault Secrets - START"
 az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-admin-upn" --value $userUpn
 az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-admin-password" --value $adminPwd
 az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-confidential-client-id" --value $confidentialClientId
@@ -81,5 +102,5 @@ az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscri
 az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-service-client-id" --value $serviceClientAppId
 az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-service-client-secret" --value $serviceClientAppSecret
 az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-public-client-id" --value $publicClientAppId
-echo "Key Vault Secrets Set"
+echo "Set Key Vault Secrets - END"
 az account set -s $secondarySubscription
