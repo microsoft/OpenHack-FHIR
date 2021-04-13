@@ -5,7 +5,7 @@
 echo "Set Variables - START"
 environmentName="<ENVVIRONMENT_NAME>"
 primarySubscription="<PRIMARY_SUBSCRIPTION_ID>"
-secondarySubscription="<SECONDAY_SUBSCRIPTION_ID>"
+secondarySubscription="<SECONDARY_SUBSCRIPTION_ID>"		# This is Secondary Tenant ID
 aadDomain="<AZURE_AD_DOMAIN_FOR_APP_REGISTRATIONS>"    # Azure AD domain name (ex: contoso.com)
 adminPwd="<ADMIN_PASSWORD>"
 
@@ -23,6 +23,7 @@ echo "Account set to Seconday Subscription/Tenant"
 echo "FHIR API App Registraiton - START"
 fhirServiceUrl="https://${environmentName}.azurehealthcareapis.com"
 fhirAppId=$(az ad app create --display-name $fhirServiceUrl --identifier-uris $fhirServiceUrl --app-roles '[{"allowedMemberTypes": ["User","Application"],"description": "globalAdmin","displayName": "globalAdmin","isEnabled": "true","value": "globalAdmin"}]' --query appId -o tsv)
+sleep 30
 fhirApiPermissionId=$(az ad app show --id $fhirAppId --query "[oauth2Permissions[?value=='user_impersonation'].id] | [0] | [0] " -o tsv)
 echo "FHIR API App Registraiton - END"
 
@@ -33,9 +34,8 @@ confidentialClientName="${environmentName}-confidential-client"
 confidentialAppUri="https://${environmentName}-confidential-client"
 replyUrls="https://${environmentName}dash.azurewebsites.net/.auth/login/aad/callback"
 confidentialClientId=$(az ad app create --display-name $confidentialClientName --identifier-uris $confidentialAppUri --reply-urls $replyUrls --query appId -o tsv) 
-
+sleep 30
 az ad sp create --id $confidentialClientId
-
 confidentialClientAppSecret=$(az ad app credential reset --id $confidentialClientId --credential-description "client-secret" --query password -o tsv)
 
 az ad app permission add \
@@ -54,7 +54,7 @@ echo "Confidential Client App Registraiton - END"
 # Service Client
 echo "Service Client App Registraiton - START"
 serviceClientAppId=$(az ad app create --display-name ${environmentName}-service-client --native-app --reply-urls "https://www.getpostman.com/oauth2/callback" --query appId -o tsv)
-
+sleep 90
 az ad sp create --id $serviceClientAppId
 serviceClientAppSecret=$(az ad app credential reset --id $serviceClientAppId --credential-description "client-secret" --query password -o tsv)
 
@@ -74,7 +74,7 @@ echo "Service Client App Registraiton - END"
 # Public Client
 echo "Public Client App Registraiton - START"
 publicClientAppId=$(az ad app create --display-name ${environmentName}-public-client --native-app true --reply-urls "https://www.getpostman.com/oauth2/callback" --query appId -o tsv)
-
+sleep 90
 az ad sp create --id $publicClientAppId
 publicClientAppSecret=$(az ad app credential reset --id $publicClientAppId --credential-description "client-secret" --query password -o tsv)
 
