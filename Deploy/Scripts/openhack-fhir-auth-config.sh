@@ -17,7 +17,7 @@ echo "Set Variables - END"
 
 # Set account to secondary subscription/tenant where app registrrations will be built
 az account set -s $secondarySubscription
-echo "Account set to Seconday Subscription/Tenant"
+echo "Account set to Secondary Subscription/Tenant"
 
 # FHIR API App
 echo "FHIR API App Registraiton - START"
