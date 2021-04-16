@@ -11,7 +11,8 @@ adminPwd="<ADMIN_PASSWORD>"
 
 userNamePrefix="${environmentName}-"
 userId="${userNamePrefix}admin"
-userUpn="${userId}@${aadDomain}"
+adminUserUpn="${userId}@${aadDomain}"
+
 keyvaultname="${environmentName}-ts"
 echo "Set Variables - END"
 
@@ -19,13 +20,21 @@ echo "Set Variables - END"
 az account set -s $secondarySubscription
 echo "Account set to Secondary Subscription/Tenant"
 
+# Create admin user
+az ad user create --display-name $adminUserUpn --password $adminPwd --user-principal-name $adminUserUpn --force-change-password-next-login false
+echo "Admin user created"
+
 # FHIR API App
 echo "FHIR API App Registraiton - START"
 fhirServiceUrl="https://${environmentName}.azurehealthcareapis.com"
 fhirAppId=$(az ad app create --display-name $fhirServiceUrl --identifier-uris $fhirServiceUrl --app-roles '[{"allowedMemberTypes": ["User","Application"],"description": "globalAdmin","displayName": "globalAdmin","isEnabled": "true","value": "globalAdmin"}]' --query appId -o tsv)
 sleep 30
+fhirAppServicePrincipalObjectId=$(az ad sp create --id $fhirAppId --query objectId -o tsv)
 fhirApiPermissionId=$(az ad app show --id $fhirAppId --query "[oauth2Permissions[?value=='user_impersonation'].id] | [0] | [0] " -o tsv)
 echo "FHIR API App Registraiton - END"
+
+# Apply global admin privileges to the admin user for the FHIR API"
+# ??
 
 # Confidential Client
 echo "Confidential Client App Registraiton - START"
@@ -95,7 +104,7 @@ az ad app permission add \
 echo "Switch to Primary Subscription"
 az account set -s $primarySubscription
 echo "Set Key Vault Secrets - START"
-az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-admin-upn" --value $userUpn
+az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-admin-upn" --value $adminUserUpn
 az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-admin-password" --value $adminPwd
 az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-confidential-client-id" --value $confidentialClientId
 az keyvault secret set --vault-name $keyvaultname --subscription $primarySubscription --name "${environmentName}-confidential-client-secret" --value $confidentialClientAppSecret
