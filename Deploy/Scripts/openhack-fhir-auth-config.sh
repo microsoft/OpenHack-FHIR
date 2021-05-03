@@ -21,7 +21,7 @@ az account set -s $secondarySubscription
 echo "Account set to Secondary Subscription/Tenant"
 
 # Create admin user
-az ad user create --display-name $adminUserUpn --password $adminPwd --user-principal-name $adminUserUpn --force-change-password-next-login false
+adminUserObjectId=$(az ad user create --display-name $adminUserUpn --password $adminPwd --user-principal-name $adminUserUpn --force-change-password-next-login false --query objectId -o tsv)
 echo "Admin user created"
 
 # FHIR API App
@@ -30,7 +30,9 @@ fhirServiceUrl="https://${environmentName}.azurehealthcareapis.com"
 fhirAppId=$(az ad app create --display-name $fhirServiceUrl --identifier-uris $fhirServiceUrl --app-roles '[{"allowedMemberTypes": ["User","Application"],"description": "globalAdmin","displayName": "globalAdmin","isEnabled": "true","value": "globalAdmin"}]' --query appId -o tsv)
 sleep 30
 fhirAppServicePrincipalObjectId=$(az ad sp create --id $fhirAppId --query objectId -o tsv)
-fhirApiPermissionId=$(az ad app show --id $fhirAppId --query "[oauth2Permissions[?value=='user_impersonation'].id] | [0] | [0] " -o tsv)
+fhirApiPermissionId=$(az ad app show --id $fhirAppId --query "[oauth2Permissions[?value=='user_impersonation'].id]" -o tsv)
+fhirAppGlobalAdminRoleObjectId=$(az ad app show --id $fhirAppId --query "[appRoles[?value=='globalAdmin'].id]" -o tsv)
+
 echo "FHIR API App Registraiton - END"
 
 # Apply global admin privileges to the admin user for the FHIR API"
@@ -82,7 +84,26 @@ echo "Service Client App Registraiton - END"
 
 # Public Client
 echo "Public Client App Registraiton - START"
-publicClientAppId=$(az ad app create --display-name ${environmentName}-public-client --native-app true --reply-urls "https://www.getpostman.com/oauth2/callback" --query appId -o tsv)
+# Establish redirect urls
+webAppSuffix="azurewebsites.net"
+growthChartName="${environmentName}growth"
+growthChartUrl1=$(echo "https://${growthChartName}.${webAppSuffix}" | base64)
+growthChartUrl2=$(echo "https://${growthChartName}.${webAppSuffix}/" | base64)
+growthChartUrl3=$(echo "https://${growthChartName}.${webAppSuffix}/index.html" | base64)
+medicationsName="${environmentName}meds"
+medicationsUrl1=$(echo "https://${medicationsName}.${webAppSuffix}" | base64)
+medicationsUrl2=$(echo "https://${medicationsName}.${webAppSuffix}/" | base64)
+medicationsUrl3=$(echo "https://${medicationsName}.${webAppSuffix}/index.html" | base64)
+
+publicClientRedirectUrls="$fhirServiceUrl/AadSmartOnFhirProxy/callback/$growthChartUrl1
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$growthChartUrl2 
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$growthChartUrl3 
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$medicationsUrl1 
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$medicationsUrl2 
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$medicationsUrl3 
+    https://www.getpostman.com/oauth2/callback"
+
+publicClientAppId=$(az ad app create --display-name ${environmentName}-public-client --native-app true --reply-urls $publicClientRedirectUrls --query appId -o tsv)
 sleep 90
 az ad sp create --id $publicClientAppId
 publicClientAppSecret=$(az ad app credential reset --id $publicClientAppId --credential-description "client-secret" --query password -o tsv)
@@ -92,13 +113,13 @@ az ad app permission add \
     --api 00000003-0000-0000-c000-000000000000 \
     --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope
 az ad app permission grant --id $publicClientAppId --api 00000003-0000-0000-c000-000000000000
-echo "Public Client App Registraiton - END"
 
 az ad app permission add \
     --id $publicClientAppId \
     --api $fhirAppId \
     --api-permissions $fhirApiPermissionId=Scope
 #az ad app permission grant --id $confidentialClientId --api $fhirAppId
+echo "Public Client App Registraiton - END"
 
 # Save variables to Key Vault located in primary subscription
 echo "Switch to Primary Subscription"
