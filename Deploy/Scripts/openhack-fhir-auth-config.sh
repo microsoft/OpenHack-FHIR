@@ -1,13 +1,18 @@
+#!/bin/bash
 # This script assumes the account executing it has privileges to both subscriptions...
 # And has the necessary Azure AD privileges in the secondary Subscription's AD tenant to create/manage App Registrations.
 # If using a separately created Azure AD tenant that has no subscriptions, you must loging using 'az login --allow-no-subscriptions'.
 
 echo "Set Variables - START"
-environmentName="<ENVVIRONMENT_NAME>"
-primarySubscription="<PRIMARY_SUBSCRIPTION_ID>"
-secondarySubscription="<SECONDARY_SUBSCRIPTION_ID>"		# This is Secondary Tenant ID
-aadDomain="<AZURE_AD_DOMAIN_FOR_APP_REGISTRATIONS>"    # Azure AD domain name (ex: contoso.com)
-adminPwd="<ADMIN_PASSWORD>"
+
+# Parameters.txt file is in the same path as this file
+. parameters.txt
+
+echo "$environmentName"
+echo "$primarySubscription"
+echo "$secondarySubscription"
+echo "$aadDomain"
+echo "$adminPwd"
 
 userNamePrefix="${environmentName}-"
 userId="${userNamePrefix}admin"

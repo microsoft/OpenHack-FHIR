@@ -1,11 +1,17 @@
+#!/bin/bash
+# This script deploys resources in Primary Subscription using fhir-server and fhir-server-samples templates
 # Set variables
 echo "Set Variables - START"
-environmentName="<ENVVIRONMENT_NAME>"
-primarySubscription="<PRIMARY_SUBSCRIPTION_ID>"
-secondarySubscription="<SECONDAY_SUBSCRIPTION_ID>"
-fhirApiLocation="<FHIR_API_LOCATION>"
-sqlAdminPassword="<SQL_ADMIN_PWD>"
-aadAuthority="<AZURE_AD_AUTHORITY>"
+
+# Parameters.txt file is in the same path as this file
+. parameters.txt
+
+echo "$environmentName"
+echo "$primarySubscription"
+echo "$secondarySubscription"
+echo "$fhirApiLocation"
+echo "$sqlAdminPassword"
+echo "$aadAuthority"
 
 fhirVersion="R4"
 resourceGroupName=${environmentName}
@@ -26,7 +32,7 @@ importerTemplate="${githubRawBaseUrl}/${sourceRevision}/deploy/templates/azurede
 
 deploySource=true
 usePaaS=true
-enableExport=false
+enableExport=true
 
 currentUserObjectId=$(az ad signed-in-user show --query objectId -o tsv)
 echo "Set Variables - END"
