@@ -17,22 +17,19 @@ fhirVersion="R4"
 resourceGroupName=${environmentName}
 keyvaultname="${environmentName}-ts"
 
-#templateFile="../Templates/azuredeploy-sandbox.json"
-templateFile="https://raw.githubusercontent.com/microsoft/fhir-server-samples/master/deploy/templates/azuredeploy-sandbox.json"
-fhirServerTemplateUrl="https://raw.githubusercontent.com/Microsoft/fhir-server/master/samples/templates/default-azuredeploy.json"
-
-#sourceRepository = "https://github.com/Microsoft/fhir-server-samples"
-sourceRepository="https://raw.githubusercontent.com/Microsoft/fhir-server-samples"
-#githubRawBaseUrl = $sourceRepository.Replace("github.com","raw.githubusercontent.com").TrimEnd('/')
-githubRawBaseUrl=$sourceRepository
+sourceRepository="https://github.com/Microsoft/fhir-server-samples"
+githubRawBaseUrl="https://raw.githubusercontent.com/Microsoft/fhir-server-samples"
 sourceRevision="master"
+templateFile="https://raw.githubusercontent.com/microsoft/fhir-server-samples/master/deploy/templates/azuredeploy-sandbox.json"
 sandboxTemplate="${githubRawBaseUrl}/${sourceRevision}/deploy/templates/azuredeploy-sandbox.json"
 dashboardJSTemplate="${githubRawBaseUrl}/${sourceRevision}/deploy/templates/azuredeploy-fhirdashboard-js.json"
 importerTemplate="${githubRawBaseUrl}/${sourceRevision}/deploy/templates/azuredeploy-importer.json"
 
+fhirServerTemplateUrl="https://raw.githubusercontent.com/Microsoft/fhir-server/master/samples/templates/default-azuredeploy.json"
+
 deploySource=true
 usePaaS=true
-enableExport=true
+enableExport=false
 
 currentUserObjectId=$(az ad signed-in-user show --query objectId -o tsv)
 echo "Set Variables - END"
@@ -51,12 +48,12 @@ dashboardUserPassword=$(az keyvault secret show --name "${environmentName}-admin
 
 echo "Key Vault values acquired."
 
-# Set account to secondary subsciption/tenant where app registrations exist
+# Set account to secondary subsciption/tenant where app registrations exists
 az account set -s $secondarySubscription
 echo "Account set to Secondary Subscription"
-
-serviceClientObjectId=$(az ad app show --id $serviceClientId --query objectId -o tsv)
-dashboardUserOid=$(az ad app show --id $serviceClientId --query "[oauth2Permissions[?value=='user_impersonation'].id] | [0] | [0] " -o tsv)
+# Get the object Id of the service principal for the service client app registration
+serviceClientObjectId=$(az ad sp show  --id $serviceClientId --query objectId -o tsv)
+dashboardUserOid=$(az ad user show --id $dashboardUserUpn --query objectId --out tsv)
 echo "ObjectIds acquired"
 
 accessPolicies="[{'objectId':'$currentUserObjectId'},{'objectId':'$serviceClientObjectId'},{'objectId':'$dashboardUserOid'}]"
@@ -67,7 +64,6 @@ echo "Account set to Primary Subscription"
 
 echo
 echo
-echo "templateFile = $sandboxTemplate"
 echo "resourceGroupName  = $resourceGroupName "
 echo "sandboxTemplate = $sandboxTemplate"
 echo "environmentName = $environmentName"
@@ -90,32 +86,10 @@ echo "usePaaS = $usePaaS"
 echo "accessPolicies = $accessPolicies"
 echo "enableExport = $enableExport"
 echo
-echo
+echo "currentUserObjectId = $currentUserObjectId"
+echo "serviceClientObjectId = $serviceClientObjectId"
+echo "dashboardUserOid = $dashboardUserOid"
 echo "Execute deployment"
-
-# az deployment group validate \
-#     --resource-group $resourceGroupName \
-#     --template-uri $sandboxTemplate \
-#     --parameters environmentName=$environmentName \
-#         fhirApiLocation=$fhirApiLocation \
-#         fhirServerTemplateUrl=$fhirServerTemplateUrl \
-#         fhirVersion=$fhirVersion \
-#         sqlAdminPassword=$sqlAdminPassword \
-#         aadAuthority=$aadAuthority \
-#         aadDashboardClientId=$confidentialClientId \
-#         aadDashboardClientSecret=$confidentialClientSecret \
-#         aadServiceClientId=$serviceClientId \
-#         aadServiceClientSecret=$serviceClientSecret \
-#         smartAppClientId=$publicClientId \
-#         fhirDashboardJSTemplateUrl=$dashboardJSTemplate \
-#         fhirImporterTemplateUrl=$importerTemplate \
-#         fhirDashboardRepositoryUrl=$sourceRepository \
-#         fhirDashboardRepositoryBranch=$sourceRevision \
-#         deployDashboardSourceCode=$deploySoure \
-#         usePaaS=$usePaaS \
-#         accessPolicies=$accessPolicies \
-#         enableExport=$enableExport
-
 
 az deployment group create \
     --name $resourceGroupName \

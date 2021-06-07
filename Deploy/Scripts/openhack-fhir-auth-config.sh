@@ -23,9 +23,16 @@ echo "Set Variables - END"
 
 # Set account to secondary subscription/tenant where app registrrations will be built
 az account set -s $secondarySubscription
+secondarySubscriptionId=$(az account show --query id -o tsv)
+if [[ "$secondarySubscription" != "$secondarySubscriptionId" ]];
+then
+    echo "Failed to set secondary subscription! Exiting."
+    exit 1
+fi
 echo "Account set to Secondary Subscription/Tenant"
 
 # Create admin user
+echo "Create Admin user"
 adminUserObjectId=$(az ad user create --display-name $adminUserUpn --password $adminPwd --user-principal-name $adminUserUpn --force-change-password-next-login false --query objectId -o tsv)
 echo "Admin user created"
 
@@ -39,10 +46,6 @@ fhirApiPermissionId=$(az ad app show --id $fhirAppId --query "[oauth2Permissions
 fhirAppGlobalAdminRoleObjectId=$(az ad app show --id $fhirAppId --query "[appRoles[?value=='globalAdmin'].id]" -o tsv)
 
 echo "FHIR API App Registraiton - END"
-
-# Apply global admin privileges to the admin user for the FHIR API"
-# ??
-
 # Confidential Client
 echo "Confidential Client App Registraiton - START"
 confidentialClientName="${environmentName}-confidential-client"
@@ -64,27 +67,30 @@ az ad app permission add \
     --id $confidentialClientId \
     --api $fhirAppId \
     --api-permissions $fhirApiPermissionId=Scope
-#az ad app permission grant --id $confidentialClientId --api $fhirAppId
 echo "Confidential Client App Registraiton - END"
 
 # Service Client
 echo "Service Client App Registraiton - START"
-serviceClientAppId=$(az ad app create --display-name ${environmentName}-service-client --native-app --reply-urls "https://www.getpostman.com/oauth2/callback" --query appId -o tsv)
+serviceClientAppId=$(az ad app create --display-name ${environmentName}-service-client --identifier-uris https://${environmentName}-service-client --reply-urls "https://www.getpostman.com/oauth2/callback" --query appId -o tsv)
 sleep 90
 az ad sp create --id $serviceClientAppId
 serviceClientAppSecret=$(az ad app credential reset --id $serviceClientAppId --credential-description "client-secret" --query password -o tsv)
 
 az ad app permission add \
     --id $serviceClientAppId \
+    --api $fhirAppId \
+    --api-permissions $fhirAppGlobalAdminRoleObjectId=Role
+az ad app permission admin-consent --id $serviceClientAppId
+
+az ad app permission add \
+    --id $serviceClientAppId \
     --api 00000003-0000-0000-c000-000000000000 \
     --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope
-az ad app permission grant --id $serviceClientAppId --api 00000003-0000-0000-c000-000000000000
 
 az ad app permission add \
     --id $serviceClientAppId \
     --api $fhirAppId \
     --api-permissions $fhirApiPermissionId=Scope
-#az ad app permission grant --id $confidentialClientId --api $fhirAppId
 echo "Service Client App Registraiton - END"
 
 # Public Client
@@ -123,7 +129,6 @@ az ad app permission add \
     --id $publicClientAppId \
     --api $fhirAppId \
     --api-permissions $fhirApiPermissionId=Scope
-#az ad app permission grant --id $confidentialClientId --api $fhirAppId
 echo "Public Client App Registraiton - END"
 
 # Save variables to Key Vault located in primary subscription
