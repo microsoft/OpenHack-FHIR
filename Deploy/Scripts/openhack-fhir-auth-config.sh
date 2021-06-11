@@ -67,6 +67,7 @@ az ad app permission add \
     --id $confidentialClientId \
     --api $fhirAppId \
     --api-permissions $fhirApiPermissionId=Scope
+az ad app permission grant --id $confidentialClientId --api $fhirAppId
 echo "Confidential Client App Registraiton - END"
 
 # Service Client
@@ -96,22 +97,54 @@ echo "Service Client App Registraiton - END"
 # Public Client
 echo "Public Client App Registraiton - START"
 # Establish redirect urls
+# This section can most likeyly be written more efficiently regarding the encoded string cleanup.  Passable for now.
+# Intent is to 1) remove trailing '=', 2) replace all '/' with '_', and 3) replace all '+' with '-'.
 webAppSuffix="azurewebsites.net"
 growthChartName="${environmentName}growth"
-growthChartUrl1=$(echo "https://${growthChartName}.${webAppSuffix}" | base64)
-growthChartUrl2=$(echo "https://${growthChartName}.${webAppSuffix}/" | base64)
-growthChartUrl3=$(echo "https://${growthChartName}.${webAppSuffix}/index.html" | base64)
+growthChartUrl1=$(echo -n "https://${growthChartName}.${webAppSuffix}" | base64)
+while [[ $growthChartUrl1 = *"=" ]]
+do growthChartUrl1=${growthChartUrl1/%=}
+done
+growthChartUrl1=${growthChartUrl1//"/"/"_"}
+growthChartUrl1=${growthChartUrl1//"+"/"-"}
+growthChartUrl2=$(echo -n "https://${growthChartName}.${webAppSuffix}/" | base64)
+while [[ $growthChartUrl2 = *"=" ]]
+do growthChartUrl2=${growthChartUrl2/%=}
+done
+growthChartUrl2=${growthChartUrl2//"/"/"_"}
+growthChartUrl2=${growthChartUrl2//"+"/"-"}
+growthChartUrl3=$(echo -n "https://${growthChartName}.${webAppSuffix}/index.html" | base64)
+while [[ $growthChartUrl3 = *"=" ]]
+do growthChartUrl3=${growthChartUrl3/%=}
+done
+growthChartUrl3=${growthChartUrl3//"/"/"_"}
+growthChartUrl3=${growthChartUrl3//"+"/"-"}
 medicationsName="${environmentName}meds"
-medicationsUrl1=$(echo "https://${medicationsName}.${webAppSuffix}" | base64)
-medicationsUrl2=$(echo "https://${medicationsName}.${webAppSuffix}/" | base64)
-medicationsUrl3=$(echo "https://${medicationsName}.${webAppSuffix}/index.html" | base64)
+medicationsUrl1=$(echo -n "https://${medicationsName}.${webAppSuffix}" | base64)
+while [[ $medicationsUrl1 = *"=" ]]
+do medicationsUrl1=${medicationsUrl1/%=}
+done
+medicationsUrl1=${medicationsUrl1//"/"/"_"}
+medicationsUrl1=${medicationsUrl1//"+"/"-"}
+medicationsUrl2=$(echo -n "https://${medicationsName}.${webAppSuffix}/" | base64)
+while [[ $medicationsUrl2 = *"=" ]]
+do medicationsUrl2=${medicationsUrl2/%=}
+done
+medicationsUrl2=${medicationsUrl2//"/"/"_"}
+medicationsUrl2=${medicationsUrl2//"+"/"-"}
+medicationsUrl3=$(echo -n "https://${medicationsName}.${webAppSuffix}/index.html" | base64)
+while [[ $medicationsUrl3 = *"=" ]]
+do medicationsUrl3=${medicationsUrl3/%=}
+done
+medicationsUrl3=${medicationsUrl3//"/"/"_"}
+medicationsUrl3=${medicationsUrl3//"+"/"-"}
 
 publicClientRedirectUrls="$fhirServiceUrl/AadSmartOnFhirProxy/callback/$growthChartUrl1
-    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$growthChartUrl2 
-    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$growthChartUrl3 
-    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$medicationsUrl1 
-    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$medicationsUrl2 
-    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$medicationsUrl3 
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$growthChartUrl2
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$growthChartUrl3
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$medicationsUrl1
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$medicationsUrl2
+    $fhirServiceUrl/AadSmartOnFhirProxy/callback/$medicationsUrl3
     https://www.getpostman.com/oauth2/callback"
 
 publicClientAppId=$(az ad app create --display-name ${environmentName}-public-client --native-app true --reply-urls $publicClientRedirectUrls --query appId -o tsv)
@@ -129,6 +162,7 @@ az ad app permission add \
     --id $publicClientAppId \
     --api $fhirAppId \
     --api-permissions $fhirApiPermissionId=Scope
+az ad app permission grant --id $publicClientAppId --api $fhirAppId
 echo "Public Client App Registraiton - END"
 
 # Save variables to Key Vault located in primary subscription
