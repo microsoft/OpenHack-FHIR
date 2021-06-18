@@ -49,15 +49,22 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * Navigate to **OpenHack-FHIR --> Deploy --> Scripts**
    * Click on **parameters.txt**
    * Update variables within ""
-
    >   environmentName="{Unique ENVIRONMENTNAME}"
+
    >   environmentLocation="eastus"
+
    >   fhirApiLocation="eastus"
+
    >   primarySubscription="{Primary tenantid}"
+
    >   secondarySubscription="{secondary tenantid}"
+
    >   aadDomain="{Secondary tenant domain name}" 
+
    >   aadAuthority="https://login.microsoftonline.com/{Secondary tenant domain name>}"
+
    >   adminPwd="{your password}"
+
    >   sqlAdminPassword="{your password}"
 
    * The **ENVIRONMENTNAME Example:fhirhack, THIS IS AN EXAMPLE, DO NOT USE THIS,** is a value used as the prefix for the Azure resources the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**. **NOTE:** If you are re-deploying after deleting the resources, KeyVault would only be soft-deleted. DO NOT use the same environment name unless you permanently deleted the KeyVault that was created during your previous deployment.
