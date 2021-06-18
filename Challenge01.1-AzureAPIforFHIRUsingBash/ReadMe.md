@@ -49,20 +49,20 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * Navigate to **OpenHack-FHIR --> Deploy --> Scripts**
    * Click on **parameters.txt**
    * Update variables within ""
-   >   environmentName="<unique environmentname>"
+
+   >   environmentName="{Unique ENVIRONMENTNAME}"
    >   environmentLocation="eastus"
    >   fhirApiLocation="eastus"
-   >   primarySubscription="<primary tenantid>"
-   >   secondarySubscription="<secondary tenantid>"
-   >   aadDomain="<secondary tenant domain name>" 
-   >   aadAuthority="https://login.microsoftonline.com/<secondary tenant domain name>"
-   >   adminPwd="<your password>"
-   >   sqlAdminPassword="<your password>"
+   >   primarySubscription="{Primary tenantid}"
+   >   secondarySubscription="{secondary tenantid}"
+   >   aadDomain="{Secondary tenant domain name}" 
+   >   aadAuthority="https://login.microsoftonline.com/{Secondary tenant domain name>}"
+   >   adminPwd="{your password}"
+   >   sqlAdminPassword="{your password}"
 
    * The **ENVIRONMENTNAME Example:fhirhack, THIS IS AN EXAMPLE, DO NOT USE THIS,** is a value used as the prefix for the Azure resources the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**. **NOTE:** If you are re-deploying after deleting the resources, KeyVault would only be soft-deleted. DO NOT use the same environment name unless you permanently deleted the KeyVault that was created during your previous deployment.
    * EnvironmentLocation could be specified, but for this hack, leave the default (eastus) as not all of the services we are provisioning are available in all regions.
-
-* Click on **...** on the right end in Cloud Shell menu. Click **Save** and **Close editor**.
+   * Click on **...** on the right end in Cloud Shell menu. Click **Save** and **Close editor**.
 * Run this command to change to the right directory
    ```bash
    cd OpenHack-FHIR/Deploy/Scripts
@@ -73,7 +73,9 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    ```
    * The script uses parameters and run these scripts:
    >   openhack-fhir-prereqs.sh: Creates two Resource Groups {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof, and {ENVIRONMENTNAME}-ts Key Vault in the 1st resource group
+
    >   openhack-fhir-auth-config.sh: Creates App Registrations in Secondary tenant, add the service principles to KeyVault in Primary tenant
+
    >   openhack-fhir-environment.sh: Created 8 resources in {ENVIRONMENTNAME} Resource Group in Primary tenant
 
    * The script will take about 10 minutes to complete. 
