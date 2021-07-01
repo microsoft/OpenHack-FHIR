@@ -25,7 +25,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * **NOTE** If you have full **Administrator access** to a AD tenant where you can create App Registrations, Role Assignments, Azure Resources... example: Visual Studio Subscription, then **Primary AD tenant is same as Secondary AD tenant**, use the same AD tenant for both.
    * If you **don't have Administrator access**:
       * **Primary (Resource) AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
-      * **Secondary (Data) AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to. It is assumed that Secondary AD tenant doesn't have any subscriptions.
+      * **Secondary (Data) AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to. This tenant is not required to contain a subscription. However, it is necessary the account running the scripts has privileges to create App Registrations and grant Role Assignments.
 
 ## Getting Started
 
