@@ -40,53 +40,53 @@ You also team up with Data Scientist, where they want to analyze streaming obser
    * To **upload mapping templates**, click on the newly deployed Azure IoT Connector for FHIR to go to the IoT Connector page.
       * Device mapping template transforms **device data into a normalized schema**. On the IoT Connector page, click on **Configure device mapping** button to go to the Device mapping page. On the Device mapping page, add the following script to the JSON editor and click Save.
       ```
-      {
-        "templateType": "CollectionContent",
-        "template": [
+{
+  "templateType": "CollectionContent",
+  "template": [
+    {
+      "templateType": "IotJsonPathContent",
+      "template": {
+        "typeName": "heartrate",
+        "typeMatchExpression": "$..[?(@Body.telemetry.HeartRate)]",
+        "patientIdExpression": "$.Properties.iotcentral-device-id",
+        "values": [
           {
-            "templateType": "IotJsonPathContent",
-            "template": {
-              "typeName": "heartrate",
-              "typeMatchExpression": "$..[?(@Body.HeartRate)]",
-              "patientIdExpression": "$.SystemProperties.iothub-connection-device-id",
-              "values": [
-                {
-                  "required": "true",
-                  "valueExpression": "$.Body.HeartRate",
-                  "valueName": "hr"
-                }
-              ]
-            }
+            "required": "true",
+            "valueExpression": "$.Body.telemetry.HeartRate",
+            "valueName": "hr"
           }
         ]
       }
+    }
+  ]
+}
      ``` 
       * FHIR mapping template **transforms a normalized message to a FHIR-based Observation resource**. On the IoT Connector page, click on **Configure FHIR mapping** button to go to the FHIR mapping page. On the FHIR mapping page, add the following script to the JSON editor and click Save.
       ```
-      {
-        "templateType": "CollectionFhir",
-        "template": [
+{
+  "templateType": "CollectionFhir",
+  "template": [
+    {
+      "templateType": "CodeValueFhir",
+      "template": {
+        "codes": [
           {
-            "templateType": "CodeValueFhir",
-            "template": {
-              "codes": [
-                {
-                  "code": "8867-4",
-                  "system": "http://loinc.org",
-                  "display": "Heart rate"
-                }
-              ],
-              "periodInterval": 0,
-              "typeName": "heartrate",
-              "value": {
-                "unit": "count/min",
-                "valueName": "hr",
-                "valueType": "Quantity"
-              }
-            }
+            "code": "8867-4",
+            "system": "http://loinc.org",
+            "display": "Heart rate"
           }
-        ]
+        ],
+        "periodInterval": 0,
+        "typeName": "heartrate",
+        "value": {
+          "unit": "count/min",
+          "valueName": "hr",
+          "valueType": "Quantity"
+        }
       }
+    }
+  ]
+}
      ``` 
 * **Generate a connection string for IoT Device to connect**
    * IoT device needs a connection string to connect and send messages to Azure IoT Connector for FHIR. On the IoT Connector page for the newly deployed Azure IoT Connector for FHIR, select **Manage client connections** button.
@@ -106,10 +106,10 @@ You also team up with Data Scientist, where they want to analyze streaming obser
    * Select **Create** at the bottom of the page to deploy your application.
    * More details on [Continuous Patient Monitoring](https://docs.microsoft.com/en-us/azure/iot-central/healthcare/tutorial-continuous-patient-monitoring#create-an-application-template).
 * Connect your IoT data with the Azure IoT Connector for FHIR
-   * To ingest the telemetry from Smart Vitals Patch simulator into FHIR, navigate to IoT Central App created, click on **Data Export (legacy)** under App Settings in the left navigation.
-   * Choose **New --> Azure Event Hubs**. Enter a display name for your new export, and make sure the data export is Enabled.
-   * Choose **Connection String** in Event Hubs namespace and paste the Connection String copied from above. Event Hub name will autofill.
-   * Make sure **Telemetry** is enabled, Devices and Device templates are disabled.
+   * To ingest the telemetry from Smart Vitals Patch simulator into FHIR, navigate to IoT Central App created, click on **Data Export** under App Settings in the left navigation.
+   * Choose **+ New export**. Enter an export name for your new export, and make sure the data export is Enabled.
+   * Make sure **Telemetry** is selected in the **Type of data to export** drop-down.
+   * In **Destinations**, click **create a new one**. Enter a **Destination name**, make sure **Azure Event Hubs** is selected in **Destination type**, and paste the **Connection String** copied from above. 
    * Click Save.
    * It will take 10-15 mins for the data to load into FHIR
    * More details on [Data Export](https://docs.microsoft.com/en-us/azure/iot-central/core/howto-export-data#set-up-data-export).
