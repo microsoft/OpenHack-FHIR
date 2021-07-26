@@ -40,53 +40,53 @@ You also team up with Data Scientist, where they want to analyze streaming obser
    * To **upload mapping templates**, click on the newly deployed Azure IoT Connector for FHIR to go to the IoT Connector page.
       * Device mapping template transforms **device data into a normalized schema**. On the IoT Connector page, click on **Configure device mapping** button to go to the Device mapping page. On the Device mapping page, add the following script to the JSON editor and click Save.
       ```
-{
-  "templateType": "CollectionContent",
-  "template": [
-    {
-      "templateType": "IotJsonPathContent",
-      "template": {
-        "typeName": "heartrate",
-        "typeMatchExpression": "$..[?(@Body.telemetry.HeartRate)]",
-        "patientIdExpression": "$.Properties.iotcentral-device-id",
-        "values": [
-          {
-            "required": "true",
-            "valueExpression": "$.Body.telemetry.HeartRate",
-            "valueName": "hr"
-          }
-        ]
-      }
-    }
-  ]
-}
+     {
+       "templateType": "CollectionContent",
+       "template": [
+         {
+           "templateType": "IotJsonPathContent",
+           "template": {
+             "typeName": "heartrate",
+             "typeMatchExpression": "$..[?(@Body.telemetry.HeartRate)]",
+             "patientIdExpression": "$.Properties.iotcentral-device-id",
+             "values": [
+               {
+                 "required": "true",
+                 "valueExpression": "$.Body.telemetry.HeartRate",
+                 "valueName": "hr"
+               }
+             ]
+           }
+         }
+       ]
+     }
      ``` 
       * FHIR mapping template **transforms a normalized message to a FHIR-based Observation resource**. On the IoT Connector page, click on **Configure FHIR mapping** button to go to the FHIR mapping page. On the FHIR mapping page, add the following script to the JSON editor and click Save.
       ```
-{
-  "templateType": "CollectionFhir",
-  "template": [
-    {
-      "templateType": "CodeValueFhir",
-      "template": {
-        "codes": [
-          {
-            "code": "8867-4",
-            "system": "http://loinc.org",
-            "display": "Heart rate"
-          }
-        ],
-        "periodInterval": 0,
-        "typeName": "heartrate",
-        "value": {
-          "unit": "count/min",
-          "valueName": "hr",
-          "valueType": "Quantity"
-        }
-      }
-    }
-  ]
-}
+     {
+       "templateType": "CollectionFhir",
+       "template": [
+         {
+           "templateType": "CodeValueFhir",
+           "template": {
+             "codes": [
+               {
+                 "code": "8867-4",
+                 "system": "http://loinc.org",
+                 "display": "Heart rate"
+               }
+             ],
+             "periodInterval": 0,
+             "typeName": "heartrate",
+             "value": {
+               "unit": "count/min",
+               "valueName": "hr",
+               "valueType": "Quantity"
+             }
+           }
+         }
+       ]
+     }
      ``` 
 * **Generate a connection string for IoT Device to connect**
    * IoT device needs a connection string to connect and send messages to Azure IoT Connector for FHIR. On the IoT Connector page for the newly deployed Azure IoT Connector for FHIR, select **Manage client connections** button.
