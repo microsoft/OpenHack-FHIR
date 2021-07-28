@@ -57,7 +57,70 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
 ## Getting Started
 
-## Task #1: Provision Azure API for FHIR demo environment.
+## Task #1: Provision Azure API for FHIR demo environment
+
+**Choose one Option below to provision Azure API for FHIR**
+
+### Option1: Using Cloud Shell
+
+* **Log into Azure Portal**
+* Click **Cloud Shell**. Make sure **Bash** is selected.
+* Run the below commands to login and set to Secondary tenant
+   ```bash
+   az login --allow-no-subscriptions
+
+   az account set -s **{YourSecondary or Data ADTenantID}** 
+
+   az account show 
+   ```
+* Run the below command to clone the Github that has the scripts
+   ```bash
+   git clone -b main https://github.com/microsoft/OpenHack-FHIR.git
+   ```
+* Click on **Open editor** in Cloud Shell menu.
+   * Navigate to **OpenHack-FHIR --> Deploy --> Scripts**
+   * Click on **parameters.txt**
+   * Update variables within ""
+   >   environmentName="{Unique ENVIRONMENTNAME}"
+
+   >   environmentLocation="eastus"
+
+   >   fhirApiLocation="eastus"
+
+   >   primarySubscription="{Primary tenantid}"
+
+   >   secondarySubscription="{secondary tenantid}"
+
+   >   aadDomain="{Secondary tenant domain name}" 
+
+   >   aadAuthority="https://login.microsoftonline.com/{Secondary tenant domain name>}"
+
+   >   adminPwd="{your password}"
+
+   >   sqlAdminPassword="{your password}"
+
+   * The **ENVIRONMENTNAME Example:fhirhack, THIS IS AN EXAMPLE, DO NOT USE THIS,** is a value used as the prefix for the Azure resources the script deploys, therefore it should be **globally unique**, all **lowercase** and **can't be longer than 12 characters**. **NOTE:** If you are re-deploying after deleting the resources, KeyVault would only be soft-deleted. DO NOT use the same environment name unless you permanently deleted the KeyVault that was created during your previous deployment.
+   * EnvironmentLocation could be specified, but for this hack, leave the default (eastus) as not all of the services we are provisioning are available in all regions.
+   * Click on **...** on the right end in Cloud Shell menu. Click **Save** and **Close editor**.
+* Run this command to change to the right directory
+   ```bash
+   cd OpenHack-FHIR/Deploy/Scripts
+   ```
+* Run this command to run the deployment script
+   ```bash
+   bash openhack-fhir-deploy-azureapiforfhir.sh
+   ```
+   * The script uses parameters and run these scripts:
+   >   openhack-fhir-prereqs.sh: Creates two Resource Groups {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof, and {ENVIRONMENTNAME}-ts Key Vault in the 1st resource group
+
+   >   openhack-fhir-auth-config.sh: Creates App Registrations in Secondary tenant, add the service principles to KeyVault in Primary tenant
+
+   >   openhack-fhir-environment.sh: Created 8 resources in {ENVIRONMENTNAME} Resource Group in Primary tenant
+
+   * The script will take about 10 minutes to complete. 
+   * To check on the status of the deployment you can open the Azure Portal of the **Primary (Resource) AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. 
+
+### Option2: Using Powershell
 
 * **Download the file** [fhir-server-samples](../Scripts/fhir-server-samples.zip) and unzip to local folder.
 * This folder contains the script to provision all of the Azure API for FHIR resources. Navigate to the **fhir-server-samples\deploy\scripts** directory. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
@@ -82,6 +145,10 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 Team Discussion Q: What is FHIR and how does FHIR improve on previous standards? (10 minutes)  
 
 ---
+
+**Congratulations! You chose one Option above and successfully provisioned Azure API for FHIR**
+
+### Validate the deployment 
 
 * On **successful completion**, you'll have two resource groups and lots of resources created with the prefix <ENVIRONMENTNAME>. Explore these resources and try to understand the role they play in your FHIR demo environment. NOTE: Application Insights is not available in all locations and will be provisioned in East US.
 
