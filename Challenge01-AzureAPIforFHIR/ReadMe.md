@@ -67,9 +67,11 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 * Click **Cloud Shell**. Make sure **Bash** is selected.
 * Run the below commands to login and set to Secondary tenant
    ```bash
+   az login
+   OR
    az login --allow-no-subscriptions
 
-   az account set -s **{YourSecondary or Data ADTenantID}** 
+   az account set -s **{If single tenant deployment, use SubscriptionID. If 2 tenant deployment, use Secondary ADTenantID}** 
 
    az account show 
    ```
@@ -87,9 +89,9 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
    >   fhirApiLocation="eastus"
 
-   >   primarySubscription="{Primary tenantid}"
+   >   primarySubscription="{If single tenant deployment, use SubscriptionID. If 2 tenant deployment, use Primary ADTenantID}"
 
-   >   secondarySubscription="{secondary tenantid}"
+   >   secondarySubscription="{If single tenant deployment, use SubscriptionID. If 2 tenant deployment, use Secondary ADTenantID}"
 
    >   aadDomain="{Secondary tenant domain name}" 
 
