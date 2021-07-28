@@ -95,7 +95,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
    >   aadDomain="{Secondary tenant domain name}" 
 
-   >   aadAuthority="https://login.microsoftonline.com/{Secondary tenant domain name>}"
+   >   aadAuthority="https://login.microsoftonline.com/{Secondary tenant domain name}"
 
    >   adminPwd="{your password}"
 
