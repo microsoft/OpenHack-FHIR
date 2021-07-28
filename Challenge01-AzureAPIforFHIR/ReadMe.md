@@ -61,7 +61,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
 **Choose one Option below to provision Azure API for FHIR**
 
-### Option1: Using Cloud Shell
+### Option 1: Using Cloud Shell
 
 * **Log into Azure Portal**
 * Click **Cloud Shell**. Make sure **Bash** is selected.
@@ -120,7 +120,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    * The script will take about 10 minutes to complete. 
    * To check on the status of the deployment you can open the Azure Portal of the **Primary (Resource) AD** and you will see two resource groups will be created {ENVIRONMENTNAME} and {ENVIRONMENTNAME}-sof. 
 
-### Option2: Using Powershell
+### Option 2: Using Powershell
 
 * **Download the file** [fhir-server-samples](../Scripts/fhir-server-samples.zip) and unzip to local folder.
 * This folder contains the script to provision all of the Azure API for FHIR resources. Navigate to the **fhir-server-samples\deploy\scripts** directory. Run the **one shot deployment.** Don't forget the **.\** before Create. Make sure to leave $true for EnableExport as it will needed in Challenge03.
