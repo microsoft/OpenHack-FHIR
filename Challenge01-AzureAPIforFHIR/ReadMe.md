@@ -89,11 +89,11 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
    >   fhirApiLocation="eastus"
 
-   >   primarySubscription="{If single tenant deployment, use SubscriptionID. If 2 tenant deployment, use Primary ADTenantID}"
+   >   primarySubscription="{SubscriptionID of your Primary tenant}"
 
-   >   secondarySubscription="{If single tenant deployment, use SubscriptionID. If 2 tenant deployment, use Secondary ADTenantID}"
+   >   secondarySubscription="{If single tenant deployment, same SubscriptionID as Primary. If 2 tenant deployment, use Secondary ADTenantID as there are no Subscriptions in Secondary}"
 
-   >   aadDomain="{Secondary tenant domain name}" 
+   >   aadDomain="{If 2 tenant deployment, Secondary tenant domain name}" 
 
    >   aadAuthority="https://login.microsoftonline.com/{Secondary tenant domain name}"
 
