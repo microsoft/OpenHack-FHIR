@@ -27,24 +27,28 @@ Active Directory is usually locked down at many customers as a securtiy best pra
       * **Primary (Resource) AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
       * **Secondary (Data) AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
 
-* Run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
-      ```powershell
-      Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
-      ```
-   
-* **Log into Primary (Resource) AD tenant**:
-   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary (Resource) AD**.
-      ```powershell
-      Login-AzAccount
-      ```
+### Option 1: Using Cloud Shell
+   Go to ## Getting Started below.
 
-      >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
-      >   ```powershell
-      >   Clear-AzContext
-      >   Connect-AzAccount -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
-      >   Set-AzContext -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
-      >   Get-AzContext
-      >   ```
+### Option 2: Using Powershell
+   * Run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
+     ```powershell
+     Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
+     ```
+   
+   * **Log into Primary (Resource) AD tenant**:
+      * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary (Resource) AD**.
+         ```powershell
+         Login-AzAccount
+         ```
+
+         >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
+         >   ```powershell
+         >   Clear-AzContext
+         >   Connect-AzAccount -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
+         >   Set-AzContext -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
+         >   Get-AzContext
+         >   ```
 
 * **Create Secondary (Data) AD tenant**: Azure API for FHIR needs to be deployed into an Azure Active Directory tenant that allows for Data and Resource control plane authorization. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate **Secondary (Data)** Active Directory domain. (A basic Azure Active Directory domain is a free service.)
    * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{uniquename}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary (Data) AD** for clarity. 
