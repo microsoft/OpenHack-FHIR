@@ -27,8 +27,10 @@ Active Directory is usually locked down at many customers as a securtiy best pra
       * **Primary (Resource) AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
       * **Secondary (Data) AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
 
+**NOTE: CHOOSE ONE OPTION BELOW TO PROVISION AZURE API FOR FHIR**
+
 ### Option 1: Using Cloud Shell
-   Go to ## Getting Started below.
+   Go to **Getting Started** below.
 
 ### Option 2: Using Powershell
    * Run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
@@ -63,7 +65,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
 ## Task #1: Provision Azure API for FHIR demo environment
 
-**Choose one Option below to provision Azure API for FHIR**
+**NOTE: CHOOSE ONE OPTION BELOW TO PROVISION AZURE API FOR FHIR**
 
 ### Option 1: Using Cloud Shell
 
