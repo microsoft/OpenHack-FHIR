@@ -26,7 +26,7 @@ More on the above [here](https://docs.microsoft.com/en-us/azure/healthcare-apis/
     * Open "Post Convert HL7" and click the **Send** button. This will return the converted FHIR Bundle.
     * Check [here](https://docs.microsoft.com/en-us/azure/healthcare-apis/fhir/convert-data) for details on hosting templates in Azure Container Registry.
 
-### Option 1: **Open Source** using Bash or Powershell scripts
+### Option 2: **Open Source** using Bash or Powershell scripts
 [Go to Challenge02.1 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Using Bash Scripts](../Challenge02.1-HL7IngestandConvertUsingBash/ReadMe.md)
 
 [Go to Challenge02.2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Using PowerShell Scripts](../Challenge02.1-HL7IngestandConvertUsingPS/ReadMe.md)
