@@ -233,15 +233,17 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
  
 * ### Use Postman to run queries
     * Open Postman. (You should have installed it as part of Challenge 0, but you can get [Postman here](https://www.postman.com/downloads/) if you didn't already.)
-    * We'll first import a pre-defined set of API calls. Go to the [Collection](../Postman/FHIR%20OpenHack.postman_collection.json) and click the **Raw** button. Copy all of this json to your clipboard. Back in the Postman app, click the **Import** button near the upper-left corner of the app. Click the **Raw Text** tab and paste the json content you copied here.  Click the **Continue** button and then the **Import** button. You should see a **FHIR OpenHack** collection in the left-hand pane in Postman.
-    * Create an Environment. A Postman Environment is just a set of variables used across one or more of your API calls. Go to the [Environment](../Postman/FHIR%20OpenHack.postman_environment.json) and click the **Raw** button. Copy all of this json to your clipboard. Open Notepad, paste the json you just copied and save the file on your Desktop as **fhirenv.txt**. Back in Postman, in the upper-right, click the **Manage Environments** button (a gear icon). Click the **Import** button and click the **Choose Files** button. Browse to the **fhirenv.txt** file on your Desktop. Click the **FHIR OpenHack** environment to see it's list of variables. In the **Current and Initial Value** columns for each of the following variables, enter the corresponding values:
+    * Download this Github to import a pre-defined set of API calls. 
+    * Go to Postman app, choose My Workspace, click the **Import** button. Click the **Folder** tab and navigate to the Postman folder in the downloaded Github content.
+    * You should see a **FHIR OpenHack** collection and environment in the left-hand pane in Postman.
+    * Click the **FHIR OpenHack** environment to see it's list of variables. In the **Current and Initial Value** columns for each of the following variables, enter the corresponding values:
       * adtenantId: This is the **tenant Id of the Secondary (Data) AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
       * clientSecret: This is the **client Secret** that is stored in **Secret** "{ENVIRONMENTNAME}-service-client-secret" in "{ENVIRONMENTNAME}-ts" Key Vault.
       * bearerToken: The value will be set when "AuthorizeGetToken SetBearer" request below is sent.
       * fhirurl: This is **https://{ENVIRONMENTNAME}.azurehealthcareapis.com** from Azure API for FHIR you created in Task #1 above.
       * resource: This is the Audience of the Azure API for FHIR **https://{ENVIRONMENTNAME}.azurehealthcareapis.com** you created in Task #1 above. You can find this Audience when you click Authetication in Azure API for FHIR you created in Task #1 above.
-   * Click the **Update** button and close the **MANAGE ENVIRONMENTS** dialog.
+   * Click the **Save** button.
    * In the Environments drop-down, select the **FHIR OpenHack** option.
    * You will see both the Collection on the left and the Environment on the top right.
       <center><img src="../images/challenge01-postman.png" width="850"></center>
