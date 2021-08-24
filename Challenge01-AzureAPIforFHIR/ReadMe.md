@@ -22,8 +22,8 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 * **Active Directory Tenants**
 Active Directory is usually locked down at many customers as a securtiy best practice. Administrators control App Registrations and privilege to grant Role Assignments, users need extensive permissioning to get that unlocked. To avoid that road block, you can create another AD tenant. 
-   * **NOTE** If you have full **Administrator access** to a AD tenant where you can create App Registrations, Role Assignments, Azure Resources... example: Visual Studio Subscription, then **Primary AD tenant is same as Secondary AD tenant**, use the same AD tenant for both.
-   * If you **don't have Administrator access**:
+   * **NOTE** If you have full **Administrator access** or have these roles **Application Administrator, Priviledged Role Administrator and User Administrator** to a AD tenant where you can create App Registrations, Role Assignments, Azure Resources... example: Visual Studio Subscription, then **Primary AD tenant is same as Secondary AD tenant**, use the same AD tenant for both.
+   * If you **don't have Administrator access or have these roles **Application Administrator, Priviledged Role Administrator and User Administrator**:
       * **Primary (Resource) AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
       * **Secondary (Data) AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
 
@@ -77,7 +77,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    OR
    az login --allow-no-subscriptions
 
-   az account set -s **{If single tenant deployment, use SubscriptionID. If 2 tenant deployment, use Secondary ADTenantID}** 
+   az account set --s **{If single tenant deployment, use SubscriptionID. If 2 tenant deployment, use Secondary ADTenantID}** 
 
    az account show 
    ```
