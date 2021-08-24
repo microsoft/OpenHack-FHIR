@@ -29,7 +29,7 @@ fhirServerTemplateUrl="https://raw.githubusercontent.com/Microsoft/fhir-server/m
 
 deploySource=true
 usePaaS=true
-enableExport=false
+enableExport=true
 
 currentUserObjectId=$(az ad signed-in-user show --query objectId -o tsv)
 echo "Set Variables - END"
