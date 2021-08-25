@@ -5,7 +5,7 @@ With Azure API for FHIR up and running with basic EHR synthetic data, you will f
 
 ## FHIR Conversion 
 
-**NOTE: CHOOSE ONE OPTION BELOW FOR FHIR CONVERTER**
+**NOTE: CHOOSE OPTION 1 TO CONVERT HL7 TO FHIR FORMAT, OPTION 2 to CONVERT HL7 TO FHIR FORMAT AND LOAD INTO FHIR SERVER**
 
 ### Option 1: **PaaS** using $convert-data custom endpoint
 * The $convert-data custom endpoint is integrated into FHIR service is meant for data conversion from different data types to FHIR. It uses the Liquid template engine and the templates from the **[FHIR Converter](https://github.com/microsoft/FHIR-Converter)** project as the default templates. These templates can be customized as needed. Currently it supports two types of conversion, C-CDA to FHIR and HL7v2 to FHIR conversion.
