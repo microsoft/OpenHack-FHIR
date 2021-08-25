@@ -67,7 +67,7 @@
 * **4**. **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
 
 ### Needs to be installed before starting Challenge02:
-**NOTE**: If you going to use **PaaS coverter to deploy FHIR Converter**, skip this section. If you are going to use **Open Source converter complete below steps**. 
+**NOTE**: If you going to use **PaaS endpoint to convert HL7 to FHIR**, skip this section. If you are going to use **Open Source to convert HL7 to FHIR and load into FHIR server, complete below steps**. 
 * **5**. Linux Subsystem for Windows
    * **5.1**. **[If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl).** You can use Windows Dialog or PowerShell. Restart Windows.
    * **5.2**. **[Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro).** You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
