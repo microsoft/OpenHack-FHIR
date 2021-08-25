@@ -27,7 +27,7 @@ More on the above [here](https://docs.microsoft.com/en-us/azure/healthcare-apis/
 ### **Open Source** using Bash or Powershell scripts
 [Go to Challenge02.1 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Using Bash Scripts](../Challenge02.1-HL7IngestandConvertUsingBash/ReadMe.md)
 
-[Go to Challenge02.2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Using PowerShell Scripts](../Challenge02.1-HL7IngestandConvertUsingPS/ReadMe.md)
+[Go to Challenge02.2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Using PowerShell Scripts](../Challenge02.2-HL7IngestandConvertUsingPS/ReadMe.md)
 
 ## Congratulations! You have successfully completed Challenge02!
 
