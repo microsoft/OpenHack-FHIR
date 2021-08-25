@@ -12,9 +12,11 @@
    * Visual Studio Subscription
    * [Free](https://azure.microsoft.com/en-us/free/)
 
-* **2**. **Microsoft Powershell**: 
-**NOTE**: If you going to use **CloudShell (Option 1) go to step 3**. If you are going to use **PowerShell (Option 2) complete below steps**. 
 
+**NOTE**: If you going to use **CloudShell to deploy Azure API for FHIR go to step 3**. If you are going to use **PowerShell complete below steps**. 
+
+
+* **2**. **(Optional) Microsoft Powershell**: 
    * **2.1**. You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
 
    * **2.2**. **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts in Windows for challenges in this Github. **Run PowerShell as Administrator**.
@@ -65,7 +67,7 @@
 * **4**. **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
 
 ### Needs to be installed before starting Challenge02:
-**NOTE**: If you going to use **PaaS coverter (Option 1)**, skip this section. If you are going to use **Open Source converter (Option 2) complete below steps**. 
+**NOTE**: If you going to use **PaaS endpoint to convert HL7 to FHIR**, skip this section. If you are going to use **Open Source to convert HL7 to FHIR and load into FHIR server, complete below steps**. 
 * **5**. Linux Subsystem for Windows
    * **5.1**. **[If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl).** You can use Windows Dialog or PowerShell. Restart Windows.
    * **5.2**. **[Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro).** You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.

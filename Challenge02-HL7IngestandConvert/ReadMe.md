@@ -3,9 +3,11 @@
 ## Scenario
 With Azure API for FHIR up and running with basic EHR synthetic data, you will focus on this challenge of ingesting legacy data from a different format into Azure API for FHIR. Most (but of course not all) of your existing healthcare applications use some version of HL7, and you have to ingest those HL7 messages and convert them into FHIR format. By establishing FHIR as a hub of sorts, you’ll be able to aggregate data from these various systems and enable interoperability.
 
-## FHIR Conversion Options
+## FHIR Conversion 
 
-### **PaaS** using $convert-data custom endpoint
+**NOTE: CHOOSE OPTION 1 TO CONVERT HL7 TO FHIR FORMAT, OPTION 2 to CONVERT HL7 TO FHIR FORMAT AND LOAD INTO FHIR SERVER**
+
+### Option 1: **PaaS** using $convert-data custom endpoint
 * The $convert-data custom endpoint is integrated into FHIR service is meant for data conversion from different data types to FHIR. It uses the Liquid template engine and the templates from the **[FHIR Converter](https://github.com/microsoft/FHIR-Converter)** project as the default templates. These templates can be customized as needed. Currently it supports two types of conversion, C-CDA to FHIR and HL7v2 to FHIR conversion.
 
 * API calls can be made to the FHIR server to convert the data into FHIR by using **https://<<FHIR service base URL>>/$convert-data**
@@ -24,7 +26,7 @@ More on the above [here](https://docs.microsoft.com/en-us/azure/healthcare-apis/
     * Open "Post Convert HL7" and click the **Send** button. This will return the converted FHIR Bundle.
     * Check [here](https://docs.microsoft.com/en-us/azure/healthcare-apis/fhir/convert-data) for details on hosting templates in Azure Container Registry.
 
-### **Open Source** using Bash or Powershell scripts
+### Option 2: **Open Source** using Bash or Powershell scripts
 [Go to Challenge02.1 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Using Bash Scripts](../Challenge02.1-HL7IngestandConvertUsingBash/ReadMe.md)
 
 [Go to Challenge02.2 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Using PowerShell Scripts](../Challenge02.2-HL7IngestandConvertUsingPS/ReadMe.md)

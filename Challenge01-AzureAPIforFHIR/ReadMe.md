@@ -22,29 +22,35 @@ The first task has landed on you: In order to learn a bit about the capabilities
 
 * **Active Directory Tenants**
 Active Directory is usually locked down at many customers as a securtiy best practice. Administrators control App Registrations and privilege to grant Role Assignments, users need extensive permissioning to get that unlocked. To avoid that road block, you can create another AD tenant. 
-   * **NOTE** If you have full **Administrator access** to a AD tenant where you can create App Registrations, Role Assignments, Azure Resources... example: Visual Studio Subscription, then **Primary AD tenant is same as Secondary AD tenant**, use the same AD tenant for both.
-   * If you **don't have Administrator access**:
+   * **NOTE** If you have full **Administrator access** or have these roles **Application Administrator, Priviledged Role Administrator and User Administrator** to a AD tenant where you can create App Registrations, Role Assignments, Azure Resources... example: Visual Studio Subscription, then **Primary AD tenant is same as Secondary AD tenant**, use the same AD tenant for both.
+   * If you **don't have Administrator access or have these roles **Application Administrator, Priviledged Role Administrator and User Administrator**:
       * **Primary (Resource) AD tenant**: This tenant is **Resource Control Plane** where all your **Azure Resources** will be deployed to.
       * **Secondary (Data) AD tenant**: This tenant is **Data Control Plane** where all your **App Registrations** will be deployed to.
 
-* Run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
-      ```powershell
-      Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
-      ```
-   
-* **Log into Primary (Resource) AD tenant**:
-   * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary (Resource) AD**.
-      ```powershell
-      Login-AzAccount
-      ```
+**NOTE: CHOOSE ONE OPTION BELOW TO PROVISION AZURE API FOR FHIR**
 
-      >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
-      >   ```powershell
-      >   Clear-AzContext
-      >   Connect-AzAccount -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
-      >   Set-AzContext -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
-      >   Get-AzContext
-      >   ```
+### Option 1: Using Cloud Shell
+   Go to **Getting Started** below.
+
+### Option 2: Using Powershell
+   * Run the following PowerShell command to set the execution policy and, at the prompt, type 'a' to confirm it's ok to say yes to all changes to execution policy.
+     ```powershell
+     Set-ExecutionPolicy -Scope Process -ExecutionPolicy ByPass
+     ```
+   
+   * **Log into Primary (Resource) AD tenant**:
+      * Open a new PowerShell session. Login using your Azure account where you want to deploy resources and authenticate. This will be referred to as **Primary (Resource) AD**.
+         ```powershell
+         Login-AzAccount
+         ```
+
+         >   If you are seeing errors or you don't see the correct subscription in your **Primary (Resource) AD**, into which you want to deploy resources, you might be running in the wrong Azure context. Run the following to Clear, Set and then verify your Azure context.
+         >   ```powershell
+         >   Clear-AzContext
+         >   Connect-AzAccount -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
+         >   Set-AzContext -TenantId **{YourPrimary or Resource ADTenantID}** -SubscriptionId "Your Subscription ID"
+         >   Get-AzContext
+         >   ```
 
 * **Create Secondary (Data) AD tenant**: Azure API for FHIR needs to be deployed into an Azure Active Directory tenant that allows for Data and Resource control plane authorization. Most companies lock down Active Directory App Registrations for security purposes which will prevent you from publishing an app, registering roles, or granting permissions. To avoid this, you will create a separate **Secondary (Data)** Active Directory domain. (A basic Azure Active Directory domain is a free service.)
    * Use a browser to navigate to the Azure Portal, navigate to Azure Active Directory. Click "Create a tenant". Enter an Organization name e.g. "{uniquename}fhirad". Enter an Initial domain name and click the Create button. This will be referred to as **Secondary (Data) AD** for clarity. 
@@ -59,7 +65,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
 
 ## Task #1: Provision Azure API for FHIR demo environment
 
-**Choose one Option below to provision Azure API for FHIR**
+**NOTE: CHOOSE ONE OPTION BELOW TO PROVISION AZURE API FOR FHIR**
 
 ### Option 1: Using Cloud Shell
 
@@ -71,7 +77,7 @@ Active Directory is usually locked down at many customers as a securtiy best pra
    OR
    az login --allow-no-subscriptions
 
-   az account set -s **{If single tenant deployment, use SubscriptionID. If 2 tenant deployment, use Secondary ADTenantID}** 
+   az account set --s **{If single tenant deployment, use SubscriptionID. If 2 tenant deployment, use Secondary ADTenantID}** 
 
    az account show 
    ```
@@ -227,15 +233,17 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
  
 * ### Use Postman to run queries
     * Open Postman. (You should have installed it as part of Challenge 0, but you can get [Postman here](https://www.postman.com/downloads/) if you didn't already.)
-    * We'll first import a pre-defined set of API calls. Go to the [Collection](../Postman/FHIR%20OpenHack.postman_collection.json) and click the **Raw** button. Copy all of this json to your clipboard. Back in the Postman app, click the **Import** button near the upper-left corner of the app. Click the **Raw Text** tab and paste the json content you copied here.  Click the **Continue** button and then the **Import** button. You should see a **FHIR OpenHack** collection in the left-hand pane in Postman.
-    * Create an Environment. A Postman Environment is just a set of variables used across one or more of your API calls. Go to the [Environment](../Postman/FHIR%20OpenHack.postman_environment.json) and click the **Raw** button. Copy all of this json to your clipboard. Open Notepad, paste the json you just copied and save the file on your Desktop as **fhirenv.txt**. Back in Postman, in the upper-right, click the **Manage Environments** button (a gear icon). Click the **Import** button and click the **Choose Files** button. Browse to the **fhirenv.txt** file on your Desktop. Click the **FHIR OpenHack** environment to see it's list of variables. In the **Current and Initial Value** columns for each of the following variables, enter the corresponding values:
+    * Download this Github to import a pre-defined set of API calls. 
+    * Go to Postman app, choose My Workspace, click the **Import** button. Click the **Folder** tab and navigate to the Postman folder in the downloaded Github content.
+    * You should see a **FHIR OpenHack** collection and environment in the left-hand pane in Postman.
+    * Click the **FHIR OpenHack** environment to see it's list of variables. In the **Current and Initial Value** columns for each of the following variables, enter the corresponding values:
       * adtenantId: This is the **tenant Id of the Secondary (Data) AD** tenant
       * clientId: This is the **client Id** that is stored in **Secret** "{your resource prefix}-service-client-id" in "{your resource prefix}-ts" Key Vault.
       * clientSecret: This is the **client Secret** that is stored in **Secret** "{ENVIRONMENTNAME}-service-client-secret" in "{ENVIRONMENTNAME}-ts" Key Vault.
       * bearerToken: The value will be set when "AuthorizeGetToken SetBearer" request below is sent.
       * fhirurl: This is **https://{ENVIRONMENTNAME}.azurehealthcareapis.com** from Azure API for FHIR you created in Task #1 above.
       * resource: This is the Audience of the Azure API for FHIR **https://{ENVIRONMENTNAME}.azurehealthcareapis.com** you created in Task #1 above. You can find this Audience when you click Authetication in Azure API for FHIR you created in Task #1 above.
-   * Click the **Update** button and close the **MANAGE ENVIRONMENTS** dialog.
+   * Click the **Save** button.
    * In the Environments drop-down, select the **FHIR OpenHack** option.
    * You will see both the Collection on the left and the Environment on the top right.
       <center><img src="../images/challenge01-postman.png" width="850"></center>
