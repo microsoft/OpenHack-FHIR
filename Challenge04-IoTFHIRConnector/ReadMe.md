@@ -38,55 +38,73 @@ You also team up with Data Scientist, where they want to analyze streaming obser
 * **Configure Azure IoT Connector for FHIR**
    * Azure IoT Connector for FHIR needs **two mapping templates** to transform device messages into FHIR-based Observation resource(s): **device mapping** and **FHIR mapping**. Your Azure IoT Connector for FHIR isn't fully operational until these mappings are uploaded.
    * To **upload mapping templates**, click on the newly deployed Azure IoT Connector for FHIR to go to the IoT Connector page.
-      * Device mapping template transforms **device data into a normalized schema**. On the IoT Connector page, click on **Configure device mapping** button to go to the Device mapping page. On the Device mapping page, add the following script to the JSON editor and click Save.
+      * Device mapping template transforms **device data into a normalized schema**. On the IoT Connector page, click on **Configure device mapping** button to go to the Device mapping page. On the Device mapping page, add the following script to the JSON editor to load HeartRate into FHIR and click Save.
       ```
-     {
-       "templateType": "CollectionContent",
-       "template": [
-         {
-           "templateType": "IotJsonPathContent",
-           "template": {
-             "typeName": "heartrate",
-             "typeMatchExpression": "$..[?(@Body.telemetry.HeartRate)]",
-             "patientIdExpression": "$.Properties.iotcentral-device-id",
-             "values": [
-               {
-                 "required": "true",
-                 "valueExpression": "$.Body.telemetry.HeartRate",
-                 "valueName": "hr"
-               }
-             ]
-           }
-         }
-       ]
-     }
+{
+    "templateType": "CollectionContent",
+    "template": [
+        {
+            "templateType": "JsonPathContent",
+            "template": {
+                "typeName": "arunaMap",
+                "typeMatchExpression": "$..[?(@telemetry.HeartRate)]",
+                "timestampExpression": "$.messageProperties.iothub-creation-time-utc",
+                "deviceIdExpression": "$.deviceId",
+                "patientIdExpression": "$.deviceId",
+                "values": [
+                    {
+                        "valueName": "HeartRate",
+                        "valueExpression": "$.telemetry.HeartRate",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    ]
+}
      ``` 
-      * FHIR mapping template **transforms a normalized message to a FHIR-based Observation resource**. On the IoT Connector page, click on **Configure FHIR mapping** button to go to the FHIR mapping page. On the FHIR mapping page, add the following script to the JSON editor and click Save.
+      * FHIR mapping template **transforms a normalized message to a FHIR-based Observation resource**. On the IoT Connector page, click on **Configure FHIR mapping** button to go to the FHIR mapping page. On the FHIR mapping page, add the following script to the JSON editor to load HeartRate into FHIR and click Save.
       ```
-     {
-       "templateType": "CollectionFhir",
-       "template": [
-         {
-           "templateType": "CodeValueFhir",
-           "template": {
-             "codes": [
-               {
-                 "code": "8867-4",
-                 "system": "http://loinc.org",
-                 "display": "Heart rate"
-               }
-             ],
-             "periodInterval": 0,
-             "typeName": "heartrate",
-             "value": {
-               "unit": "count/min",
-               "valueName": "hr",
-               "valueType": "Quantity"
-             }
-           }
-         }
-       ]
-     }
+{
+    "templateType": "CollectionFhir",
+    "template": [
+        {
+            "templateType": "CodeValueFhir",
+            "template": {
+                "codes": [
+                    {
+                        "code": "8867-4",
+                        "display": "HR",
+                        "system": "http://loinc.org"
+                    }
+                ],
+                "periodInterval": 0,
+                "typeName": "arunaMap",
+                "value": {
+                    "valueName": "HeartRate",
+                    "valueType": "Quantity",
+                    "unit": "count/min"
+                },
+                "components": [
+                    {
+                        "codes": [
+                            {
+                                "code": "8867-4",
+                                "display": "HR",
+                                "system": "http://loinc.org"
+                            }
+                        ],
+                        "value": {
+                            "valueName": "HeartRate",
+                            "valueType": "Quantity",
+                            "unit": "count/min"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
      ``` 
 * **Generate a connection string for IoT Device to connect**
    * IoT device needs a connection string to connect and send messages to Azure IoT Connector for FHIR. On the IoT Connector page for the newly deployed Azure IoT Connector for FHIR, select **Manage client connections** button.
@@ -108,7 +126,7 @@ You also team up with Data Scientist, where they want to analyze streaming obser
 * Connect your IoT data with the Azure IoT Connector for FHIR
    * To ingest the telemetry from Smart Vitals Patch simulator into FHIR, navigate to IoT Central App created, click on **Data Export** under App Settings in the left navigation.
    * Choose **+ New export**. Enter an export name for your new export, and make sure the data export is Enabled.
-   * Make sure **Telemetry** is selected in the **Type of data to export** drop-down.
+   * Make sure **Telemetry** is selected in the **Type of data to export** drop-down. To filter only HeartRate data, click **+ Message property filter**, add **Patient health data / Heart rate** for Name and **Exists** in Operator.
    * In **Destinations**, click **create a new one**. Enter a **Destination name**, make sure **Azure Event Hubs** is selected in **Destination type**, and paste the **Connection String** copied from above. 
    * Click Save.
    * It will take 10-15 mins for the data to load into FHIR
