@@ -3,7 +3,11 @@
 #### The below lists the Installation Prerequisites technical and Knowledge References needed to complete all challenges.
 
 ## Installation Prerequisites
-* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine**, but hints are included for `*nix` users.
+* **NOTE:** This version of the OpenHack can be deployed via the following:
+   * Azure Cloud Shell
+   * Visual Studio Code - Git Bash terminal
+   * Visual Studio Code - Ubuntu (WSL) terminal
+   * Ubuntu
 * **Download this Github to your local drive.**
 
 ### Needs to be installed before starting Challenge01:
@@ -12,58 +16,16 @@
    * Visual Studio Subscription
    * [Free](https://azure.microsoft.com/en-us/free/)
 
-* **2**. **Microsoft Powershell**: You will need powershell in order to run the operations in this document. The correct installation steps for your platform can be found [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
+* **2**. Current Release of **[Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)** (if running locally)
 
-* **3**. **Install prerequisite PowerShell modules**: While there are other options, we recommend PowerShell scripts in Windows for challenges in this Github. **Run PowerShell as Administrator**.
-   * **NOTE**: This section lists versions for Az and AzureAD modules. If you are having PowerShell issues in [Challenge01](../Challenge01-AzureAPIforFHIR/ReadMe.md), double-check all [PowerShell Modules](./powershell.txt).
-   * Get PowerShell module version: Make sure your version is 5.1. If not, install [this](https://www.microsoft.com/en-us/download/details.aspx?id=54616) version.
-      ```powershell
-      $PSVersionTable.PSVersion
-      ```  
-   * Get Azure PowerShell module versions: If your results show Az version 4.1.0 and AzureAd version 2.0.2.4, then proceed to login step. If not, get the right versions.
-      ```powershell
-      Get-InstalledModule -Name Az -AllVersions
-      Get-InstalledModule -Name AzureAd -AllVersions
-      ```  
-
-   * If these aren't the versions you have installed, uninstall and re-install PowerShell modules: Uninstall Az and AzureAd modules and install the right version needed. 
-      ```powershell
-      Uninstall-Module -Name Az
-      Uninstall-Module -Name AzureAD
-      ```  
-
-      ```powershell
-      Install-Module -Name Az -RequiredVersion 4.1.0 -Force -AllowClobber -SkipPublisherCheck
-      Install-Module AzureAD -RequiredVersion 2.0.2.4
-      ```
-      NOTE: If you get an error that AzureRM Module is conflicting with Az Module, run the below
-      ```powershell
-      Uninstall-Module -Name AzureRM
-      ```  
-
-   * **NOTE**: If you are using a **`*nix` platform (Mac or Linux)**, you will need to install the `AzureAD.Standard.Preview` module instead of `AzureAD`:
-      ```powershell
-      # Step 1: If you already installed the AzureAD module, uninstall it
-      Uninstall-Module AzureAD
-
-      # Step 2: Add a package source for AzureAD.Standard.Preview module
-      Register-PackageSource -Trusted -ProviderName 'PowerShellGet' -Name 'Posh Test Gallery' -Location https://www.poshtestgallery.com/api/v2/
-
-      # Step 3: Install and import AzureAD.Standard.Preview module
-      Install-Module AzureAD.Standard.Preview
-      Import-Module AzureAD.Standard.Preview
-      ```
-
-* **4**. Current Release of **[Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)**
-
-* **5**. **[Postman](https://www.postman.com/downloads/)**
-* **6**. **[.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)**
-* **7**. **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
+* **3**. **[Postman](https://www.postman.com/downloads/)**
+* **4**. **[.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)**
+* **5**. **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
 
 ### Needs to be installed before starting Challenge02:
-* **8**. **[If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl).** You can use Windows Dialog or PowerShell. Restart Windows.
-* **9**. **[Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro).** You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
-* **10**. **Azure CLI 2.0** on [Ubuntu One Command Install](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command). Run the below in Ubuntu.
+* **6**. **[If you are running Windows 10, enable Windows Linux Subsystem](https://code.visualstudio.com/docs/remote/wsl-tutorial#_enable-wsl).** You can use Windows Dialog or PowerShell. Restart Windows.
+* **7**. **[Ubuntu](https://code.visualstudio.com/docs/remote/wsl-tutorial#_install-a-linux-distro).** You can install from the Microsoft Store by using the store app or by searching for Ubuntu in the Windows search bar.
+* **8**. **Azure CLI 2.0** on [Ubuntu One Command Install](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install-with-one-command). Run the below in Ubuntu.
       ```
       curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
       ```
