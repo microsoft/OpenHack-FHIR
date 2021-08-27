@@ -19,7 +19,7 @@ Coming Soon...
 * [Challenge05 - Analytics using FHIR Data: Analytics using Azure Data Factory, Databricks and PowerBI](./Challenge05-AzureDataAnalytics/ReadMe.md)
 
 #### Using Bash:
-* [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge00-Prerequistes/ReadMe.md)
+* [Challenge00 - Pre-requisites: Technical and knowledge requirements for completing the Challenges](./Challenge00-PrerequistesUsingBash/ReadMe.md)
 * [Challenge01.1 - Azure API for FHIR: Generate, Ingest and Store synthetic data into Azure API for FHIR](./Challenge01-AzureAPIforFHIR/ReadMe.md)
 * [Challenge02.1 - HL7 Ingest and Convert: Ingest HL7v2 messages and convert to FHIR format - Bash](./Challenge02.1-HL7IngestandConvertUsingBash/ReadMe.md)
 * [Challenge03 - Export and Anonymize: Bulk export data from Azure API for FHIR and deidentify the data](./Challenge03-ExportandAnonymizeData/ReadMe.md)
