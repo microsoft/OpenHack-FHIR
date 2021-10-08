@@ -1,7 +1,8 @@
 # OpenHack-FHIR
 
-#### This repository hosts the guidance and reference architecture(s) for delivering an OpenHack focusing on Azure API for FHIR.
-The architectures illustrate end-to-end best practices for using the Azure API for FHIR and related technologies. 
+#### This repository hosts the general guidance and reference architecture(s) for delivering an OpenHack focusing on Azure API for FHIR.
+
+#### Go [HERE](./MC4H/ReadMe.md) for OpenHack focused on Microsoft Cloud for Health (MC4H).
 
 ## Reference Architectures
 <center><img src="images//azure-api-fhir-paas.png" width="850"></center>
