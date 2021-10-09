@@ -5,7 +5,7 @@ FHIR-SyncAgent sychronizes health data between Azure API for FHIR and Dataverse'
 **COMING SOON...**
 
 ## Reference Architecture
-<center><img src="../images/fhir-syncagent.png" width="550"></center>
+<center><img src="../images/fhir-syncagent.png" width="650"></center>
 
 ---
 
