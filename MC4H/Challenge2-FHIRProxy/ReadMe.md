@@ -12,7 +12,7 @@ This challenge is based off **[FHIR Proxy](https://github.com/microsoft/fhir-pro
 You will be deploying an Azure Function, supporting Azure services and Service Client for Access.
 
 ## Reference Architecture
-<center><img src="../images/fhir-proxy.png" width="250"></center>
+<center><img src="../images/fhir-proxy.png" width="150"></center>
 
 ## To complete this challenge successfully, you will perform the following tasks.
 
