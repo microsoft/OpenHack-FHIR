@@ -7,7 +7,7 @@ This challenge is based off **[FHIR Starter](https://github.com/sordahl-ga/api4f
 You will deploy an Azure API for FHIR Instance and Register a Service Client for Access.
 
 ## Reference Architecture
-<center><img src="../images/fhir-server.png" width="450"></center>
+<center><img src="../images/fhir-server.png" width="350"></center>
 
 ## To complete this challenge successfully, you will perform the following tasks.
 
