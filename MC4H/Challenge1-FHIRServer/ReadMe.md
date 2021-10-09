@@ -7,7 +7,7 @@ This challenge is based off **[FHIR Starter](https://github.com/sordahl-ga/api4f
 You will deploy an Azure API for FHIR Instance and Register a Service Client for Access.
 
 ## Reference Architecture
-<center><img src="../images/fhir-server.png" width="550"></center>
+<center><img src="../images/fhir-server.png" width="450"></center>
 
 ## To complete this challenge successfully, you will perform the following tasks.
 
@@ -56,7 +56,7 @@ You will deploy an Azure API for FHIR Instance and Register a Service Client for
 8. Click Send you should receive a valid token, this will be automatically set in the bearerToken variable for the environment
 9. Select the **List Patients** call from the **FHIR Calls-Samples** collection
 10. Click Send and you should receive an empty bundle of patients from the FHIR Server
-Note: After token expiry, use the ```AuthorizationGetToken``` call to get another token
+Note: After token expiry, use the **AuthorizationGetToken** call to get another token
 
 ---
 
