@@ -94,7 +94,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 8. Click Send you should receive a valid token, this will be automatically set in the bearerToken variable for the environment
 9. Select the **List Patients** call from the **FHIR Calls-Samples** collection
 10. Click Send and you should receive an empty bundle of patients from the FHIR Server
-Note: After token expiry, use the ```AuthorizationGetToken``` call to get another token
+Note: After token expiry, use the **AuthorizationGetToken** call to get another token
 
 ---
 
