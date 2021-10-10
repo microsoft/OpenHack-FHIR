@@ -24,7 +24,7 @@ You will deploy an Azure API for FHIR Instance and Register a Service Client for
    * Azure API for FHIR
 3. You must deploy to a region that supports Azure API for FHIR.  You can use the [product by region page](https://azure.microsoft.com/en-us/global-infrastructure/services/?products=azure-api-for-fhir) to verify your destination region. 
 
-# Deployment
+## Deployment
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
 2. Select Bash Shell for the environment 
 3. If you have multiple tenants, set the right tenant ```az account set --s {subscriptionid or tenantid}```
@@ -40,13 +40,13 @@ You will deploy an Azure API for FHIR Instance and Register a Service Client for
    * New unique name for Azure API for FHIR 
 8. Download the **{azureapiforfhirname}.postman_environment.json** and **FHIR-CALLS-Sample.postman-collection.json** files that was created by the deploy script above in the same folder
 
-# Validate Deployment
+## Validate Deployment
 1. Go to Azure Portal, and check if Resource Group **{azureapifhirname}** is created
 2. Check if **Azure API for FHIR** is created in the same Resource Group
 3. Check if Service Client **{azureapiforfhirname}-svc-client** is created in App Registrations
 4. Check if Key Vault **{azureapiforfhirname}kv** is created in the same ResourceGroup. Check if 5 secrets with prefix FS- are created. These secrets have the details of the Service Client created
 
-# Validate Connectivity to FHIR Server using Postman
+## Validate Connectivity to FHIR Server using Postman
 1. Open Postman
 2. Create a New Workspace from Workspaces menu
 3. Select the Import button next to your workspace name
@@ -57,6 +57,11 @@ You will deploy an Azure API for FHIR Instance and Register a Service Client for
 9. Select the **List Patients** call from the **FHIR Calls-Samples** collection
 10. Click Send and you should receive an empty bundle of patients from the FHIR Server
 Note: After token expiry, use the **AuthorizationGetToken** call to get another token
+
+## Clean-up
+If you are not planning to continue with the other challenges, make sure to delete these to avoid cost in Azure
+1. Resource Group **{azureapifhirname}**
+2. Service Client **{azureapiforfhirname}-svc-client**
 
 ---
 
