@@ -35,7 +35,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
    * FS-CLIENT-ID
    * FS-SECRET
 
-# Deployment
+## Deployment
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
 2. Select Bash Shell for the environment 
 3. If you have multiple tenants, set the right tenant ```az account set --s {subscriptionid or tenantid}```
@@ -58,7 +58,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
    * Same Key Vault Name used in Challenge1
    * New unique name for Proxy Service Principle {azureapiforfhir}p-svc-client
 
-# Validate Deployment
+## Validate Deployment
 1. Go to Azure Portal, and check if these resources are created in the Resource Group **{azureapifhirname}**
    * {azureapiforfhir}papp Function App
    * {azureapiforfhir}papp Application Insights
@@ -68,7 +68,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 2. Check if Service Client **{azureapiforfhirname}p-svc-client** is created in App Registrations
 3. Check the Key Vault **{azureapiforfhirname}kv** for 7 new secrets with prefix FP- and 4 new secrets with prefix FP-SC-. These secrets have the details of the Service Client created
 
-# Post-Deployment 
+## Post-Deployment 
 1. Go to App Registrations
 2. Search and click on **{azureapiforfhirname}p-svc-client**
 3. Go to API permissions and grant admin consent 
@@ -78,7 +78,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
    * FP-SC-CLIENT-SECRET 
    * FP-SC-TENANT-NAME 
 
-# Validate Connectivity to FHIR Server using Postman
+## Validate Connectivity to FHIR Server using Postman
 1. Open Postman
 2. Go to the Workspace created in Challenge1
 3. Go to Environment and find the **{azureapiforfhirname}** environment imported in Challenge1
@@ -95,6 +95,11 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 9. Select the **List Patients** call from the **FHIR Calls-Samples** collection
 10. Click Send and you should receive an empty bundle of patients from the FHIR Server
 Note: After token expiry, use the **AuthorizationGetToken** call to get another token
+
+## Clean-up
+If you are not planning to continue with the other challenges, make sure to delete these to avoid cost in Azure
+1. Resource Group **{azureapifhirname}**
+2. Service Client **{azureapiforfhirname}p-svc-client**
 
 ---
 
