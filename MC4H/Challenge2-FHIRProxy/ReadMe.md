@@ -55,7 +55,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
    * Same Key Vault Name used in Challenge1
    * New unique name for Proxy Service Principle {azureapiforfhir}p-svc-client
 
-**NOTE: This deployment will take ~5-10 minutes**
+**NOTE: This deployment will take ~10-15 minutes**
 
 ## Validate Deployment
 1. Go to Azure Portal, and check if these resources are created in the Resource Group **{azureapifhirname}**
