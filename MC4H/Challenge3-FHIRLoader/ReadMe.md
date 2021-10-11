@@ -43,6 +43,8 @@ You will be deploying an Azure Function and supporting Azure services.
 8. Make the bash script executable ```chmod +x ./createproxyserviceclient.bash```
 9. Copy the Loader Function name displayed at the end of the deployment
 
+**NOTE: This deployment will take ~10-15 minutes**
+
 ## Validate Deployment
 1. Go to Azure Portal, and check if these resources are created in the Resource Group **{azureapifhirname}**
    * sfload... Function App
