@@ -24,16 +24,17 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 
 1. **If you haven't completed [Challenge1](../Challenge1-FHIRServer/ReadMe.md), complete now.**
 2. The following resource providers must be registered in your subscription:
-   * Function App
-   * Application Insights
+   * Insights
    * App Service Plan
-   * Azure Cache for Redis
-   * Storage Account
+   * Cache
+   * Storage
+   * EventGrid
 3. Go to the KeyVault **{azureapiforfhirname}kv** deployed in Challenge1, gather the secrets from:
-   * FS-TENANT-NAME
-   * FS-RESOURCE
-   * FS-CLIENT-ID
-   * FS-SECRET
+   * FP-SC-RESOURCE 
+   * FP-SC-CLIENT-ID 
+   * FP-SC-CLIENT-SECRET 
+   * FP-SC-TENANT-NAME 
+   * FP-RBAC-NAME
 
 ## Deployment
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
@@ -70,22 +71,17 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 1. Go to App Registrations
 2. Search and click on **{azureapiforfhirname}p-svc-client**
 3. Go to API permissions and Grant admin consent 
-4. Go to the KeyVault **{azureapiforfhirname}kv** deployed in Challenge1, gather the secrets from:
-   * FP-SC-RESOURCE 
-   * FP-SC-CLIENT-ID 
-   * FP-SC-CLIENT-SECRET 
-   * FP-SC-TENANT-NAME 
 
 ## Validate Connectivity to FHIR Server using Postman
 1. Open Postman
 2. Go to the Workspace created in Challenge1
 3. Go to Environment and find the **{azureapiforfhirname}** environment imported in Challenge1
 4. Click ... and Duplicate. Rename to **{azureapiforfhirname}proxy**
-5. Click on **{azureapiforfhirname}proxy** and update the Initial and Current Values with these:
+5. Click on **{azureapiforfhirname}proxy** and update the Initial and Current Values with these gathered from Challenge 1:
    * tenantid: FP-SC-TENANT-NAME
    * clientid: FP-SC-CLIENT-ID
    * clientSecret: FP-SC-CLIENT-SECRET
-   * fhirurl: https://{azureapiforfhir}papp.azurewebsites.net/fhir
+   * fhirurl: FP-RBAC-NAME/fhir **NOTE** Append /fhir
    * resource: FP-SC-RESOURCE
 6. Select the **AuthorizationGetToken** call from the **FHIR Calls-Sample** collection 
 7. Select the **{azureapiforfhirname}proxy** postman environment in the top-right drop-down. 
