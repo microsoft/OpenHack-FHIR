@@ -18,10 +18,10 @@ You will deploy an Azure API for FHIR Instance and Register a Service Client for
 ## Prerequsites
 
 1. **If you haven't completed [Challenge0](../Challenge0-Prerequistes/ReadMe.md), complete them now.**
-2. The following resource providers must be registered in your subscription:
-   * ResourceGroup
+2. The following resource providers must be registered in your subscription. To check, go to Subscriptions, click Resource providers in the left navigation. Then filter by name
+   * Resources
    * KeyVault
-   * Azure API for FHIR
+   * Healthcare APIs
 3. You must deploy to a region that supports Azure API for FHIR.  You can use the [product by region page](https://azure.microsoft.com/en-us/global-infrastructure/services/?products=azure-api-for-fhir) to verify your destination region. 
 
 ## Deployment
@@ -30,15 +30,17 @@ You will deploy an Azure API for FHIR Instance and Register a Service Client for
 3. If you have multiple tenants, set the right tenant ```az account set --s {subscriptionid or tenantid}```
 4. Clone this repo ```git clone https://github.com/sordahl-ga/api4fhirstarter```
 5. Change directory ```cd api4fhirstarter```
-6. Make the bash script executable ```chmod +x ./createapi4fhir.bash```
-7. Execute ```createapi4fhir.bash -p``` by following the prompts
+6. Make the bash script executable ```chmod +x createapi4fhir.bash```
+7. Execute ```./createapi4fhir.bash -p``` by following the prompts
    **Note** -p creates a Postman Envirnment file which you can download
    * Subscription ID 
-   * New Resource Group Name
+   * New Resource Group Name **NOTE** This name as to be unique, short, all lower case, no hypens
    * New Resource Group Location 
    * New Key Vault Name 
    * New unique name for Azure API for FHIR 
 8. Download the **{azureapiforfhirname}.postman_environment.json** and **FHIR-CALLS-Sample.postman-collection.json** files that was created by the deploy script above in the same folder
+
+**NOTE: This deployment will take ~5-10 minutes** 
 
 ## Validate Deployment
 1. Go to Azure Portal, and check if Resource Group **{azureapifhirname}** is created
