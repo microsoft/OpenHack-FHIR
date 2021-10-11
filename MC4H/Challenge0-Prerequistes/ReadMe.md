@@ -10,8 +10,8 @@
    * Visual Studio Subscription
    * [Free](https://azure.microsoft.com/en-us/free/)
 
-* **2**. Check if you have one of these roles that are required to perform CRUD operations in your Azure tenant 
-   * Azure Global Admin
+* **2**. Check if you have one of these roles that are required to perform CRUD operations in your Azure tenant. To check, go to **Azure Active Directory, click Roles and administrators** on the left navigation, you should see Your Role: in the center.
+   * Azure Global Administrator
    * Application Administrator AND Privileged Role Administrator AND User Administrator
 
 * **3**. Check if you have access to **run Bash CLI from Azure Portal**
