@@ -41,22 +41,20 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 3. If you have multiple tenants, set the right tenant ```az account set --s {subscriptionid or tenantid}```
 4. Clone this repo ```git clone https://github.com/microsoft/fhir-proxy```
 5. Change directory ```cd ./fhir-proxy/scripts/```
-6. Make the bash script executable ```chmod +x .deployfhirproxy.bash```
+6. Make the bash script executable ```chmod +x deployfhirproxy.bash```
 7. Execute ```./deployfhirproxy.bash``` by following the prompts
    * Subscription ID 
    * Same Resource Group Name used in Challenge1
    * Same Resource Group Location used in Challenge1
    * A prefix {azureapiforfhirname}p
    * Same Key Vault Name used in Challenge1
-   * New unique name for Proxy App {azureapiforfhir}app
-   * FHIR URL is secret from FS-RESOURCE
-   * Tenant ID is secret from FS-TENANT-NAME
-   * Client ID is secret from FS-CLIENT_ID
-   * Client Secret is secret from FS-SECRET
-8. Make the bash script executable ```chmod +x .createproxyserviceclient.bash```
+   * New unique name for Proxy App {azureapiforfhir}papp
+8. Make the bash script executable ```chmod +x createproxyserviceclient.bash```
 7. Execute ```./createproxyserviceclient.bash``` by following the prompts
    * Same Key Vault Name used in Challenge1
    * New unique name for Proxy Service Principle {azureapiforfhir}p-svc-client
+
+**NOTE: This deployment will take ~5-10 minutes**
 
 ## Validate Deployment
 1. Go to Azure Portal, and check if these resources are created in the Resource Group **{azureapifhirname}**
@@ -71,7 +69,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 ## Post-Deployment 
 1. Go to App Registrations
 2. Search and click on **{azureapiforfhirname}p-svc-client**
-3. Go to API permissions and grant admin consent 
+3. Go to API permissions and Grant admin consent 
 4. Go to the KeyVault **{azureapiforfhirname}kv** deployed in Challenge1, gather the secrets from:
    * FP-SC-RESOURCE 
    * FP-SC-CLIENT-ID 
