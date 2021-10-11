@@ -36,9 +36,11 @@ You will deploy an Azure API for FHIR Instance and Register a Service Client for
    * Subscription ID 
    * New Resource Group Name **NOTE** This name as to be unique, short, all lower case, no hypens
    * New Resource Group Location 
-   * New Key Vault Name 
+   * New Key Vault Name **NOTE** If you are re-deploying, use a new unique name or delete the soft-deleted keyvault
    * New unique name for Azure API for FHIR 
-8. Download the **{azureapiforfhirname}.postman_environment.json** and **FHIR-CALLS-Sample.postman-collection.json** files that was created by the deploy script above in the same folder
+8. Download the files that was created by the deploy script to use in Postman
+   * ```download {azureapiforfhirname}.postman_environment.json```
+   * ```download FHIR-CALLS-Sample.postman-collection.json```
 
 **NOTE: This deployment will take ~5-10 minutes** 
 
