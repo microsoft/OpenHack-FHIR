@@ -40,7 +40,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
 2. Select Bash Shell for the environment 
 3. If you have multiple tenants, set the right tenant ```az account set --s {subscriptionid or tenantid}```
-4. Clone this repo ```git clone https://github.com/microsoft/fhir-proxy```
+4. Clone this repo ```git clone https://github.com/cyberuna/fhir-proxy```
 5. Change directory ```cd ./fhir-proxy/scripts/```
 6. Make the bash script executable ```chmod +x deployfhirproxy.bash```
 7. Execute ```./deployfhirproxy.bash``` by following the prompts
