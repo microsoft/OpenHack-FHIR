@@ -31,7 +31,7 @@ You will be deploying an Azure Function and supporting Azure services.
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
 2. Select Bash Shell for the environment 
 3. If you have multiple tenants, set the right tenant ```az account set --s {subscriptionid or tenantid}```
-4. Clone this repo ```git clone https://github.com/microsoft/fhir-loader```
+4. Clone this repo ```git clone https://github.com/cyberuna/fhir-loader```
 5. Change directory ```cd ./fhir-loader/scripts/ ```
 6. Make the bash script executable ```chmod +x deployFhirBulkLoader.bash ```
 7. Execute ```./deployFhirBulkLoader.bash -y``` -y is for proxy access, by following the prompts
