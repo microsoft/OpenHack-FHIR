@@ -29,12 +29,6 @@ You will be deploying an Azure Function, supporting Azure services and Service C
    * Cache
    * Storage
    * EventGrid
-3. Go to the KeyVault **{azureapiforfhirname}kv** deployed in Challenge1, gather the secrets from:
-   * FP-SC-RESOURCE 
-   * FP-SC-CLIENT-ID 
-   * FP-SC-CLIENT-SECRET 
-   * FP-SC-TENANT-NAME 
-   * FP-RBAC-NAME
 
 ## Deployment
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
