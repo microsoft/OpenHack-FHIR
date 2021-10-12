@@ -43,6 +43,9 @@ The below services are used across all challenges. Familiarity of these services
 * **Synthea**
    * [Synthea](https://github.com/synthetichealth/synthea) is an open-source synthetic patient and associated health records generator that simulates the medical history of synthetic patients. Synthea generates HL7 FHIR records using the HAPI FHIR library to generate a FHIR Bundle
 
+* **Microsoft Cloud for Healthcare**
+   * [Microsoft Cloud for Healthcare Overview](https://www.microsoft.com/en-us/industry/health/microsoft-cloud-for-healthcare)
+   * [Microsoft Cloud for Healthcare Documentation](https://docs.microsoft.com/en-us/industry/healthcare/overview)
 
 ## References
 * [FHIR Server](https://github.com/sordahl-ga/api4fhirstarter)
