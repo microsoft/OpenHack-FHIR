@@ -70,7 +70,7 @@ You will be deploying an Azure Function and supporting Azure services.
 7. Select the **{azureapiforfhirname}proxy** postman environment in the top-right drop-down. 
 8. Click Send you should receive a valid token, this will be automatically set in the bearerToken variable for the environment
 9. Select the **List Patients** call from the **FHIR Calls-Samples** collection
-10. Click Send and you should receive patients that you loaded from the FHIR Server
+10. Click Send and you should receive patients that you uploaded into the Storage Account that are now loaded into the FHIR Server
 Note: After token expiry, use the **AuthorizationGetToken** call to get another token
 
 ## Clean-up
