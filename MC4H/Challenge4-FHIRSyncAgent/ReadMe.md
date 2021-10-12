@@ -18,7 +18,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 ## Prerequsites
 
 1. **If you haven't completed [Challenge3](../Challenge3-FHIRLoader/ReadMe.md), complete now.**
-2. The following resource providers must be registered in your subscription:
+2. The following resource providers must be registered in your subscription. To check, go to Subscriptions, click Resource providers in the left navigation. Then filter by name
    * Function App
    * Application Insights
    * App Service Plan
