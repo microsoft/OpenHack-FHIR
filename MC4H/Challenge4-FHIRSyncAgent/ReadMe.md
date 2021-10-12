@@ -74,9 +74,9 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 2. Check the Key Vault **{azureapiforfhirname}kv** for 10 new secrets with prefix SA-. 
 
 # Post-Deployment 
-1. Go to the Proxy {azureapiforfhir}papp Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green
-2. Go to the Sync Agent {azureapiforfhir}sapp Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green
-3. Go to the Sync Agent {azureapiforfhir}sapp Function App, click on Functions in the left navigation, click on FHIRUpdates in the center, click Integration in the left navigation, click on Azure Service Bus (message) in in the center under the Trigger, enter fhirupdates in the Queue Name on the right and click Save.
+1. Go to the Proxy **{azureapiforfhir}papp** Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green
+2. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green
+3. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Functions in the left navigation, click on FHIRUpdates in the center, click Integration in the left navigation, click on Azure Service Bus (message) in in the center under the Trigger, enter fhirupdates in the Queue Name on the right and click Save.
 4. Go to Key Vault **{azureapiforfhirname}kv**, open secret SA-FHIRMAPPEDRESOURCES and update with this value
 Patient,Appointment,Encounter,Observation,Condition,Procedure,AllergyIntolerance,MedicationRequest,DiagnosticReport,CarePlan,Claim,RelatedPerson,Organization,Location,Medication,Slot,Schedule,CareTeam,Practitioner,Device
 
