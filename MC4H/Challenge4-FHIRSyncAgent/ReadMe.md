@@ -27,7 +27,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 3. Go to Challenge2, gather these details for below deployment:
    * FHIR Proxy Function App Name
 
-# Setup App Registration in the same Azure tenant as your Dynamics 365 tenant
+## Setup App Registration in the same Azure tenant as your Dynamics 365 tenant
 1. Go to App Registrations in Azure Portal
 2. Click + New registration
 3. Enter a Name, pick Single tenant
@@ -38,7 +38,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
    * SA-CDSTENANTID
    * SA-CDSAUDIENCE
 
-# Deployment
+## Deployment
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
 2. Select Bash Shell for the environment 
 3. If you have multiple tenants, set the right tenant ```az account set --s {subscriptionid or tenantid}```
@@ -64,7 +64,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 
 **NOTE: This deployment will take ~10-15 minutes**
 
-# Validate Deployment
+## Validate Deployment
 1. Go to Azure Portal, and check if these resources are created in the Resource Group **{azureapifhirname}**
    * {azureapiforfhir}sapp Function App
    * {azureapiforfhir}sapp Application Insights
@@ -73,7 +73,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
    * {azureapiforfhir}sstore... Storage Account
 2. Check the Key Vault **{azureapiforfhirname}kv** for 10 new secrets with prefix SA-. 
 
-# Post-Deployment 
+## Post-Deployment 
 1. Go to the Proxy **{azureapiforfhir}papp** Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green
 2. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green
 3. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Functions in the left navigation, click on FHIRUpdates in the center, click Integration in the left navigation, click on Azure Service Bus (message) in in the center under the Trigger, enter fhirupdates in the Queue Name on the right and click Save.
