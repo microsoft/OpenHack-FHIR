@@ -91,5 +91,4 @@ Note: After token expiry, use the **AuthorizationGetToken** call to get another 
 
 ---
 
-***
 
