@@ -42,19 +42,25 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
 2. Select Bash Shell for the environment 
 3. If you have multiple tenants, set the right tenant ```az account set --s {subscriptionid or tenantid}```
-4. Go to the Github https://github.com/cyberuna/fhir-cds-agent. Click on Account (your picture on the top right corner), then click on Settings. Click Developer Settings, then click Personal access tokens, then click Generate new token. Click Enable SSO and click Authorize against microsoft.
-5. Clone this repo ```git clone https://github.com/cyberuna/fhir-cds-agent```, Enter your Github username, and token for password.
-6. Change directory ```cd ./fhir-cds-agent/scripts```
-7. Make the bash script executable ```chmod +x deploysyncagent.bash```
-8. Execute ```./deploysyncagent.bash``` by following the prompts
+4. As this is a private repository, follow these steps:
+   * Go to the Github https://github.com/cyberuna/fhir-cds-agent. 
+   * Click on Account (your picture on the top right corner), then click on Settings. 
+   * Click Developer Settings in left menu
+   * Click Personal access tokens
+   * Click Generate new token 
+   * Click Enable SSO and click Authorize against microsoft.
+6. Clone this repo ```git clone https://github.com/cyberuna/fhir-cds-agent```, Enter your Github username, and token for password.
+7. Change directory ```cd ./fhir-cds-agent/scripts```
+8. Make the bash script executable ```chmod +x deploysyncagent.bash```
+9. Execute ```./deploysyncagent.bash``` by following the prompts
    * Subscription ID 
    * Same Resource Group Name used in Challenge1
    * Same Resource Group Location used in Challenge1
    * A prefix {azureapiforfhirname}s
    * Same Key Vault Name used in Challenge1
    * New unique name for Proxy App {azureapiforfhir}sapp
-9. Make the bash script executable ```chmod +x setupSyncAgent.bash```
-10. Execute ```./setupSyncAgent.bash``` by following the prompts
+10. Make the bash script executable ```chmod +x setupSyncAgent.bash```
+11. Execute ```./setupSyncAgent.bash``` by following the prompts
    * FHIR Proxy Function App Name from Challenge2
    * Same Resource Group Name used in Challenge1
    * Same Key Vault Name used in Challenge1
