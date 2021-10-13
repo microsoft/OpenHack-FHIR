@@ -40,8 +40,7 @@ You will be deploying an Azure Function and supporting Azure services.
    * Same Resource Group Location used in Challenge1
    * A prefix {azureapiforfhirname}l
    * Same Key Vault Name used in Challenge1
-8. Make the bash script executable ```chmod +x ./createproxyserviceclient.bash```
-9. Copy the Loader Function name displayed at the end of the deployment
+8. Copy the Loader Function name displayed at the end of the deployment
 
 **NOTE: This deployment will take ~10-15 minutes**
 
