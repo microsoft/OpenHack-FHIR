@@ -29,6 +29,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
    * Cache
    * Storage
    * EventGrid
+   * AlertsManagement
 
 ## Deployment
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
