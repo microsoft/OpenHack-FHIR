@@ -17,23 +17,26 @@ You will be setting up Dataverse in Dynamics 365 for Syncing data to and from Az
 
 1. **If you haven't completed [Challenge4](../Challenge4-FHIRSyncAgent/ReadMe.md), complete now.**
 2. Deploy at least one [Microsoft Cloud for Healthcare](https://docs.microsoft.com/en-us/industry/healthcare/configure-cloud-for-healthcare#use-the-microsoft-cloud-solution-center-for-setup) solution in your Dynamics 365 environment.
-3. Gather the secrets stored in Key Vault **{azureapiforfhirname}kv**
+3. Gather these secrets stored in Key Vault **{azureapiforfhirname}kv**
    * SA-CDSCLIENTID
    * SA-CDSSECRET
    * SA-CDSTENANTID
    * SA-CDSAUDIENCE
 
-# Register and Add Roles for Application User in Dataverse
+## Register and Add Roles for Application User in Dataverse
 Reference [link](https://docs.microsoft.com/en-us/dynamics365/industry/healthcare/configure-sync-clinical-data#update-integration-settings)
-1. Register the Client ID as Dataverse Application User. You can do this in one of the ways below:
-   * Go to Settings/Security/Users/Application Users/+New app user, choose the org and the Sync Agent App Reg created. 
-   * Go to Settings/Security/Users/Application Users in drop-down/+New/ApplicaitonUser, enter ClientID as ApplicationID and Save. 
-2. To Add Roles, in the same page as Add user above, click Manage Roles and add to the App user created.
-   * FHIR Sync Agent Config Administrator 
-   * FHIR Sync Agent App Reg User 
-   * Healthcare User  
+1. Go to https://admin.powerplatform.microsoft.com/. 
+   * Click on your environment. 
+   * Click on See All under S2S Apps. 
+   * Click + New app user. 
+   * Choose the Business unit. 
+   * Click + Add an app. Search for App Registration Name created in Challenge 4. Click Add.
+   * Click Edit icon next to Security roles. Choose these roles and click Save.
+      * FHIR Sync Agent Config Administrator 
+      * FHIR Sync Agent App Reg User 
+      * Healthcare User  
 
-# FHIR Sync Agent Administration App
+## FHIR Sync Agent Administration App
 Reference [link](https://docs.microsoft.com/en-us/dynamics365/industry/healthcare/configure-sync-clinical-data#use-fhir-sync-agent-administration)
 1. Sign in to [Power Apps](https://make.powerapps.com/)
 2. From the upper-right corner, select the environment where you deployed the FHIR Sync Agent.
@@ -42,13 +45,13 @@ Reference [link](https://docs.microsoft.com/en-us/dynamics365/industry/healthcar
    * Enable Integration: Slide to On
    * Enable Logging: Slide to On
    * Sync agent client ID: This is the value in secret SA-CDSCLIENTID in Key Vault **{azureapiforfhirname}kv**
-   * Service bus URL: Go to the Service Bus Namespace **{azureapiforfhirname}ssbns** created in Challenge 4. Click on Overview in the left navigation, copy the Host name and paste here for Service bus URL
+   * Service bus URL: Go to the Service Bus Namespace **{azureapiforfhirname}ssbns** created in Challenge 4. Click on Overview in the left navigation, copy the Host name and paste here for Service bus URL. **NOTE: Make sure there is no / at the end of the URL**
    * Service queue: Enter cdsupdates
    * Service bus shared access policy: Enter SyncAgentSharedAccessKey
    * Service bus shared access policy key: Go to the Service Bus Namespace **{azureapiforfhirname}ssbns** created in Challenge 4. Click on Shared access policies in the left navigation, click on SyncAgentSharedAccessKey in the center, copy the Primary Key and paste here for Service bus shared access policy key
    * Click Save
 
-# Configure Entity Maps in Dataverse
+## Configure Entity and Attributes Maps in Dataverse
 1. Sign in to [Power Apps](https://make.powerapps.com/)
 2. From the upper-right corner, select the environment where you deployed the FHIR Sync Agent.
 3. In the left navigation pane, select Apps, and then select FHIR Sync Agent Administration app.
@@ -84,6 +87,14 @@ Note: After token expiry, use the **AuthorizationGetToken** call to get another 
 3. In the left navigation pane, select Apps, and then select Healthcare Administration app.
 4. Search for the Patient you just loaded into FHIR server by typing the first name in Search this view on the top-right.
 5. This Patient record has gone through all the resources that were deployed in all the challenges.
+
+## Data Synced from Dataverse to FHIR
+1. The field Azure FHIR Sync Enabled needs to be set to Yes on the Patient record that needs to be synced from Dataverse to FHIR.
+2. The default active patients view doesn't have the field Azure FHIR Sync Enabled visible. You could create a view based off the view default view, add that field and update the field.
+3. Restart the Sync Agent App in Azure that was deployed in Challenge 4.
+4. Update the Patient record.
+5. There will be an entry in Sync Agent Logs in FHIR Sync Agent Administration App.
+6. Validate the Patient record in Postman by using the same instruction in Challenge 3.
 
 ---
 
