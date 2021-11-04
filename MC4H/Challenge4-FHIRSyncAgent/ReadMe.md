@@ -1,10 +1,10 @@
 # Challenge4 - FHIR Sync Agent
 
-FHIR-SyncAgent sychronizes health data between Azure API for FHIR and Dataverse' Microsoft Cloud for Healthcare securely and seemlessly. Applications built on the Dynamics platform (which includes Dynamics Model applications) that uses Dataverse can operate without the need to make REST API calls directly against Azure API for FHIR. 
+FHIR-SyncAgent sychronizes health data between Azure API for FHIR and Dataverse' Microsoft Cloud for Healthcare securely and seemlessly. Applications built on the Dynamics platform (which includes Dynamics model-driven applications) that uses Dataverse can operate without the need to make REST API calls directly against Azure API for FHIR. 
 
 This challenge is based off **[FHIR Sync Agent](https://github.com/microsoft/fhir-cds-agent)**, click to get more details.
 
-You will be deploying an Azure Function, supporting Azure services and Service Client for Access.
+You will be deploying an Azure Function and supporting Azure services including the Service Client for Access.
 
 ## Reference Architecture
 <center><img src="../images/fhir-syncagent.png" width="650"></center>
