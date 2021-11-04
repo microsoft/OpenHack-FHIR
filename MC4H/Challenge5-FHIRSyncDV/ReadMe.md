@@ -49,7 +49,7 @@ Reference [link](https://docs.microsoft.com/en-us/dynamics365/industry/healthcar
    * Service queue: Enter **cdsupdates**
    * Service bus shared access policy: Enter **SyncAgentSharedAccessKey**
    * Service bus shared access policy key: Go to the Service Bus Namespace **{azureapiforfhirname}ssbns** created in Challenge 4. Click on **Shared access policies** in the left navigation, click on **SyncAgentSharedAccessKey** in the center, copy the **Primary Key** and paste here for **Service bus shared access policy key**
-   * Click **Save**
+   * Click **Save**. **NOTE: If Save is disabled even after updating all fields, you have older version of the solution. Upgrade the solution**
 
 ## Configure Entity and Attributes Maps in Dataverse
 1. Sign in to [Power Apps](https://make.powerapps.com/)
