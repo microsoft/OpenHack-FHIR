@@ -39,7 +39,7 @@ You will be deploying an Azure Function and supporting Azure services including 
    * SA-CDSAUDIENCE
 
 ## Deployment
-1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
+1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com) **NOTE: If Function App is failing in cloud shell, it might be that Function App takes times to deploy and cloud shell is moving too fast, so try using [Ubuntu](https://github.com/microsoft/OpenHack-FHIR/tree/main/Challenge00-Prerequistes#needs-to-be-installed-before-starting-challenge02) to deploy** 
 2. Select Bash Shell for the environment 
 3. If you have multiple tenants, set the right tenant ```az account set --s {subscriptionid or tenantid}```
 4. As this is a private repository, follow these steps:
