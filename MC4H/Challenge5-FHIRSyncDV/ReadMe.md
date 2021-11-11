@@ -31,10 +31,10 @@ Reference [link](https://docs.microsoft.com/en-us/dynamics365/industry/healthcar
    * Click **+ New app user**. 
    * Choose the **Business unit**. 
    * Click **+ Add an app**. Search for **App Registration Name** created in Challenge 4. Click **Add**.
-   * Click **Edit** icon next to **Security roles**. Choose the below roles and click **Save**.
-      * FHIR Sync Agent Config Administrator 
-      * FHIR Sync Agent App Reg User 
-      * Healthcare User  
+   * Click **Edit** (pencil icon) icon next to **Security roles**. Choose the below roles and click **Save**.
+      * FHIR Sync Agent Config Administrator (TASK: describe what this role does)
+      * FHIR Sync Agent App Reg User (TASK: describe what this role does)
+      * FHIR Sync Agent Healthcare User (TASK: describe what this role does)
 
 ## FHIR Sync Agent Administration App
 Reference [link](https://docs.microsoft.com/en-us/dynamics365/industry/healthcare/configure-sync-clinical-data#use-fhir-sync-agent-administration)
