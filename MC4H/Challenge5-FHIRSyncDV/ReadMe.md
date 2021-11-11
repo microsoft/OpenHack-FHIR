@@ -55,15 +55,19 @@ Reference [link](https://docs.microsoft.com/en-us/dynamics365/industry/healthcar
 1. Sign in to [Power Apps](https://make.powerapps.com/)
 2. From the upper-right corner, select the **environment** where you deployed the FHIR Sync Agent.
 3. In the left navigation pane, select **Apps**, and then select **FHIR Sync Agent Administration app**.
-4. In the left navigation pane, select **Entity Maps**.
-5. In the center area, you will see entities listed
-   * All entities needs to be disabled except **Code (Azure FHIR Resource) is Patient** including **contact, msemr_medicalidentifier, msemr_contactlink**. To do this:
-      * Click on **check mark** on the header, left of Entity Name, this will select All entities
-      * Uncheck **Code (Azure FHIR Resource) is Patient** including **contact, msemr_medicalidentifier, msemr_contactlink**
-      * Click **Edit** on the top menu
-      * Check **Yes for Is Disabled?**
-      * Check **No for Enable Write Back to FHIR**
-      * Click **Change**
+4. In the left navigation pane, select **Entity Maps**. In the center area, you will see entity maps listed
+5. Ensure the three Patient Code entity maps for Entity Names **contact, msemr_medicalidentifier, msemr_contactlink** are enabled, with **Write Back to FHIR** also enabled. You can utilize Bulk Edit to do this:
+   * Click the down arrow on the **Code (Azure FHIR Resource)** column to sort by this column to easily find the 3 patient entity maps
+   * Click in the left most column for each of the 3 patient entity maps to select with a checkmark:
+      * contact
+      * msemr_medicalidentifier
+      * msemr_contactlink
+   * Click **Edit** on the top menu
+      * ***NOTE:** this is a bulk edit form, and will not show any data in the individual fields for this reason. Only edit the fields you want to update on the individual records.*
+      * Set **Is Disabled?** to **No**
+      * Set **Enable Write Back to FHIR** to **Yes**
+      * Click **Save**
+6. Ensure all other entity maps are disabled. Repeat the process in step 5 to bulk edit all the remaining entity maps to set **Is Disabled?** to **Yes** if necessary. The **Enable Write Back to FHIR** setting does not need to be changed for these disabled entity maps.
    * **NOTE: SyncAgent will show errors if all entities are in fhirmappedresources keyvault secret but disabled here **
 
 ## Load data
