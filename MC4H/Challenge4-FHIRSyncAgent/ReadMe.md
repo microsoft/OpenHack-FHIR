@@ -30,9 +30,12 @@ You will be deploying an Azure Function and supporting Azure services including 
 ## Setup App Registration in the same Azure tenant as your Dynamics 365 tenant
 1. Go to App Registrations in Azure Portal
 2. Click + New registration
-3. Enter a Name **syncdv-svc-client**, pick Single tenant, click Register
-4. Go to Certificates & secrets in the left navigation, click + New client secret, click Add
-5. FYI - The details of this App Registration will be stored in Key Vault secrets **{azureapiforfhirname}kv** as part of the deployment below
+3. Enter a Name **syncdv-svc-client**, pick Single tenant, click Register. Note the following for use in deployment below:
+   * Application (client) ID
+   * Directory (tenant) ID
+4. Go to Certificates & secrets in the left navigation, click + New client secret, click Add. 
+   * IMPORTANT: Note the secret for use in deployment steps, as it is only visible during creation
+6. For awareness: The details of this App Registration will be stored in Key Vault secrets **{azureapiforfhirname}kv** once the deployment below is complete
    * SA-CDSCLIENTID
    * SA-CDSSECRET
    * SA-CDSTENANTID
@@ -64,10 +67,10 @@ You will be deploying an Azure Function and supporting Azure services including 
    * FHIR Proxy Function App Name from Challenge2
    * Same Resource Group Name used in Challenge1
    * Same Key Vault Name used in Challenge1
-   * Dynamics 365 URL from Setup above
-   * Tenant ID from Setup above
-   * Client ID from Setup above
-   * Client Secret from Setup above
+   * Dynamics 365 URL where FHIR data will by synced with
+   * Tenant ID from App Registration Setup above
+   * Client ID from App Registration Setup above
+   * Client Secret from App Registration Setup above
 
 **NOTE: This deployment will take ~10-15 minutes**
 
