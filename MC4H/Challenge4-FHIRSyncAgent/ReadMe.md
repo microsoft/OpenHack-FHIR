@@ -32,7 +32,7 @@ You will be deploying an Azure Function and supporting Azure services including 
 2. Click + New registration
 3. Enter a Name **syncdv-svc-client**, pick Single tenant, click Register
 4. Go to Certificates & secrets in the left navigation, click + New client secret, click Add
-5. The details of this App Registration will be stored in Key Vault secrets **{azureapiforfhirname}kv** as part of the deployment below
+5. FYI - The details of this App Registration will be stored in Key Vault secrets **{azureapiforfhirname}kv** as part of the deployment below
    * SA-CDSCLIENTID
    * SA-CDSSECRET
    * SA-CDSTENANTID
@@ -82,8 +82,8 @@ You will be deploying an Azure Function and supporting Azure services including 
 
 ## Post-Deployment 
 1. Go to the Proxy **{azureapiforfhir}papp** Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green. Click **Refresh** few times in your see reds.
-2. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green. Click **Refresh** few times in your see reds. 
-3. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Functions in the left navigation, click on FHIRUpdates in the center, click Integration in the left navigation, click on Azure Service Bus (message) in in the center under the Trigger, enter fhirupdates in the Queue Name on the right and click Save. **NOTE If you don't see any Functions listed, Go to Configuration and set the value 0 to WEBSITE_RUN_FROM_PACKAGE**. Restart the Function App.
+2. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green. Click **Refresh** few times if your see reds. 
+3. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Functions in the left navigation, click on FHIRUpdates in the center, click Integration in the left navigation, click on Azure Service Bus (message) in if the center under the Trigger, enter fhirupdates in the Queue Name on the right and click Save. **NOTE If you don't see any Functions listed, Go to Configuration and set the value 0 to WEBSITE_RUN_FROM_PACKAGE**. Restart the Function App.
 
 ## Clean-up
 If you are not planning to continue with the other challenges, make sure to delete these to avoid cost in Azure
