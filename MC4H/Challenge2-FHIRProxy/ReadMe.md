@@ -29,6 +29,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
    * Cache
    * Storage
    * EventGrid
+   * AlertsManagement
 
 ## Deployment
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
@@ -71,7 +72,7 @@ You will be deploying an Azure Function, supporting Azure services and Service C
 2. Go to the Workspace created in Challenge1
 3. Go to Environment and find the **{azureapiforfhirname}** environment imported in Challenge1
 4. Click ... and Duplicate. Rename to **{azureapiforfhirname}proxy**
-5. Click on **{azureapiforfhirname}proxy** and update the Initial and Current Values with these gathered from Challenge 1:
+5. Click on **{azureapiforfhirname}proxy** and update the Initial and Current Values from secrets in **{azureapiforfhirname}kv**:
    * tenantid: FP-SC-TENANT-NAME
    * clientid: FP-SC-CLIENT-ID
    * clientSecret: FP-SC-CLIENT-SECRET

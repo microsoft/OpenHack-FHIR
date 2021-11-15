@@ -20,12 +20,6 @@ You will be deploying an Azure Function and supporting Azure services.
 ## Prerequsites
 
 1. **If you haven't completed [Challenge2](../Challenge2-FHIRProxy/ReadMe.md), complete now.**
-2. The following resource providers must be registered in your subscription. To check, go to Subscriptions, click Resource providers in the left navigation. Then filter by name
-   * Function App
-   * Application Insights
-   * App Service Plan
-   * Event Grid
-   * Storage Account
 
 ## Deployment
 1. [Open Azure Cloud Shell](https://shell.azure.com) you can also access this from [Azure Portal](https://portal.azure.com)
@@ -40,8 +34,7 @@ You will be deploying an Azure Function and supporting Azure services.
    * Same Resource Group Location used in Challenge1
    * A prefix {azureapiforfhirname}l
    * Same Key Vault Name used in Challenge1
-8. Make the bash script executable ```chmod +x ./createproxyserviceclient.bash```
-9. Copy the Loader Function name displayed at the end of the deployment
+8. Copy the Loader Function name displayed at the end of the deployment
 
 **NOTE: This deployment will take ~10-15 minutes**
 

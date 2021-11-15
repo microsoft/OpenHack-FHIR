@@ -35,6 +35,7 @@ You will deploy an Azure API for FHIR Instance and Register a Service Client for
    **Note** -p creates a Postman Envirnment file which you can download
    * Subscription ID 
    * New Resource Group Name **NOTE** This name as to be unique, short, all lower case, no hypens
+   * Resource Location: **eastus**
    * New Resource Group Location 
    * New Key Vault Name **NOTE** If you are re-deploying, use a new unique name or delete the soft-deleted keyvault
    * New unique name for Azure API for FHIR 
