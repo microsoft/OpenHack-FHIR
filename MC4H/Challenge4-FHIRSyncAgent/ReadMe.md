@@ -58,7 +58,7 @@ You will be deploying an Azure Function and supporting Azure services including 
    * Same Resource Group Location used in Challenge1
    * A prefix {azureapiforfhirname}s
    * Same Key Vault Name used in Challenge1
-   * New unique name for Proxy App {azureapiforfhir}sapp
+   * New unique name for Sync App {azureapiforfhir}sapp
 10. Make the bash script executable ```chmod +x setupSyncAgent.bash```
 11. Execute ```./setupSyncAgent.bash``` by following the prompts
    * FHIR Proxy Function App Name from Challenge2
