@@ -35,7 +35,7 @@ You will be deploying an Azure Function and supporting Azure services including 
    * Directory (tenant) ID
 4. Go to Certificates & secrets in the left navigation, click + New client secret, click Add. 
    * IMPORTANT: Note the secret for use in deployment steps, as it is only visible during creation
-6. For awareness: The details of this App Registration will be stored in Key Vault secrets **{azureapiforfhirname}kv** once the deployment below is complete
+6. For awareness: The details of this App Registration will be stored in the below Key Vault secrets **{azureapiforfhirname}kv** once the deployment below is complete
    * SA-CDSCLIENTID
    * SA-CDSSECRET
    * SA-CDSTENANTID
@@ -72,7 +72,7 @@ You will be deploying an Azure Function and supporting Azure services including 
    * Client ID from App Registration Setup above
    * Client Secret from App Registration Setup above
 
-**NOTE: This deployment will take ~10-15 minutes**
+**NOTE: This deployment (both scripts) will take ~10-15 minutes**
 
 ## Validate Deployment
 1. Go to Azure Portal, and check if these resources are created in the Resource Group **{azureapifhirname}**
@@ -84,9 +84,25 @@ You will be deploying an Azure Function and supporting Azure services including 
 2. Check the Key Vault **{azureapiforfhirname}kv** for 10 new secrets with prefix SA-. 
 
 ## Post-Deployment 
-1. Go to the Proxy **{azureapiforfhir}papp** Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green. Click **Refresh** few times in your see reds.
-2. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green. Click **Refresh** few times if your see reds. 
-3. Go to the Sync Agent **{azureapiforfhir}sapp** Function App, click on Functions in the left navigation, click on FHIRUpdates in the center, click Integration in the left navigation, click on Azure Service Bus (message) in if the center under the Trigger, enter fhirupdates in the Queue Name on the right and click Save. **NOTE If you don't see any Functions listed, Go to Configuration and set the value 0 to WEBSITE_RUN_FROM_PACKAGE**. Restart the Function App.
+1. Ensure resolution of configuration references for Proxy App
+   * Go to the Proxy **{azureapiforfhir}papp** Function App
+   * Click on Configuration in the left navigation, make sure all Key vault Reference in source column in center section are all green. 
+   * Click **Refresh** if your see any reds. Refresh as many times as necessary until all configurations are green
+2. Ensure resolution of configuration references for Syn Agent
+   * Go to the Sync Agent **{azureapiforfhir}sapp** Function App
+   * Refresh configurations until all are green (same as instructions for Proxy App)
+3. Update Sync Agent integration settings
+   * Go to the Sync Agent **{azureapiforfhir}sapp** Function App
+   * Make the Sync Agent function app editable:
+      * click Configuration in the left navigation
+      * open the **WEBSITE_RUN_FROM_PACKAGE** configuration and set the value to **0** and click OK
+      * click Save at the top to save configuration changes
+   * Update integration queue name:
+      * click on Functions in the left navigation. If blank, refresh
+      * open the FHIRUpdates function, click Integration in the left navigation
+      * click on Azure Service Bus (message) in the Trigger box, replace the contects of **Queue name** with **fhirupdates**
+      * click save
+4. Restart both the Proxy **{azureapiforfhir}papp** Function App and the Sync Agent **{azureapiforfhir}sapp** Function App
 
 ## Clean-up
 If you are not planning to continue with the other challenges, make sure to delete these to avoid cost in Azure
