@@ -91,7 +91,7 @@ You will be deploying an Azure Function and supporting Azure services including 
 2. Ensure resolution of configuration references for Syn Agent
    * Go to the Sync Agent **{azureapiforfhir}sapp** Function App
    * Refresh configurations until all are green (same as instructions for Proxy App)
-3. Update Sync Agent integration settings
+3. KeyVault Issue with Service Bus manual work around
    * Go to the Sync Agent **{azureapiforfhir}sapp** Function App
    * Make the Sync Agent function app editable:
       * click Configuration in the left navigation
