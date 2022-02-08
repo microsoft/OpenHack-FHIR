@@ -230,7 +230,14 @@ Team Discussion: What FHIR entities and attributes do you feel will be critical 
     * The dashboard will show you all the patients in the system where you can view each patient's medical details. You can click on the little black **fire** symbol against each record and view the FHIR bundle details.
       * You can click on resource links (e.g. Condition, Encounters, etc.) to examine those resources. 
     * Back on the Patients screen, click the little black **i** icon next to a patient record. You can check out the "Growth Chart" SMART ON FHIR Apps or explore the generated list of Encounters.
- 
+
+* ### Use Visual Studio Code to run queries 
+    * Download [client.rest](../client.rest))
+    * Open the file using Visual Studio Code
+    * Fill in values for fhirname, tenant, clientid, clientsecret at the top of the file
+    * Click "Send Request" right below "### Get Token" (about line 13)
+    * Click "Send Request" right after "### Get Patient List" to fetch the list of patients
+    * 
 * ### Use Postman to run queries
     * Open Postman. (You should have installed it as part of Challenge 0, but you can get [Postman here](https://www.postman.com/downloads/) if you didn't already.)
     * Download this Github to import a pre-defined set of API calls. 
