@@ -39,7 +39,8 @@ echo "Admin user created"
 # FHIR API App
 echo "FHIR API App Registraiton - START"
 fhirServiceUrl="https://${environmentName}.azurehealthcareapis.com"
-fhirAppId=$(az ad app create --display-name $fhirServiceUrl --identifier-uris $fhirServiceUrl --app-roles '[{"allowedMemberTypes": ["User","Application"],"description": "globalAdmin","displayName": "globalAdmin","isEnabled": "true","value": "globalAdmin"}]' --query appId -o tsv)
+fhirIdentifierUrl="https://${environmentName}.${aadDomain}"
+fhirAppId=$(az ad app create --display-name $fhirServiceUrl --identifier-uris $fhirIdentifierUrl --app-roles '[{"allowedMemberTypes": ["User","Application"],"description": "globalAdmin","displayName": "globalAdmin","isEnabled": "true","value": "globalAdmin"}]' --query appId -o tsv)
 sleep 30
 fhirAppServicePrincipalObjectId=$(az ad sp create --id $fhirAppId --query objectId -o tsv)
 fhirApiPermissionId=$(az ad app show --id $fhirAppId --query "[oauth2Permissions[?value=='user_impersonation'].id]" -o tsv)
@@ -49,10 +50,9 @@ echo "FHIR API App Registraiton - END"
 # Confidential Client
 echo "Confidential Client App Registraiton - START"
 confidentialClientName="${environmentName}-confidential-client"
-
-confidentialAppUri="https://${environmentName}-confidential-client"
+confidentialAppIdentifierUri="api://${environmentName}-confidential-client"
 replyUrls="https://${environmentName}dash.azurewebsites.net/.auth/login/aad/callback"
-confidentialClientId=$(az ad app create --display-name $confidentialClientName --identifier-uris $confidentialAppUri --reply-urls $replyUrls --query appId -o tsv) 
+confidentialClientId=$(az ad app create --display-name $confidentialClientName --identifier-uris $confidentialAppIdentifierUri --reply-urls $replyUrls --query appId -o tsv) 
 sleep 30
 az ad sp create --id $confidentialClientId
 confidentialClientAppSecret=$(az ad app credential reset --id $confidentialClientId --credential-description "client-secret" --query password -o tsv)
@@ -65,14 +65,16 @@ az ad app permission grant --id $confidentialClientId --api 00000003-0000-0000-c
 
 az ad app permission add \
     --id $confidentialClientId \
-    --api $fhirAppId \
-    --api-permissions $fhirApiPermissionId=Scope
-az ad app permission grant --id $confidentialClientId --api $fhirAppId
+    --api 4f6778d8-5aef-43dc-a1ff-b073724b9495 \
+    --api-permissions db75143a-8f20-4238-9450-8b73ef4992f4=Scope
+az ad app permission grant --id $confidentialClientId --api 4f6778d8-5aef-43dc-a1ff-b073724b9495
+
 echo "Confidential Client App Registraiton - END"
 
 # Service Client
 echo "Service Client App Registraiton - START"
-serviceClientAppId=$(az ad app create --display-name ${environmentName}-service-client --identifier-uris https://${environmentName}-service-client --reply-urls "https://www.getpostman.com/oauth2/callback" --query appId -o tsv)
+serviceClientAppIdentifierUri="api://${environmentName}-service-client"
+serviceClientAppId=$(az ad app create --display-name ${environmentName}-service-client --identifier-uris $serviceClientAppIdentifierUri --reply-urls "https://www.getpostman.com/oauth2/callback" --query appId -o tsv)
 sleep 90
 az ad sp create --id $serviceClientAppId
 serviceClientAppSecret=$(az ad app credential reset --id $serviceClientAppId --credential-description "client-secret" --query password -o tsv)
@@ -160,9 +162,9 @@ az ad app permission grant --id $publicClientAppId --api 00000003-0000-0000-c000
 
 az ad app permission add \
     --id $publicClientAppId \
-    --api $fhirAppId \
-    --api-permissions $fhirApiPermissionId=Scope
-az ad app permission grant --id $publicClientAppId --api $fhirAppId
+    --api 4f6778d8-5aef-43dc-a1ff-b073724b9495 \
+    --api-permissions db75143a-8f20-4238-9450-8b73ef4992f4=Scope
+az ad app permission grant --id $publicClientAppId --api 4f6778d8-5aef-43dc-a1ff-b073724b9495
 echo "Public Client App Registraiton - END"
 
 # Save variables to Key Vault located in primary subscription
