@@ -3,24 +3,22 @@
 #### The below lists the Installation Prerequisites and Knowledge References needed to complete all challenges.
 
 ## Installation Prerequisites
-* **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine** with no firewall blocking access to Azure.
+> **NOTE**: This version of the OpenHack assumes hackers are on a **Windows client machine** with no firewall blocking access to Azure.
 
-* **1**. Check if you have one of the below **Azure Subscription**
+1. Check if you have one of the below **Azure Subscription**
    * Your Work Internal Subscription
    * Visual Studio Subscription
    * [Free](https://azure.microsoft.com/en-us/free/)
 
-* **2**. Check if you have one of these roles that are required to perform CRUD operations in your Azure tenant. To check, go to **Azure Active Directory, click Roles and administrators** on the left navigation, you should see Your Role: in the center.
+2. Check if you have one of these roles that are required to perform CRUD operations in your Azure tenant. To check, go to **Azure Active Directory, click Roles and administrators** on the left navigation, you should see Your Role: in the center.
    * Azure Global Administrator
    * Application Administrator AND Privileged Role Administrator AND User Administrator
 
-* **3**. Check if you have access to **run Bash CLI from Azure Portal**
+3. Check if you have access to **deploy resources at the Resource Group scope** in your Azure Subscription.
 
-* **4**. Check if you have access to **clone Github from Bash CLI in Azure Portal**
+4. Check if you have access to **create Application Registrations** in Azure
 
-* **5**. Check if you have access to **create Application Registrations** in Azure
-
-* **6**. Download and install **[Postman](https://www.postman.com/downloads/)**
+5. Download and install **[Postman](https://www.postman.com/downloads/)**
 
 ## Knowledge References
 The below services are used across all challenges. Familiarity of these services will not only help you complete but enhance your learning. It's recommended you right-click on the links below and open in new tab.
