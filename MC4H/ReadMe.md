@@ -9,7 +9,7 @@
 
 * [Challenge0 - Pre-requisites](./Challenge0-Prerequistes/ReadMe.md)
 * [Challenge1 - Deploy FHIR Components](./Challenge1-DeployFHIR/ReadMe.md)
-* [Challenge2 - Test with Postman](./Challenge2-PostmanTest/ReadMe.md)
+* [Challenge2 - Configure Service Client Authorization](./Challenge2-AuthSetup/ReadMe.md)
 * [Challenge3 - Bulk Load Synthea Data](./Challenge3-BulkLoad/ReadMe.md)
 * [Challenge4 - Deploy FHIR Sync Agent](./Challenge4-FHIRSyncAgent/ReadMe.md)
 * [Challenge5 - FHIR Sync to Dataverse Admin](./Challenge5-FHIRSyncDV/ReadMe.md)
