@@ -42,7 +42,12 @@ This challenge is based on the **[FHIR-Starter Quickstart](https://github.com/mi
 ## Deployment
 1. In Azure Portal, create a new Resource group **{fhirtrainingname}**, selecting your deployment Region.
 
-2. In a new browser tab, navigate to the [FHIR-Starter Quickstart on Github](https://github.com/microsoft/fhir-starter/tree/main/quickstarts), and complete the instructions using the above resource group and deployment region. 
+2. In a new browser tab, navigate to the [FHIR-Starter Quickstart on Github](https://github.com/microsoft/fhir-starter/tree/main/quickstarts), complete the instructions using the following parameters:
+   * Resource group: **{fhirtrainingname}**
+   * Region: same used to create the Resource group
+   * Deployment prefix: **{prefix}**
+   * Enable Transform Bundle: **true**
+   * All other feature enable options: **false**
 
 > https://github.com/microsoft/fhir-starter/tree/main/quickstarts
 
@@ -87,5 +92,5 @@ If you are not planning to continue with the other challenges, make sure to dele
 
 ***
 
-[Go to Challenge2](../Challenge2-PostmanTest/ReadMe.md)
+[Go to Challenge2](../Challenge2-AuthSetup/ReadMe.md)
 

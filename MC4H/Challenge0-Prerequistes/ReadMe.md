@@ -20,6 +20,11 @@
 
 5. Download and install **[Postman](https://www.postman.com/downloads/)**
 
+6. Check if you have **access and resources to deploy FHIR Sync Agent** bash scripts:
+   * access to run Bash CLI in the Azure Cloud Shell (the first time you use the Azure Cloud Shell you will be asked to create or select a storage account for use)
+   * access to clone Github from Bash CLI in Azure Portal
+   * access to the [Azure FHIR Sync Agent](https://github.com/microsoft/fhir-cds-agent) (currently private to Microsoft Internal), or a downloaded copy of the repo
+
 ## Knowledge References
 The below services are used across all challenges. Familiarity of these services will not only help you complete but enhance your learning. It's recommended you right-click on the links below and open in new tab.
 

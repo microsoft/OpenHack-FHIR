@@ -89,11 +89,4 @@ This challenge is based on the following published by Microsoft Health Architect
 
 > Note: After token expiry for an endpoint, use the **AuthorizationGetToken** call to update the environment variable with a new token. 
 
----
-
-## Congratulations! You have successfully completed Challenge2! 
-
-***
-
-[Go to Challenge3](../Challenge3-BulkLoad/ReadMe.md)
 
