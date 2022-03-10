@@ -1,4 +1,4 @@
-#  Debugging, Operations, and Maintenance
+#  FHIR Sync Agent Debugging, Operations, and Maintenance
 
 ## Introduction
 In this challenge you will learn to recoginize and address some of the issues that can happen with MC4H.  
@@ -24,10 +24,7 @@ Successful completion of all primary challenges:
 ## Step 1 - Enable Send and Receive Logging 
 There are two approaches to troublshooting issues in MC4H. Either "You will use things to do stuff and then there will be stuff in Dataverse," or "Enable logging and follow the API calls." This step is about the latter. 
 
-As noted in the Challenge-5 SyncAgent Deployment Readme.md, there is a setting in the Application Configuration file that will enable greater logging detail.  
-
-FHIR-SyncAgent Optional Application Settings - __NOT__ included in the setup scripts at this time - they will be added automatically to the seetings in the next release. 
-  
+As noted in the [Challenge4 - Deploy FHIR Sync Agent](../Challenge4-FHIRSyncAgent/), there is a setting in the Application Configuration file that will enable greater logging detail.  
 
 Name                                       | Value                      | Located 
 -------------------------------------------|----------------------------|--------------------

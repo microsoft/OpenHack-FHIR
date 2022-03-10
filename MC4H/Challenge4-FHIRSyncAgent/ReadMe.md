@@ -83,6 +83,9 @@ In this challenge you will focus on deploying the **FHIR Sync Agent components i
 > NOTE: This deployment will take ~10 minutes
 <br>
 
+> **WARNING**: This deployment script sets an optional Application Setting **SA-LOGREQRESP** to **true**, which enables additional logging **meant for dev environment with fake patient data only**. This additional logging will include the FHIR bundle details which contains patient data in logs, which is a violation if used in upper environments containing real patient data. Ensure this setting is always set to **false** in environments with real patient data. 
+<br>
+
 > NOTE: If Function App is failing in cloud shell, it might be that Function App takes times to deploy and cloud shell is moving too fast; try using [Ubuntu](https://github.com/microsoft/OpenHack-FHIR/tree/main/Challenge00-Prerequistes#needs-to-be-installed-before-starting-challenge02) to deploy
 
 ## Configure FHIR Sync Agent to Dataverse Connection
@@ -148,10 +151,11 @@ In this challenge you will focus on deploying the **FHIR Sync Agent components i
       * open the FHIRUpdates function, click Integration in the left navigation
       * click on Azure Service Bus (message) in the Trigger box, replace the contects of **Queue name** with **fhirupdates**
       * click save
-
-
-      
+   
 4. Restart both the Proxy **[prefix]pxyfa** Function App and the Sync Agent **{syncAppName}[number]** Function App
+
+## Troubleshooting
+For help troublshooting issues, see the [FHIR Sync Agent Debugging, Operations, and Maintenance](./Docs/Debug-Maintenance.md) page. 
 
 ## Clean-up
 If you are not planning to continue with the other challenges, make sure to delete these to avoid cost in Azure

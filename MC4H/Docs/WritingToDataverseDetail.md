@@ -1,10 +1,8 @@
-#  Dataverse Writing Data Detailed Instructions
+#  Writing FHIR Data to Dataverse Detailed Instructions
 
 ## Introduction
 
-Welcome to Challenge 7!
-
-In this challenge you will learn about writing data from Azure API for FHIR to Dataverse, and vice versa. 
+In this challenge you will learn more detail about writing data from Azure API for FHIR to Dataverse, and vice versa. 
 
 ## Background
 The FHIR data store for Microsoft Cloud for Healthcare (MC4H) is **Azure API for FHIR**, while MC4H model-driven apps leverage the **Microsoft Common Data Model (CDM) for Health** data model in **Dataverse**. Synchronizing data between FHIR and the Dataverse CDM requires several layers of mapping, most of which is set up and managed via the **SyncAdmin for FHIR** settings in Dataverse.
