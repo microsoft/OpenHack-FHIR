@@ -22,7 +22,7 @@ With the Azure API for FHIR and FHIR Proxy deployed and configured, service clie
 5. Go to *Access policies* and Add an Access Policy so you are able to view and create secrets:
    * Configure from template: **Secret Management**
    * Select principal: **your Azure account**
-7. Go to *Secrets*, and perform the following steps for each item in the table below, using the values you just 
+7. Go to *Secrets*, and perform the following steps for each item in the table below, using the already open tab to find the values: 
    * Click **Generate/import**
    * Upload options: **Manual**
    * Name: from the table below
@@ -32,12 +32,12 @@ With the Azure API for FHIR and FHIR Proxy deployed and configured, service clie
 
 | Name | Value | Location |
 | --- | --- | --- | 
-| FS-SECRET | API for FHIR Service Client Secret | **{prefix}fs-svc-client** App Registration, new secret Value just created |
-| FS-CLIENT-ID | API for FHIR Service Client ID | **{prefix}fs-svc-client** App Registration, Overview, copy Application (client) ID |
-| FS-TENANT-NAME | API for FHIR Service Client Tenant ID | **{prefix}fs-svc-client** App Registration, Overview, copy Directory (tenant) ID |
+| FS-SECRET | API for FHIR Service Client Secret | **{prefix}fs-svc-client** App Registration, new secret **Value** just created |
+| FS-CLIENT-ID | API for FHIR Service Client ID | **{prefix}fs-svc-client** App Registration, Overview, copy **Application (client) ID** |
+| FS-TENANT-NAME | API for FHIR Service Client Tenant ID | **{prefix}fs-svc-client** App Registration, Overview, copy **Directory (tenant) ID** |
 | FS-URL | Azure API for FHIR URL <br> `https://[AzureAPIforFHIRName].azurehealthcareapis.com` | **{prefix}fhir** Azure API for FHIR, copy **FHIR metadata endpoint**, remove `/metadata` |
 | FS-RESOURCE | FHIR Resource | Same as FS-URL |
-| FP-RBAC-CLIENT-ID | FHIR Proxy Identity Provider Client ID | **{prefix}pxyfa** App Registration created in Challenge1, copy Application (client) ID |
+| FP-RBAC-CLIENT-ID | FHIR Proxy Identity Provider Client ID | **{prefix}pxyfa** App Registration created in Challenge1, copy **Application (client) ID** |
 
 
 ## Create Proxy Service Client
