@@ -1,11 +1,19 @@
-# Challenge5 - FHIR Sync to Dataverse
+# Challenge5 - Configure FHIR Sync Integration in Dataverse
 
 Microsoft Cloud for Healthcare provides capabilities to manage health data at scale and make it easier for healthcare organizations to improve the patient experience, coordinate care, and drive operational efficiency, while helping support security, compliance, and interoperability of health data.
 
 ## Reference Architecture
 <center><img src="../images/fhir-syncagent-new.png" width="400"></center>
 
-You will be setting up Dataverse in Dynamics 365 for Syncing data to and from Azure API for FHIR.
+FHIR Sync Agent includes two primary components:
+
+1. **FHIR Sync Agent** service (Azure)
+   * consists of Azure services that are deployed directly within your Azure Subscription
+2. **Sync admin for FHIR application** (Power Platform Dataverse)
+Both components are required in order for clinical information to properly flow between Azure API for FHIR and Dataverse.
+   * deployed automatically when you deploy any of the Microsoft Cloud for Healthcare healthcare solutions through the Microsoft Cloud Solution Center
+
+In this challenge you will focus on completing the Sync Agent integration within Dataverse using the **Sync Admin for FHIR application**. 
 
 ## To complete this challenge successfully, you will perform the following tasks.
 
@@ -47,6 +55,9 @@ Reference [link](https://docs.microsoft.com/en-us/dynamics365/industry/healthcar
    * Click **Save**. **NOTE: If Save is disabled even after updating all fields, you have older version of the solution. Upgrade the solution**
 
 ## Configure Entity and Attributes Maps in Dataverse
+> NOTE: A set of default Entity and Attribute maps are deployed out of the box with the Sync Admin for FHIR application, configured based on the FHIR US Common Core standard. In this exercise, you will enable and use a few of these default maps with US Common Core formatted Synthea data.<br> 
+<br>
+For more information on the default maps, the JSONPath syntax used, and how to modify or create maps, review the [](./) 
 1. Sign in to [Power Apps](https://make.powerapps.com/)
 2. From the upper-right corner, select the **environment** where you deployed the FHIR Sync Agent.
 3. In the left navigation pane, select **Apps**, and then select **Sync Admin for FHIR** app.
