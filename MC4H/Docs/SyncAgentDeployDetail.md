@@ -2,7 +2,7 @@
 ## Background
 FHIR data in MC4H is managed in the **Azure API for FHIR** data store, while MC4H model-driven apps are based on the **Dynamics** health industry data model in **Dataverse**. Leveraging Dataverse enables organizations to quickly stand up Power Apps for their unique needs. The FHIR-SyncAgent is a function app designed to keep data synchronized between the two data stores (Azure API for FHIR and Dataverse).  
 
-![Reference Architecture Data Flow](../docs/media/full-diagram.png)
+![Reference Architecture Data Flow](../Docs/media/full-diagram.png)
 
 ## Sync Agent, API for FHIR and Dataverse Relationship 
 The SyncAgent acts as a 2-way communication processor between Azure API for FHIR and Dataverse/Dynamics 365. 
@@ -23,9 +23,9 @@ Requirements in Azure (not all pictured below) include
 - Service Client information from the Dynamics Tenant (the Dynamics Tenant must be separate from the Azure API for FHIR/FHIR-Proxy tenant)
  For the Azure installation, two example .bash scripts are currently provided as a part of the [Azure FHIR Sync Agent](https://github.com/microsoft/fhir-cds-agent) OSS project, which do the following:<br>
 
-![deploysyncagent.bash Components](../docs/media/deploy-components.png)
+![deploysyncagent.bash Components](../Docs/media/deploy-components.png)
 <br>
-![setupSyncAgent.bash Configurations](../docs/media/setup-components.png)
+![setupSyncAgent.bash Configurations](../Docs/media/setup-components.png)
 
 > NOTE: The ```setupsyncagent.bash``` script outputs Service Bus Namespace and Queue information to be loaded into the Dynamics Sync Admin for FHIR application. This information is necessary for configuring the integration within the Power Platform Sync Admin for FHIR application. 
   
@@ -36,11 +36,11 @@ Completing integration configuration in Power Platform Dataverse, requires 3 pri
 2. **Configure Sync Agent Integration** settings in the Sync Admin for FHIR app in Dataverse, 
 3. **Enable default Entity and Attribute Maps** for transformation from FHIR to the CDM in Dataverse.
 
-![Sync Agent Integration Settings page in Dataverse](../docs/media/dataverse-syncApp-selection.png)
+![Sync Agent Integration Settings page in Dataverse](../Docs/media/dataverse-syncApp-selection.png)
 
 Example Integration Settings page in Admin for FHIR Application:<br>
 
-![Sync Agent Integration Settings page in Dataverse](../docs/media/dataverse_sync-agent-setup1.png)**
+![Sync Agent Integration Settings page in Dataverse](../Docs/media/dataverse_sync-agent-setup1.png)**
 
 For detailed instructions on setting up and testing a write to Dataverse when new data flows into FHIR, see the **[Writing to Dataverse Detailed Instructions](../Docs/WritingToDataverseDetail.md) page**.
 
