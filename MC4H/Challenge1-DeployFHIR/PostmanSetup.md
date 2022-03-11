@@ -1,6 +1,4 @@
-# Challenge2 - Test FHIR Components with Postman
-
-
+# Test FHIR Components with Postman (with own Service Client)
 
 This challenge is based on the following published by Microsoft Health Architectures:
 > **[Postman setup + sample Postman environments and collections](https://github.com/microsoft/health-architectures/tree/main/Postman)**
@@ -15,7 +13,7 @@ This challenge is based on the following published by Microsoft Health Architect
 
 ## Prerequsites
 
-1. **If you haven't completed [Challenge2](../Challenge2-DeployFHIR/ReadMe.md), complete it now.**
+1. **If you haven't completed [Challenge1](../Challenge1-DeployFHIR/ReadMe.md), complete it now.**
 2. **[Postman](https://www.postman.com/downloads/)** installed
 
 ## Workspace Setup in Postman

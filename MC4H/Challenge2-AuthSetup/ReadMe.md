@@ -37,7 +37,8 @@ With the Azure API for FHIR and FHIR Proxy deployed and configured, service clie
 | FS-TENANT-NAME | API for FHIR Service Client Tenant ID | **{prefix}fs-svc-client** App Registration, Overview, copy **Directory (tenant) ID** |
 | FS-URL | Azure API for FHIR URL <br> `https://[AzureAPIforFHIRName].azurehealthcareapis.com` | **{prefix}fhir** Azure API for FHIR, copy **FHIR metadata endpoint**, remove `/metadata` |
 | FS-RESOURCE | FHIR Resource | Same as FS-URL |
-| FP-RBAC-CLIENT-ID | FHIR Proxy Identity Provider Client ID | **{prefix}pxyfa** App Registration created in Challenge1, copy **Application (client) ID** |
+| FP-RBAC-CLIENT-ID | FHIR Proxy Identity Provider Client ID | **{prefix}pxyfa** App Registration created in Challenge1, copy **Application (client) ID** | 
+| FP-HOST | FHIR Proxy Host | **{prefix}pxyfa** Function App, copy **URL**, remove `https://`
 
 
 ## Create Proxy Service Client
@@ -94,6 +95,12 @@ These steps will use an existing script available in the [FHIR Proxy](https://gi
 
 > Note: After token expiry for an endpoint, use the **AuthorizationGetToken** call to update the environment variable with a new token. 
 
+## Clean-up
+If you are not planning to continue with the other challenges, make sure to delete these to avoid cost in Azure
+1. Resource Group **{fhirtrainingname}**
+2. App Registration **{prefix}pxyfa**
+3. App Registration **{prefix}fs-svc-client**
+4. App Registration **{prefix}fp-svc-client**
 ---
 
 ## Congratulations! You have successfully completed Challenge2! 
