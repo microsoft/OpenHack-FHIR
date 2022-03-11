@@ -45,12 +45,12 @@ In this challenge you will focus on deploying the **FHIR Sync Agent components i
 ## Create Service Client for Sync Agent
 1. Go to App Registrations in Azure Portal
    > NOTE: You must be in the same Azure Tenant as the target Dataverse/Dynamics 365 environment being integrated with the Azure API for FHIR.
-2. Register a new application named **syncdv-svc-client**:
+2. Register a new application named **{prefix}syncdv-svc-client**:
    * Select **Single tenant** for accounts supported
 3. In the newly registered application, note the following for use in deployment below:
    * Application (client) ID
    * Directory (tenant) ID
-4. Still in the **syncdv-svc-client** application, go to *Certificates & secrets* and add a new secret. 
+4. Still in the **{prefix}syncdv-svc-client** application, go to *Certificates & secrets* and add a new secret. 
    * IMPORTANT: Note the secret **Value** for use in deployment steps, as it is only visible during creation
 6. For awareness: The details of this App Registration that you are noting now will be entered during deployment below, after which will be stored in the below secrets in the **{prefix}kv** Key Vault deployed in Challenge1. 
    * SA-CDSCLIENTID
@@ -161,6 +161,9 @@ For help troublshooting issues, see the [FHIR Sync Agent Debugging, Operations, 
 If you are not planning to continue with the other challenges, make sure to delete these to avoid cost in Azure
 1. Resource Group **{fhirtrainingname}**
 2. App Registration **{prefix}pxyfa** 
+3. App Registration **{prefix}fs-svc-client**
+4. App Registration **{prefix}fp-svc-client**
+5. App Registration **{prefix}syncdv-svc-client**
 ---
 
 ## Congratulations! You have successfully completed Challenge4! 
