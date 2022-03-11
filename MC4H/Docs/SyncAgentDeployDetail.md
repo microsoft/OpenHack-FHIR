@@ -27,7 +27,7 @@ Requirements in Azure (not all pictured below) include
 <br>
 ![setupSyncAgent.bash Configurations](../Docs/media/setup-components.png)
 
-> NOTE: The ```setupsyncagent.bash``` script outputs Service Bus Namespace and Queue information to be loaded into the Dynamics Sync Admin for FHIR application. This information is necessary for configuring the integration within the Power Platform Sync Admin for FHIR application. 
+> NOTE: The `setupsyncagent.bash` script outputs Service Bus Namespace and Queue information to be loaded into the Dynamics Sync Admin for FHIR application. This information is necessary for configuring the integration within the Power Platform Sync Admin for FHIR application. 
   
 
 ## Configuration in Sync Admin for FHIR Application 
@@ -37,12 +37,12 @@ Completing integration configuration in Power Platform Dataverse, requires 3 pri
 3. **Enable default Entity and Attribute Maps** for transformation from FHIR to the CDM in Dataverse.
 
 ### Launching Sync Admin for FHIR Application
-<br>
-<center><img src="../Docs/media/dataverse-syncApp-selection.png" width="500"></center><br>
+
+<center><img src="../Docs/media/dataverse-syncApp-selection.png" width="500"></center>
 
 ### Example Integration Settings page in Admin for FHIR Application
-<br>
-<center><img src="../Docs/media/dataverse_sync-agent-setup1.png" width="400"></center><br>
+
+<center><img src="../Docs/media/dataverse_sync-agent-setup1.png" width="400"></center>
 
 ---
 ### Additional help and information:
