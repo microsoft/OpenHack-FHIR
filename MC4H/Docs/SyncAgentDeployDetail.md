@@ -36,15 +36,17 @@ Completing integration configuration in Power Platform Dataverse, requires 3 pri
 2. **Configure Sync Agent Integration** settings in the Sync Admin for FHIR app in Dataverse, 
 3. **Enable default Entity and Attribute Maps** for transformation from FHIR to the CDM in Dataverse.
 
-![Sync Agent Integration Settings page in Dataverse](../Docs/media/dataverse-syncApp-selection.png)
+### Launching Sync Admin for FHIR Application
+<br>
+<center><img src="../Docs/media/dataverse-syncApp-selection.png" width="500"></center><br>
 
-Example Integration Settings page in Admin for FHIR Application:<br>
+### Example Integration Settings page in Admin for FHIR Application
+<br>
+<center><img src="../Docs/media/dataverse_sync-agent-setup1.png" width="400"></center><br>
 
-![Sync Agent Integration Settings page in Dataverse](../Docs/media/dataverse_sync-agent-setup1.png)**
-
-For detailed instructions on setting up and testing a write to Dataverse when new data flows into FHIR, see the **[Writing to Dataverse Detailed Instructions](../Docs/WritingToDataverseDetail.md) page**.
-
-For detailed instructions on how to work with Entity and Attribute maps, see the **[Dataverse Entity and Attribute Mapping](../Docs/ManageSyncAgentMaps.md)** page.
-
-For troubleshooting and maintenance information, see the **[Debugging, Operations and Maintenance](../Docs/Debug-Maintenance.md)** page.
+---
+### Additional help and information:
+* For detailed instructions on setting up and testing a write to Dataverse when new data flows into FHIR, see the **[Writing to Dataverse Detailed Instructions](../Docs/WritingToDataverseDetail.md) page**.
+* For detailed instructions on how to work with Entity and Attribute maps, see the **[Dataverse Entity and Attribute Mapping](../Docs/ManageSyncAgentMaps.md)** page.
+* For troubleshooting and maintenance information, see the **[Debugging, Operations and Maintenance](../Docs/Debug-Maintenance.md)** page.
 
