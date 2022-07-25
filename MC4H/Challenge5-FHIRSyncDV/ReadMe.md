@@ -56,7 +56,8 @@ Reference [link](https://docs.microsoft.com/en-us/dynamics365/industry/healthcar
 
 ## Configure Entity and Attributes Maps in Dataverse
 
-> NOTE: A set of default Entity and Attribute maps are deployed out of the box with the Sync Admin for FHIR application, configured based on the FHIR US Common Core standard. In this exercise, you will enable and use a few of these default maps with US Common Core formatted Synthea data. For more information on the default maps, the JSONPath syntax used, and how to modify or create maps, review [Dataverse Entity and Attribute Mapping](../Docs/ManageSyncAgentMaps.md).
+> NOTE: A set of default Entity and Attribute maps are deployed out of the box with the Sync Admin for FHIR application, configured based on the FHIR US Common Core standard. In this exercise, you will enable and use a few of these default maps with US Common Core formatted Synthea data. <br><br>
+> For more information on the default maps, the JSONPath syntax used, and how to modify or create maps, review [Dataverse Entity and Attribute Mapping](../Docs/ManageSyncAgentMaps.md).
 
 1. Sign in to [Power Apps](https://make.powerapps.com/)
 2. From the upper-right corner, select the **environment** where you deployed the FHIR Sync Agent.
