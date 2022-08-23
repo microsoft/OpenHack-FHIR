@@ -1,0 +1,29 @@
+@fhirname = 
+@fhirurl=https://{{fhirname}}.azurehealthcareapis.com
+@tenant = 
+@clientid = 
+@clientsecret = 
+
+
+### Get Metadata (unauthenticated)
+GET {{fhirurl}}/metadata HTTP/1.1
+
+### Get Token
+# @name auth
+POST https://login.microsoftonline.com/{{tenant}}/oauth2/token HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+&grant_type=client_credentials
+&resource=https%3A%2F%2F{{fhirname}}.azurehealthcareapis.com
+&client_id={{clientid}}
+&client_secret={{clientsecret}}
+
+### GET Patient List
+GET {{fhirurl}}/Patient/
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Get single patient
+@patientid=f5e7ee94-bfc6-465e-a64d-f0c90e3d50f5
+GET {{fhirurl}}/Patient/{{patientid}}
+Authorization: Bearer {{auth.response.body.access_token}}
+
