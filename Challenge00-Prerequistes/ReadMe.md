@@ -63,6 +63,7 @@
    * **2.4**. **[.NET Core 3.1 (SDK)](https://dotnet.microsoft.com/download/dotnet-core/3.1)**
 
 * **3**. **[Postman](https://www.postman.com/downloads/)**
+* **3**. ** or [Visual Studio Code](https://code.visualstudio.com/) with the [REST Client Extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)**
 
 * **4**. **Optional** [Java 1.8 (JDK, not JRE install)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html). Java [JRE vs SE vs JDK](https://www.java.com/en/download/help/techinfo.html).
 
